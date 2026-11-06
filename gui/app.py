@@ -390,6 +390,127 @@ class FutureMateApp(ctk.CTk):
         ).grid(row=3, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
 
         refresh_list()
+        self._jadwal_panel()
+
+    def _jadwal_panel(self):
+        from datetime import date, datetime
+        from services.penjadwalan import Penjadwalan
+
+        panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
+        panel.grid(row=4, column=0, sticky="ew", pady=(16, 0))
+        panel.grid_columnconfigure(0, weight=1)
+        ctk.CTkLabel(panel, text="Jadwal belajar otomatis",
+                     font=ctk.CTkFont(size=16, weight="bold"),
+                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(16, 4))
+        ctk.CTkLabel(panel, text="Pilih hari dan jam luang. Sesi disusun berdasarkan deadline.",
+                     text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w", padx=18, pady=(0, 10))
+
+        pref = self.current_student.preferensi_jadwal
+        days_frame = ctk.CTkFrame(panel, fg_color="transparent")
+        days_frame.pack(fill="x", padx=14)
+        day_vars = []
+        for index, day in enumerate(Penjadwalan.HARI):
+            var = ctk.BooleanVar(value=index in pref.get("hari", []))
+            day_vars.append(var)
+            ctk.CTkCheckBox(days_frame, text=day[:3], variable=var,
+                            text_color=COLORS["text"], checkbox_width=16,
+                            checkbox_height=16).pack(side="left", padx=5, pady=5)
+
+        time_frame = ctk.CTkFrame(panel, fg_color="transparent")
+        time_frame.pack(fill="x", padx=18, pady=8)
+        ctk.CTkLabel(time_frame, text="Mulai", text_color=COLORS["muted"]).pack(side="left")
+        start_entry = ctk.CTkEntry(time_frame, width=85, height=32)
+        start_entry.insert(0, pref.get("mulai", "16:00"))
+        start_entry.pack(side="left", padx=(7, 16))
+        ctk.CTkLabel(time_frame, text="Selesai", text_color=COLORS["muted"]).pack(side="left")
+        end_entry = ctk.CTkEntry(time_frame, width=85, height=32)
+        end_entry.insert(0, pref.get("selesai", "18:00"))
+        end_entry.pack(side="left", padx=7)
+
+        schedule_frame = ctk.CTkScrollableFrame(panel, fg_color=COLORS["surface_alt"],
+                                                height=190, corner_radius=10)
+        schedule_frame.pack(fill="x", padx=14, pady=(4, 12))
+
+        def refresh_schedule():
+            for child in schedule_frame.winfo_children():
+                child.destroy()
+            sessions = sorted(self.current_student.jadwal,
+                              key=lambda s: (s["tanggal"], s["mulai"]))
+            if not sessions:
+                ctk.CTkLabel(schedule_frame, text="Belum ada jadwal. Tekan tombol Buat Jadwal.",
+                             text_color=COLORS["muted"]).pack(anchor="w", padx=8, pady=10)
+                return
+            for index, session in enumerate(sessions):
+                row = ctk.CTkFrame(schedule_frame, fg_color=COLORS["surface"], corner_radius=8)
+                row.pack(fill="x", padx=4, pady=4)
+                info = ctk.CTkFrame(row, fg_color="transparent")
+                info.pack(side="left", fill="x", expand=True, padx=9, pady=7)
+                tanggal_obj = date.fromisoformat(session["tanggal"])
+                ctk.CTkLabel(info, text=f'{session["judul"]} · {session["mapel"]}',
+                             text_color=COLORS["text"],
+                             font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w")
+                ctk.CTkLabel(info,
+                             text=f'{Penjadwalan.HARI[tanggal_obj.weekday()]}, {tanggal_obj:%d-%m-%Y} · {session["mulai"]} · {session["durasi"]} menit',
+                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w")
+                ctk.CTkButton(row, text="Edit", width=58, height=28,
+                              command=lambda i=index: edit_session(i)).pack(side="right", padx=8)
+
+        def edit_session(index):
+            session = self.current_student.jadwal[index]
+            dialog = ctk.CTkToplevel(self)
+            dialog.title("Edit sesi belajar")
+            dialog.geometry("340x250")
+            dialog.transient(self)
+            dialog.grab_set()
+            ctk.CTkLabel(dialog, text=session["judul"], text_color=COLORS["text"]).pack(pady=(16, 8))
+            date_input = ctk.CTkEntry(dialog, placeholder_text="Tanggal YYYY-MM-DD")
+            date_input.insert(0, session["tanggal"])
+            date_input.pack(fill="x", padx=22, pady=5)
+            time_input = ctk.CTkEntry(dialog, placeholder_text="Jam HH:MM")
+            time_input.insert(0, session["mulai"])
+            time_input.pack(fill="x", padx=22, pady=5)
+            duration_input = ctk.CTkEntry(dialog, placeholder_text="Durasi menit")
+            duration_input.insert(0, str(session["durasi"]))
+            duration_input.pack(fill="x", padx=22, pady=5)
+
+            def save_edit():
+                try:
+                    Penjadwalan.ubah_sesi(session, date_input.get().strip(),
+                                          time_input.get().strip(), duration_input.get().strip())
+                    self._save()
+                    dialog.destroy()
+                    refresh_schedule()
+                except ValueError as error:
+                    self._message("Jadwal tidak valid", str(error))
+
+            ctk.CTkButton(dialog, text="Simpan perubahan", command=save_edit,
+                          fg_color=COLORS["primary"], text_color="#071923").pack(pady=12)
+
+        def generate_schedule():
+            try:
+                selected_days = [i for i, var in enumerate(day_vars) if var.get()]
+                start, end = start_entry.get().strip(), end_entry.get().strip()
+                datetime.strptime(start, "%H:%M")
+                datetime.strptime(end, "%H:%M")
+                self.current_student.preferensi_jadwal = {
+                    "hari": selected_days, "mulai": start, "selesai": end
+                }
+                self.current_student.jadwal = Penjadwalan.buat_jadwal(
+                    self.current_student.item_aktif(), selected_days, start, end
+                )
+                self._save()
+                refresh_schedule()
+                if not self.current_student.jadwal:
+                    self._message("Jadwal belum terbentuk",
+                                  "Tidak ada slot yang cocok. Periksa deadline dan waktu luangmu.")
+            except ValueError as error:
+                self._message("Pengaturan tidak valid", str(error))
+
+        ctk.CTkButton(panel, text="Buat ulang jadwal otomatis", command=generate_schedule,
+                      height=36, fg_color=COLORS["primary"],
+                      hover_color=COLORS["primary_hover"], text_color="#071923").pack(
+                          fill="x", padx=14, pady=(0, 12))
+        refresh_schedule()
 
     def _placeholder(self, page):
         self._page_header(page, "Bagian ini akan dibangun pada tahap berikutnya.")
