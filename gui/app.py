@@ -1587,28 +1587,40 @@ class FutureMateApp(ctk.CTk):
             self.content, "Tambah pencapaian",
             "Catat kegiatan, proyek, sertifikat, atau prestasi. Tingkat pencapaian menentukan poin portofolio."
         )
-        grid = ctk.CTkFrame(form, fg_color="transparent")
-        grid.pack(fill="x", padx=18, pady=(0, 10))
-        grid.grid_columnconfigure((0, 1), weight=1)
-        title = ctk.CTkEntry(grid, placeholder_text="Nama prestasi atau kegiatan", height=38)
-        title.grid(row=0, column=0, padx=(0, 7), pady=4, sticky="ew")
-        category = ctk.CTkEntry(grid, placeholder_text="Kategori, contoh: Akademik", height=38)
-        category.grid(row=0, column=1, padx=(7, 0), pady=4, sticky="ew")
-        level = ctk.CTkOptionMenu(
-            grid, values=Prestasi.TINGKAT, fg_color=COLORS["surface_alt"],
-            button_color=COLORS["primary"], button_hover_color=COLORS["primary_hover"],
-            text_color=COLORS["text"]
+        # Susun semua komponen secara vertikal agar tinggi kartu mengikuti
+        # isi form dan tidak terpotong pada resolusi layar laptop.
+        fields = ctk.CTkFrame(form, fg_color="transparent")
+        fields.pack(fill="x", padx=18, pady=(0, 14))
+
+        title = ctk.CTkEntry(
+            fields, placeholder_text="Nama prestasi atau kegiatan", height=38
         )
-        level.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
-        year = ctk.CTkEntry(grid, placeholder_text="Tahun, contoh: 2026", height=38)
-        year.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
+        title.pack(fill="x", pady=4)
+
+        category = ctk.CTkEntry(
+            fields, placeholder_text="Kategori, contoh: Akademik", height=38
+        )
+        category.pack(fill="x", pady=4)
+
+        level = ctk.CTkOptionMenu(
+            fields, values=Prestasi.TINGKAT, fg_color=COLORS["surface_alt"],
+            button_color=COLORS["primary"], button_hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"], height=38
+        )
+        level.pack(fill="x", pady=4)
+
+        year = ctk.CTkEntry(
+            fields, placeholder_text="Tahun, contoh: 2026", height=38
+        )
+        year.pack(fill="x", pady=4)
+
         add_button = ctk.CTkButton(
-            grid, text="Tambahkan pencapaian", command=lambda: add_record(),
+            fields, text="Tambahkan pencapaian", command=lambda: add_record(),
             height=42, fg_color=COLORS["primary"],
             hover_color=COLORS["primary_hover"], text_color=COLORS["text"],
             font=ctk.CTkFont(size=13, weight="bold")
         )
-        add_button.grid(row=2, column=0, columnspan=2, padx=0, pady=(10, 8), sticky="ew")
+        add_button.pack(fill="x", pady=(10, 4))
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
