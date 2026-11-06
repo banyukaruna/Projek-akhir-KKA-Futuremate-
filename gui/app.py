@@ -657,8 +657,8 @@ class FutureMateApp(ctk.CTk):
                 child.destroy()
             murid = self.current_student
             avg = murid.nilai.rata_rata()
-            avg_card.winfo_children()[1].configure(text=f"{avg:.1f}")
-            count_card.winfo_children()[1].configure(text=str(len(murid.nilai.daftar_mapel())))
+            avg_card.winfo_children()[1].winfo_children()[1].configure(text=f"{avg:.1f}")
+            count_card.winfo_children()[1].winfo_children()[1].configure(text=str(len(murid.nilai.daftar_mapel())))
             if not murid.nilai.daftar_mapel():
                 ctk.CTkLabel(rows, text="Belum ada nilai. Tambahkan nilai pertamamu di atas.",
                              text_color=COLORS["muted"]).pack(anchor="w", pady=8)
@@ -913,8 +913,8 @@ class FutureMateApp(ctk.CTk):
             for child in rows.winfo_children():
                 child.destroy()
             records = self.current_student.portofolio.daftar()
-            points_card.winfo_children()[1].configure(text=str(self.current_student.portofolio.total_poin()))
-            total_card.winfo_children()[1].configure(text=str(len(records)))
+            points_card.winfo_children()[1].winfo_children()[1].configure(text=str(self.current_student.portofolio.total_poin()))
+            total_card.winfo_children()[1].winfo_children()[1].configure(text=str(len(records)))
             if not records:
                 ctk.CTkLabel(rows, text="Belum ada pencapaian yang dicatat.",
                              text_color=COLORS["muted"]).pack(anchor="w", pady=8)
