@@ -125,8 +125,16 @@ def skor_kecocokan(profil_pengguna, profil_jurusan):
     return round(max(0.0, 100 - jarak), 1)
 
 def rekomendasikan(profil, katalog, jumlah=10):
+    """Merekomendasikan program studi, bukan konsentrasi atau peminatan.
+
+    Entri yang statusnya belum pasti tetap dapat dilihat di katalog,
+    tetapi tidak otomatis masuk rekomendasi utama.
+    """
     hasil = []
     for jurusan in katalog:
+        status = str(jurusan.get("status_program", "")).lower()
+        if "konsentrasi atau bidang kajian" in status or "bidang peminatan atau spesialisasi" in status:
+            continue
         nilai = skor_kecocokan(profil, jurusan["riasec"])
         hasil.append((jurusan, nilai))
     return sorted(hasil, key=lambda item: (-item[1], item[0]["nama"]))[:jumlah]
