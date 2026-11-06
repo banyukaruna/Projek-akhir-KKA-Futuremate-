@@ -164,15 +164,36 @@ class FutureMateApp(ctk.CTk):
         self._card(cards, "Rata-rata nilai", f"{avg:.1f}",
                    "Belum ada nilai" if not murid.nilai.daftar_mapel() else "Dari seluruh mata pelajaran").grid(row=0, column=2, sticky="ew", padx=(8, 0))
 
+        guide = ctk.CTkFrame(self.content, fg_color=COLORS["surface_alt"], corner_radius=12)
+        guide.grid(row=3, column=0, sticky="ew", pady=(12, 0))
+        ctk.CTkLabel(
+            guide, text="Cara membaca dashboard",
+            font=ctk.CTkFont(size=13, weight="bold"), text_color=COLORS["text"]
+        ).pack(anchor="w", padx=16, pady=(12, 4))
+        ctk.CTkLabel(
+            guide,
+            text=("Skor kesiapan merangkum nilai akademik (30 poin), ketepatan tugas (25), "
+                  "portofolio (20), dan kecocokan target (25). Tugas aktif menunjukkan "
+                  "kegiatan yang belum selesai. Rata-rata nilai dihitung dari nilai yang "
+                  "sudah kamu masukkan."),
+            text_color=COLORS["muted"], justify="left", wraplength=820,
+            font=ctk.CTkFont(size=11)
+        ).pack(anchor="w", padx=16, pady=(0, 12))
+
         lower = ctk.CTkFrame(self.content, fg_color="transparent")
-        lower.grid(row=3, column=0, sticky="nsew", pady=(22, 0))
+        lower.grid(row=4, column=0, sticky="nsew", pady=(18, 0))
         lower.grid_columnconfigure((0, 1), weight=1)
         lower.grid_rowconfigure(0, weight=1)
 
         progress = ctk.CTkFrame(lower, fg_color=COLORS["surface"], corner_radius=14)
         progress.grid(row=0, column=0, sticky="nsew", padx=(0, 9))
         ctk.CTkLabel(progress, text="Komponen kesiapan", font=ctk.CTkFont(size=16, weight="bold"),
-                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 12))
+                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 4))
+        ctk.CTkLabel(
+            progress, text="Setiap bar menunjukkan kontribusi komponen terhadap skor maksimalnya.",
+            text_color=COLORS["muted"], wraplength=380, justify="left",
+            font=ctk.CTkFont(size=10)
+        ).pack(anchor="w", padx=18, pady=(0, 8))
         for label, score in result["komponen"].items():
             line = ctk.CTkFrame(progress, fg_color="transparent")
             line.pack(fill="x", padx=18, pady=7)
@@ -186,7 +207,12 @@ class FutureMateApp(ctk.CTk):
         right = ctk.CTkFrame(lower, fg_color=COLORS["surface"], corner_radius=14)
         right.grid(row=0, column=1, sticky="nsew", padx=(9, 0))
         ctk.CTkLabel(right, text="Prioritas terdekat", font=ctk.CTkFont(size=16, weight="bold"),
-                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 12))
+                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 4))
+        ctk.CTkLabel(
+            right, text="Daftar ini membantu kamu melihat kegiatan aktif dengan tenggat terdekat.",
+            text_color=COLORS["muted"], wraplength=360, justify="left",
+            font=ctk.CTkFont(size=10)
+        ).pack(anchor="w", padx=18, pady=(0, 8))
         if active:
             for item in active[:5]:
                 ctk.CTkLabel(right, text=f"• {item.judul}", text_color=COLORS["text"],
@@ -199,7 +225,7 @@ class FutureMateApp(ctk.CTk):
                          text_color=COLORS["muted"]).pack(anchor="w", padx=18)
 
         roadmap = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
-        roadmap.grid(row=4, column=0, sticky="ew", pady=(18, 0))
+        roadmap.grid(row=5, column=0, sticky="ew", pady=(18, 0))
         ctk.CTkLabel(roadmap, text="Saran langkah berikutnya",
                      font=ctk.CTkFont(size=16, weight="bold"),
                      text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(16, 8))
@@ -229,29 +255,33 @@ class FutureMateApp(ctk.CTk):
         form = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
         form.grid(row=2, column=0, sticky="ew", pady=(0, 18))
         form.grid_columnconfigure((0, 1), weight=1)
+        ctk.CTkLabel(
+            form, text="Tambah kegiatan. Isi nama, mata pelajaran, tenggat, dan jenis kegiatan.",
+            text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
+        ).grid(row=0, column=0, columnspan=2, padx=16, pady=(12, 0), sticky="w")
 
         title_entry = ctk.CTkEntry(
             form, placeholder_text="Nama tugas atau kegiatan", height=38
         )
-        title_entry.grid(row=0, column=0, padx=(16, 8), pady=(16, 8), sticky="ew")
+        title_entry.grid(row=1, column=0, padx=(16, 8), pady=(10, 8), sticky="ew")
 
         subject_entry = ctk.CTkEntry(
             form, placeholder_text="Mata pelajaran", height=38
         )
-        subject_entry.grid(row=0, column=1, padx=(8, 16), pady=(16, 8), sticky="ew")
+        subject_entry.grid(row=1, column=1, padx=(8, 16), pady=(10, 8), sticky="ew")
 
         date_entry = ctk.CTkEntry(
             form, placeholder_text="Tenggat: YYYY-MM-DD", height=38
         )
         date_entry.insert(0, date.today().isoformat())
-        date_entry.grid(row=1, column=0, padx=(16, 8), pady=8, sticky="ew")
+        date_entry.grid(row=2, column=0, padx=(16, 8), pady=8, sticky="ew")
 
         type_menu = ctk.CTkOptionMenu(
             form, values=["Tugas", "Ujian", "Sesi Belajar"],
             fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
             button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
         )
-        type_menu.grid(row=1, column=1, padx=(8, 16), pady=8, sticky="ew")
+        type_menu.grid(row=2, column=1, padx=(8, 16), pady=8, sticky="ew")
 
         difficulty_menu = ctk.CTkOptionMenu(
             form, values=["1", "2", "3", "4", "5"],
@@ -259,7 +289,7 @@ class FutureMateApp(ctk.CTk):
             button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
         )
         difficulty_menu.set("3")
-        difficulty_menu.grid(row=2, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
+        difficulty_menu.grid(row=3, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
 
         list_panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
         list_panel.grid(row=3, column=0, sticky="nsew")
@@ -391,13 +421,13 @@ class FutureMateApp(ctk.CTk):
             form, text="Tambah kegiatan", height=38, command=add_item,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color="#071923"
-        ).grid(row=2, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+        ).grid(row=3, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
 
         ctk.CTkLabel(
             form,
             text="Tingkat kesulitan berlaku untuk jenis Tugas. Gunakan tanggal YYYY-MM-DD.",
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
-        ).grid(row=3, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
+        ).grid(row=4, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
 
         refresh_list()
         self._jadwal_panel()
@@ -412,8 +442,19 @@ class FutureMateApp(ctk.CTk):
         ctk.CTkLabel(panel, text="Jadwal belajar otomatis",
                      font=ctk.CTkFont(size=16, weight="bold"),
                      text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(16, 4))
-        ctk.CTkLabel(panel, text="Pilih hari dan jam luang. Sesi disusun berdasarkan deadline.",
-                     text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w", padx=18, pady=(0, 10))
+        ctk.CTkLabel(
+            panel,
+            text=("Pilih hari dan rentang waktu yang biasanya kamu punya. Sistem menyusun "
+                  "sesi 60 menit untuk kegiatan aktif berdasarkan tenggat dan prioritas."),
+            text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
+            wraplength=820, justify="left"
+        ).pack(anchor="w", padx=18, pady=(0, 8))
+        ctk.CTkLabel(
+            panel,
+            text="Jadwal dibuat untuk 30 hari ke depan. Setiap sesi berjarak 75 menit, termasuk jeda 15 menit.",
+            text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
+            wraplength=820, justify="left"
+        ).pack(anchor="w", padx=18, pady=(0, 10))
 
         pref = self.current_student.preferensi_jadwal
         days_frame = ctk.CTkFrame(panel, fg_color="transparent")
@@ -516,6 +557,12 @@ class FutureMateApp(ctk.CTk):
             except ValueError as error:
                 self._message("Pengaturan tidak valid", str(error))
 
+        ctk.CTkLabel(
+            panel,
+            text="Kamu bisa mengubah tanggal, jam, dan durasi lewat tombol Edit. Membuat ulang jadwal akan mengganti jadwal yang tersimpan saat ini.",
+            text_color=COLORS["warning"], font=ctk.CTkFont(size=10),
+            wraplength=820, justify="left"
+        ).pack(anchor="w", padx=18, pady=(0, 8))
         ctk.CTkButton(panel, text="Buat ulang jadwal otomatis", command=generate_schedule,
                       height=36, fg_color=COLORS["primary"],
                       hover_color=COLORS["primary_hover"], text_color="#071923").pack(
