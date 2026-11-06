@@ -1,20 +1,20 @@
-"""Konfigurasi visual FutureMate."""
+"""Konfigurasi visual FutureMate dengan palet hangat dan natural."""
 import customtkinter as ctk
 
 COLORS = {
-    "background": "#0B1220",
-    "surface": "#111C2E",
-    "surface_alt": "#17253A",
-    "border": "#26364D",
-    "primary": "#19B8A5",
-    "primary_hover": "#129889",
-    "text": "#F3F6FA",
-    "muted": "#9AAAC0",
-    "success": "#45C49A",
-    "warning": "#F2B65D",
-    "danger": "#E87575",
+    "background": "#F4F3EE",
+    "surface": "#FFFFFF",
+    "surface_alt": "#E9EEE8",
+    "border": "#D9E0D7",
+    "primary": "#B8CBB9",
+    "primary_hover": "#A5BBA8",
+    "text": "#26352D",
+    "muted": "#77837A",
+    "success": "#63866B",
+    "warning": "#B98545",
+    "danger": "#B85C54",
 }
 
 def apply_theme():
-    ctk.set_appearance_mode("dark")
-    ctk.set_default_color_theme("dark-blue")
+    ctk.set_appearance_mode("light")
+    ctk.set_default_color_theme("green")
