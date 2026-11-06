@@ -667,6 +667,15 @@ class FutureMateApp(ctk.CTk):
         )
         overall_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
 
+        semester_summary = self._section_card(
+            self.content, "Ringkasan lima semester",
+            "Rerata setiap semester akan muncul di sini setelah kamu memasukkan nilai rapornya."
+        )
+        semester_summary_rows = ctk.CTkFrame(
+            semester_summary, fg_color="transparent"
+        )
+        semester_summary_rows.pack(fill="x", padx=18, pady=(0, 12))
+
         target_panel = self._section_card(
             self.content, "Target rerata akhir",
             "Tentukan target rerata rapor sampai semester 5. FutureMate akan menghitung rerata yang perlu kamu capai pada semester tersisa."
@@ -713,6 +722,23 @@ class FutureMateApp(ctk.CTk):
             update_card_value(
                 overall_card, f"{rata_total:.2f}" if murid.nilai.semester_terisi() else "Belum ada"
             )
+
+            for child in semester_summary_rows.winfo_children():
+                child.destroy()
+            for nomor in range(1, 6):
+                nilai_semester = murid.nilai.rata_semester(nomor)
+                row = ctk.CTkFrame(
+                    semester_summary_rows, fg_color=COLORS["surface_alt"], corner_radius=8
+                )
+                row.pack(fill="x", pady=3)
+                ctk.CTkLabel(
+                    row, text=f"Semester {nomor}", text_color=COLORS["text"]
+                ).pack(side="left", padx=12, pady=8)
+                ctk.CTkLabel(
+                    row,
+                    text=f"{nilai_semester:.2f}" if nilai_semester is not None else "Belum diisi",
+                    text_color=COLORS["primary"] if nilai_semester is not None else COLORS["muted"]
+                ).pack(side="right", padx=12, pady=8)
 
             if not daftar:
                 ctk.CTkLabel(
