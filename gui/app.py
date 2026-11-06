@@ -19,8 +19,14 @@ class FutureMateApp(ctk.CTk):
         apply_theme()
         super().__init__()
         self.title("FutureMate | Shape Your Future")
-        self.geometry("1180x760")
-        self.minsize(960, 640)
+
+        # Ukuran jendela mengikuti resolusi layar agar tidak langsung terpotong.
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        window_width = min(1180, max(760, int(screen_width * 0.90)))
+        window_height = min(800, max(560, int(screen_height * 0.84)))
+        self.geometry(f"{window_width}x{window_height}")
+        self.minsize(min(760, screen_width), min(560, screen_height))
         self.configure(fg_color=COLORS["background"])
 
         self.storage = Penyimpanan(DATA / "data.json", DATA / "jurusan.json")
@@ -103,8 +109,12 @@ class FutureMateApp(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.sidebar = Sidebar(self, self.show_page)
         self.sidebar.grid(row=0, column=0, sticky="nsw")
-        self.content = ctk.CTkFrame(self, fg_color=COLORS["background"], corner_radius=0)
-        self.content.grid(row=0, column=1, sticky="nsew", padx=30, pady=26)
+        # Area konten dibuat scrollable agar halaman panjang tetap bisa diakses
+        # pada layar laptop yang lebih kecil.
+        self.content = ctk.CTkScrollableFrame(
+            self, fg_color=COLORS["background"], corner_radius=0
+        )
+        self.content.grid(row=0, column=1, sticky="nsew", padx=14, pady=12)
         self.content.grid_columnconfigure(0, weight=1)
         self.show_page("Dashboard")
 
