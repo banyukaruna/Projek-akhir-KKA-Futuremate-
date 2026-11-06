@@ -1,0 +1,12 @@
+[
+  {"nama": "Teknik Informatika", "kampus": "Kampus Contoh A", "rata_min": 80, "syarat_mapel": {"Matematika": 80, "Bahasa Inggris": 75}, "riasec": ["I", "R"]},
+  {"nama": "Kedokteran", "kampus": "Kampus Contoh B", "rata_min": 85, "syarat_mapel": {"Biologi": 85, "Kimia": 80}, "riasec": ["I", "S"]},
+  {"nama": "Manajemen", "kampus": "Kampus Contoh A", "rata_min": 78, "syarat_mapel": {"Matematika": 75, "Ekonomi": 78}, "riasec": ["E", "C"]},
+  {"nama": "Akuntansi", "kampus": "Kampus Contoh C", "rata_min": 78, "syarat_mapel": {"Matematika": 78, "Ekonomi": 78}, "riasec": ["C", "E"]},
+  {"nama": "Desain Komunikasi Visual", "kampus": "Kampus Contoh C", "rata_min": 75, "syarat_mapel": {"Seni Budaya": 80}, "riasec": ["A", "E"]},
+  {"nama": "Psikologi", "kampus": "Kampus Contoh B", "rata_min": 78, "syarat_mapel": {"Bahasa Indonesia": 78, "Biologi": 75}, "riasec": ["S", "I"]},
+  {"nama": "Teknik Sipil", "kampus": "Kampus Contoh A", "rata_min": 78, "syarat_mapel": {"Matematika": 80, "Fisika": 78}, "riasec": ["R", "I"]},
+  {"nama": "Ilmu Hukum", "kampus": "Kampus Contoh B", "rata_min": 78, "syarat_mapel": {"Bahasa Indonesia": 80, "PKN": 78}, "riasec": ["E", "S"]},
+  {"nama": "Pendidikan Guru SD", "kampus": "Kampus Contoh C", "rata_min": 75, "syarat_mapel": {"Bahasa Indonesia": 75}, "riasec": ["S", "C"]},
+  {"nama": "Sastra Inggris", "kampus": "Kampus Contoh C", "rata_min": 76, "syarat_mapel": {"Bahasa Inggris": 85}, "riasec": ["A", "S"]}
+]
