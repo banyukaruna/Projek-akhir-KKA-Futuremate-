@@ -1603,7 +1603,7 @@ class FutureMateApp(ctk.CTk):
         year = ctk.CTkEntry(grid, placeholder_text="Tahun, contoh: 2026", height=38)
         year.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
-        summary.pack(fill="x", pady=(0, 14))
+        summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
         points_card = self._card(summary, "Total poin", "0", "Poin berdasarkan tingkat pencapaian")
         points_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
@@ -1639,12 +1639,7 @@ class FutureMateApp(ctk.CTk):
                               command=lambda r=record: remove(r)).pack(side="right", padx=10)
 
         def remove(record):
-            records = self.current_student.portofolio.daftar()
-            records.remove(record)
-            rebuilt = type(self.current_student.portofolio)()
-            for item in records:
-                rebuilt.tambah(item)
-            self.current_student.portofolio = rebuilt
+            self.current_student.portofolio.hapus(record)
             self._save()
             refresh()
 
