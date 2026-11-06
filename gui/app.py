@@ -620,81 +620,206 @@ class FutureMateApp(ctk.CTk):
         return card
 
     def _nilai_page(self):
-        from models.nilai import NilaiTidakValidError
+        from exceptions import NilaiTidakValidError
+
         self._page_header(
             "Nilai Akademik",
-            "Catat hasil belajarmu dan pantau perkembangan setiap mata pelajaran."
+            "Catat nilai rapor semester 1 sampai 5 dan rencanakan target akademikmu."
         )
+
         form = self._section_card(
-            self.content, "Tambah nilai",
-            "Masukkan mata pelajaran dan nilai yang kamu peroleh. Nilai harus berada pada rentang 0 sampai 100."
+            self.content, "Input nilai rapor",
+            "Pilih semester, masukkan mata pelajaran, lalu isi nilai rapor pada rentang 0 sampai 100. Nilai mapel yang sama pada semester tersebut akan diperbarui."
         )
+
         fields = ctk.CTkFrame(form, fg_color="transparent")
-        fields.pack(fill="x", padx=18, pady=(0, 12))
+        fields.pack(fill="x", padx=18, pady=(0, 10))
         fields.grid_columnconfigure((0, 1), weight=1)
-        subject = ctk.CTkEntry(fields, placeholder_text="Contoh: Matematika", height=38)
-        subject.grid(row=0, column=0, padx=(0, 7), sticky="ew")
-        score = ctk.CTkEntry(fields, placeholder_text="Nilai, contoh: 88", height=38)
-        score.grid(row=0, column=1, padx=(7, 0), sticky="ew")
+
+        semester_menu = ctk.CTkOptionMenu(
+            fields, values=[f"Semester {i}" for i in range(1, 6)],
+            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
+        )
+        semester_menu.set("Semester 1")
+        semester_menu.grid(row=0, column=0, padx=(0, 7), pady=4, sticky="ew")
+
+        subject = ctk.CTkEntry(
+            fields, placeholder_text="Mata pelajaran, contoh: Matematika", height=38
+        )
+        subject.grid(row=0, column=1, padx=(7, 0), pady=4, sticky="ew")
+
+        score = ctk.CTkEntry(fields, placeholder_text="Nilai rapor, contoh: 88", height=38)
+        score.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
+
         message = ctk.CTkLabel(form, text="", text_color=COLORS["danger"])
-        message.pack(anchor="w", padx=18)
+        message.pack(anchor="w", padx=18, pady=(0, 4))
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
-        avg_card = self._card(summary, "Rata-rata keseluruhan", "0.0", "Rata-rata dari seluruh mapel")
-        avg_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
-        count_card = self._card(summary, "Mata pelajaran", "0", "Jumlah mapel yang memiliki nilai")
-        count_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
+        semester_card = self._card(
+            summary, "Rerata semester", "Belum ada", "Rata-rata nilai pada semester terpilih"
+        )
+        semester_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
+        overall_card = self._card(
+            summary, "Rerata sementara", "Belum ada", "Rata-rata dari semester yang sudah terisi"
+        )
+        overall_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
+
+        target_panel = self._section_card(
+            self.content, "Target rerata akhir",
+            "Tentukan target rerata rapor sampai semester 5. FutureMate akan menghitung rerata yang perlu kamu capai pada semester tersisa."
+        )
+        target_row = ctk.CTkFrame(target_panel, fg_color="transparent")
+        target_row.pack(fill="x", padx=18, pady=(0, 8))
+        target_row.grid_columnconfigure(0, weight=1)
+        target_entry = ctk.CTkEntry(
+            target_row, placeholder_text="Target rerata akhir, contoh: 88", height=38
+        )
+        target_entry.grid(row=0, column=0, padx=(0, 8), sticky="ew")
+        saved_target = self.current_student.nilai.target_akhir()
+        if saved_target is not None:
+            target_entry.insert(0, str(saved_target))
+        target_status = ctk.CTkLabel(
+            target_panel, text="", text_color=COLORS["primary"],
+            wraplength=800, justify="left"
+        )
+        target_status.pack(anchor="w", padx=18, pady=(2, 14))
 
         history = self._section_card(
-            self.content, "Riwayat nilai",
-            "Tren membandingkan nilai terbaru dengan rata-rata nilai sebelumnya pada mapel yang sama."
+            self.content, "Nilai rapor per mata pelajaran",
+            "Pilih semester pada bagian input untuk melihat daftar nilainya. Kamu dapat memperbarui atau menghapus nilai."
         )
         rows = ctk.CTkFrame(history, fg_color="transparent")
         rows.pack(fill="x", padx=18, pady=(0, 14))
 
+        def update_card_value(card, value):
+            card.winfo_children()[1].winfo_children()[1].configure(text=value)
+
         def refresh():
             for child in rows.winfo_children():
                 child.destroy()
+
             murid = self.current_student
-            avg = murid.nilai.rata_rata()
-            avg_card.winfo_children()[1].winfo_children()[1].configure(text=f"{avg:.1f}")
-            count_card.winfo_children()[1].winfo_children()[1].configure(text=str(len(murid.nilai.daftar_mapel())))
-            if not murid.nilai.daftar_mapel():
-                ctk.CTkLabel(rows, text="Belum ada nilai. Tambahkan nilai pertamamu di atas.",
-                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
-                return
-            for mapel in murid.nilai.daftar_mapel():
-                line = ctk.CTkFrame(rows, fg_color=COLORS["surface_alt"], corner_radius=9)
-                line.pack(fill="x", pady=4)
-                vals = murid.nilai.to_dict().get(mapel, [])
-                trend = murid.nilai.tren(mapel)
-                ctk.CTkLabel(line, text=mapel, text_color=COLORS["text"],
-                             font=ctk.CTkFont(size=12, weight="bold")).pack(side="left", padx=12, pady=10)
-                ctk.CTkLabel(line, text=f"{murid.nilai.rata_mapel(mapel):.1f}  ·  {len(vals)} data  ·  Tren {trend}",
-                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(side="right", padx=12)
+            semester = int(semester_menu.get().split()[-1])
+            daftar = murid.nilai.data_semester(semester)
+            rata_sem = murid.nilai.rata_semester(semester)
+            rata_total = murid.nilai.rata_akhir()
+
+            update_card_value(
+                semester_card, f"{rata_sem:.2f}" if rata_sem is not None else "Belum ada"
+            )
+            update_card_value(
+                overall_card, f"{rata_total:.2f}" if murid.nilai.semester_terisi() else "Belum ada"
+            )
+
+            if not daftar:
+                ctk.CTkLabel(
+                    rows, text=f"Belum ada nilai rapor untuk Semester {semester}.",
+                    text_color=COLORS["muted"]
+                ).pack(anchor="w", pady=8)
+            else:
+                for mapel, nilai in sorted(daftar.items()):
+                    line = ctk.CTkFrame(
+                        rows, fg_color=COLORS["surface_alt"], corner_radius=9
+                    )
+                    line.pack(fill="x", pady=4)
+                    ctk.CTkLabel(
+                        line, text=mapel, text_color=COLORS["text"],
+                        font=ctk.CTkFont(size=12, weight="bold")
+                    ).pack(side="left", padx=12, pady=10)
+                    ctk.CTkLabel(
+                        line, text=f"{nilai:.2f}", text_color=COLORS["text"]
+                    ).pack(side="right", padx=(8, 12))
+                    ctk.CTkButton(
+                        line, text="Hapus", width=58, height=27,
+                        fg_color=COLORS["danger"],
+                        command=lambda m=mapel, s=semester: remove_score(s, m)
+                    ).pack(side="right", padx=4)
+                    ctk.CTkButton(
+                        line, text="Edit", width=52, height=27,
+                        command=lambda m=mapel, v=nilai: load_score(m, v)
+                    ).pack(side="right", padx=4)
+
+            target = murid.nilai.target_akhir()
+            required = murid.nilai.kebutuhan_semester_berikutnya()
+            filled = len(murid.nilai.semester_terisi())
+            if target is None:
+                target_status.configure(text="Kamu belum menetapkan target rerata akhir.")
+            elif required is None:
+                target_status.configure(
+                    text=f"Rerata lima semester saat ini: {rata_total:.2f}. "
+                         f"Target akhir: {target:.2f}."
+                )
+            elif required > 100:
+                target_status.configure(
+                    text=f"Target {target:.2f} membutuhkan rerata sekitar {required:.2f} "
+                         f"pada setiap semester tersisa. Target ini berada di atas batas nilai 100."
+                )
+            elif required < 0:
+                target_status.configure(
+                    text=f"Target {target:.2f} sudah tercapai berdasarkan data saat ini. "
+                         "Kamu tetap bisa menjaga nilai pada semester berikutnya."
+                )
+            else:
+                target_status.configure(
+                    text=f"Semester terisi: {filled}/5. Untuk mencapai target akhir {target:.2f}, "
+                         f"kamu perlu meraih rerata sekitar {required:.2f} pada setiap semester tersisa."
+                )
+
+        def load_score(mapel, nilai):
+            subject.delete(0, "end")
+            subject.insert(0, mapel)
+            score.delete(0, "end")
+            score.insert(0, f"{nilai:g}")
+            message.configure(text="Nilai dimuat ke formulir. Ubah angkanya lalu simpan.")
+
+        def remove_score(semester, mapel):
+            self.current_student.nilai.hapus_nilai_rapor(semester, mapel)
+            self._save()
+            refresh()
 
         def add_score():
             try:
                 mapel = subject.get().strip()
-                if not mapel:
-                    raise ValueError("Nama mata pelajaran wajib diisi.")
                 value = float(score.get().strip().replace(",", "."))
-                self.current_student.nilai.tambah(mapel, value)
+                semester = int(semester_menu.get().split()[-1])
+                self.current_student.nilai.tambah_nilai_rapor(semester, mapel, value)
                 self._save()
                 subject.delete(0, "end")
                 score.delete(0, "end")
+                message.configure(text="Nilai rapor berhasil disimpan.", text_color=COLORS["success"])
+                refresh()
+            except (ValueError, NilaiTidakValidError) as error:
+                message.configure(text=str(error), text_color=COLORS["danger"])
+
+        def save_target():
+            try:
+                raw = target_entry.get().strip().replace(",", ".")
+                if not raw:
+                    raise ValueError("Masukkan target rerata akhir terlebih dahulu.")
+                self.current_student.nilai.set_target_akhir(float(raw))
+                self._save()
                 message.configure(text="")
                 refresh()
             except ValueError as error:
-                message.configure(text=str(error) if str(error) else "Masukkan nilai angka yang valid.")
-            except Exception as error:
-                message.configure(text=str(error))
+                self._message("Target belum tersimpan", str(error))
 
-        ctk.CTkButton(form, text="Simpan nilai", command=add_score, height=36,
-                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
+        semester_menu.configure(command=lambda _value: refresh())
+
+        ctk.CTkButton(
+            form, text="Simpan nilai rapor", command=add_score, height=36,
+            fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"]
+        ).pack(anchor="e", padx=18, pady=(0, 14))
+
+        ctk.CTkButton(
+            target_row, text="Simpan target", command=save_target, height=36,
+            fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"]
+        ).grid(row=0, column=1, sticky="e")
+
         refresh()
 
     def _target_page(self):
