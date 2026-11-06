@@ -4,7 +4,6 @@ import customtkinter as ctk
 
 from gui.theme import COLORS, apply_theme
 from gui.components.sidebar import Sidebar
-from gui.pages.tugas import TugasPage
 from services.penyimpanan import Penyimpanan
 from services.sistem_kesiapan import SistemKesiapan
 from services.notifikasi import Notifikasi
@@ -133,9 +132,7 @@ class FutureMateApp(ctk.CTk):
         if page == "Dashboard":
             self._dashboard()
         elif page == "Tugas & Jadwal":
-            TugasPage(self.content, self.current_student, self._save, COLORS).grid(
-                row=0, column=0, sticky="nsew"
-            )
+            self._tugas_page()
         else:
             self._placeholder(page)
 
@@ -202,6 +199,197 @@ class FutureMateApp(ctk.CTk):
         ctk.CTkLabel(roadmap, text=f"{targets} target masa depan tersimpan",
                      text_color=COLORS["primary"], font=ctk.CTkFont(size=11, weight="bold")
                      ).pack(anchor="w", padx=18, pady=(10, 15))
+
+
+    # ==========================================================
+    # HALAMAN TUGAS & JADWAL
+    # Seluruh kode halaman ini sengaja digabung di gui/app.py.
+    # ==========================================================
+
+    def _tugas_page(self):
+        from datetime import date
+        from models.item import Tugas, Ujian, SesiBelajar
+
+        self.content.grid_rowconfigure(3, weight=1)
+        self._page_header(
+            "Tugas & Jadwal",
+            "Catat tugas, ujian, dan sesi belajar agar tenggat waktumu terpantau."
+        )
+
+        form = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
+        form.grid(row=2, column=0, sticky="ew", pady=(0, 18))
+        form.grid_columnconfigure((0, 1), weight=1)
+
+        title_entry = ctk.CTkEntry(
+            form, placeholder_text="Nama tugas atau kegiatan", height=38
+        )
+        title_entry.grid(row=0, column=0, padx=(16, 8), pady=(16, 8), sticky="ew")
+
+        subject_entry = ctk.CTkEntry(
+            form, placeholder_text="Mata pelajaran", height=38
+        )
+        subject_entry.grid(row=0, column=1, padx=(8, 16), pady=(16, 8), sticky="ew")
+
+        date_entry = ctk.CTkEntry(
+            form, placeholder_text="Tenggat: YYYY-MM-DD", height=38
+        )
+        date_entry.insert(0, date.today().isoformat())
+        date_entry.grid(row=1, column=0, padx=(16, 8), pady=8, sticky="ew")
+
+        type_menu = ctk.CTkOptionMenu(
+            form, values=["Tugas", "Ujian", "Sesi Belajar"],
+            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
+        )
+        type_menu.grid(row=1, column=1, padx=(8, 16), pady=8, sticky="ew")
+
+        difficulty_menu = ctk.CTkOptionMenu(
+            form, values=["1", "2", "3", "4", "5"],
+            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
+        )
+        difficulty_menu.set("3")
+        difficulty_menu.grid(row=2, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
+
+        list_panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
+        list_panel.grid(row=3, column=0, sticky="nsew")
+        list_panel.grid_columnconfigure(0, weight=1)
+        list_panel.grid_rowconfigure(1, weight=1)
+
+        header = ctk.CTkFrame(list_panel, fg_color="transparent")
+        header.grid(row=0, column=0, sticky="ew", padx=18, pady=(15, 8))
+        ctk.CTkLabel(
+            header, text="Daftar kegiatan",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=COLORS["text"]
+        ).pack(side="left")
+
+        count_label = ctk.CTkLabel(header, text="", text_color=COLORS["muted"])
+        count_label.pack(side="right")
+
+        items_frame = ctk.CTkScrollableFrame(
+            list_panel, fg_color="transparent", corner_radius=0
+        )
+        items_frame.grid(row=1, column=0, sticky="nsew", padx=12, pady=(0, 12))
+
+        def show_message(message):
+            self._message("FutureMate", message)
+
+        def refresh_list():
+            for child in items_frame.winfo_children():
+                child.destroy()
+
+            active = self.current_student.item_aktif()
+            completed = [item for item in self.current_student.items if item.selesai]
+            count_label.configure(
+                text=f"{len(active)} aktif · {len(completed)} selesai"
+            )
+
+            if not self.current_student.items:
+                ctk.CTkLabel(
+                    items_frame,
+                    text="Belum ada kegiatan. Tambahkan melalui formulir di atas.",
+                    text_color=COLORS["muted"]
+                ).pack(anchor="w", padx=8, pady=12)
+                return
+
+            for item in active + completed:
+                row = ctk.CTkFrame(
+                    items_frame, fg_color=COLORS["surface_alt"], corner_radius=10
+                )
+                row.pack(fill="x", padx=4, pady=5)
+
+                info = ctk.CTkFrame(row, fg_color="transparent")
+                info.pack(side="left", fill="both", expand=True, padx=12, pady=9)
+
+                status = "Selesai" if item.selesai else item.prioritas().value
+                ctk.CTkLabel(
+                    info, text=f"{item.judul}  ·  {item.jenis()}",
+                    font=ctk.CTkFont(size=13, weight="bold"),
+                    text_color=COLORS["text"]
+                ).pack(anchor="w")
+                ctk.CTkLabel(
+                    info,
+                    text=f"{item.mapel}  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
+                    text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
+                ).pack(anchor="w", pady=(3, 0))
+
+                actions = ctk.CTkFrame(row, fg_color="transparent")
+                actions.pack(side="right", padx=8)
+
+                if not item.selesai:
+                    ctk.CTkButton(
+                        actions, text="Selesai", width=72, height=30,
+                        fg_color=COLORS["primary"],
+                        hover_color=COLORS["primary_hover"],
+                        text_color="#071923",
+                        command=lambda current=item: complete_item(current)
+                    ).pack(side="left", padx=3)
+
+                ctk.CTkButton(
+                    actions, text="Hapus", width=62, height=30,
+                    fg_color=COLORS["danger"], hover_color="#c95d5d",
+                    command=lambda current=item: delete_item(current)
+                ).pack(side="left", padx=3)
+
+        def complete_item(item):
+            item.tandai_selesai()
+            self._save()
+            refresh_list()
+
+        def delete_item(item):
+            self.current_student.items.remove(item)
+            self._save()
+            refresh_list()
+
+        def add_item():
+            title = title_entry.get().strip()
+            subject = subject_entry.get().strip()
+            raw_date = date_entry.get().strip()
+
+            if not title or not subject or not raw_date:
+                show_message(
+                    "Nama kegiatan, mata pelajaran, dan tenggat wajib diisi."
+                )
+                return
+
+            try:
+                deadline = date.fromisoformat(raw_date)
+                kind = type_menu.get()
+
+                if kind == "Tugas":
+                    item = Tugas(
+                        title, subject, deadline, int(difficulty_menu.get())
+                    )
+                elif kind == "Ujian":
+                    item = Ujian(title, subject, deadline)
+                else:
+                    item = SesiBelajar(title, subject, deadline)
+
+                self.current_student.tambah_item(item)
+                self._save()
+                title_entry.delete(0, "end")
+                subject_entry.delete(0, "end")
+                refresh_list()
+            except ValueError:
+                show_message(
+                    "Tanggal harus menggunakan format YYYY-MM-DD, "
+                    "misalnya 2026-11-20."
+                )
+
+        ctk.CTkButton(
+            form, text="Tambah kegiatan", height=38, command=add_item,
+            fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+            text_color="#071923"
+        ).grid(row=2, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+
+        ctk.CTkLabel(
+            form,
+            text="Tingkat kesulitan berlaku untuk jenis Tugas. Gunakan tanggal YYYY-MM-DD.",
+            text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
+        ).grid(row=3, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
+
+        refresh_list()
 
     def _placeholder(self, page):
         self._page_header(page, "Bagian ini akan dibangun pada tahap berikutnya.")
