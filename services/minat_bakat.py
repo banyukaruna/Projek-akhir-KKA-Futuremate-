@@ -15,76 +15,76 @@ DESKRIPSI_TIPE = {
 }
 PERTANYAAN_PER_TIPE = {
     "R": [
-        "Aku tertarik merakit atau memperbaiki perangkat elektronik.",
-        "Aku senang menggunakan peralatan untuk membuat sesuatu.",
-        "Aku tertarik melakukan kegiatan praktik di laboratorium atau bengkel.",
-        "Aku menikmati kegiatan luar ruang yang melibatkan keterampilan fisik.",
-        "Aku suka mempelajari cara kerja mesin atau perangkat teknis.",
-        "Aku tertarik membuat model atau prototipe benda.",
-        "Aku senang mengerjakan tugas yang hasilnya dapat dilihat secara langsung.",
-        "Aku tertarik mengoperasikan alat atau mesin sesuai prosedur.",
-        "Aku menikmati kegiatan yang membutuhkan koordinasi tangan dan ketelitian teknis.",
-        "Aku ingin mencoba pekerjaan yang banyak melibatkan praktik langsung."
+        "Saya tertarik merakit komputer dari berbagai komponen hingga dapat digunakan.",
+        "Saya ingin mencoba memperbaiki perangkat elektronik yang mengalami kerusakan.",
+        "Saya tertarik membuat prototipe sederhana menggunakan bahan seperti kayu, plastik, atau logam.",
+        "Saya menikmati kegiatan menanam dan merawat tanaman hingga siap dipanen.",
+        "Saya tertarik mengoperasikan peralatan teknis untuk menyelesaikan suatu pekerjaan.",
+        "Saya ingin mencoba memasang dan menguji rangkaian listrik sederhana.",
+        "Saya tertarik membuat model bangunan atau struktur menggunakan bahan tertentu.",
+        "Saya menikmati kegiatan mengamati dan memetakan kondisi lingkungan secara langsung.",
+        "Saya tertarik mempelajari cara kerja mesin kendaraan dan komponennya.",
+        "Saya ingin terlibat dalam proyek yang menghasilkan benda atau produk fisik."
     ],
     "I": [
-        "Aku senang mencari penyebab dari suatu peristiwa.",
-        "Aku tertarik menganalisis data untuk menemukan pola.",
-        "Aku menikmati soal yang membutuhkan penalaran logis.",
-        "Aku suka melakukan eksperimen untuk menguji dugaan.",
-        "Aku tertarik mempelajari konsep ilmiah secara mendalam.",
-        "Aku senang membandingkan beberapa solusi sebelum mengambil keputusan.",
-        "Aku tertarik membaca hasil penelitian atau kajian ilmiah.",
-        "Aku suka memecahkan masalah yang belum memiliki jawaban jelas.",
-        "Aku menikmati kegiatan mengumpulkan dan menafsirkan informasi.",
-        "Aku tertarik memahami hubungan sebab dan akibat."
+        "Saya tertarik menganalisis data survei untuk menemukan pola perilaku masyarakat.",
+        "Saya ingin mencari penyebab suatu program komputer mengalami kesalahan.",
+        "Saya menikmati kegiatan melakukan eksperimen untuk menguji suatu hipotesis.",
+        "Saya tertarik menyelidiki mengapa suatu fenomena alam dapat terjadi.",
+        "Saya ingin membandingkan beberapa metode untuk menemukan solusi paling efektif.",
+        "Saya tertarik menganalisis hasil penelitian sebelum menarik kesimpulan.",
+        "Saya menikmati kegiatan memecahkan teka-teki logika atau persoalan matematika.",
+        "Saya ingin mempelajari bagaimana suatu penyakit dapat memengaruhi tubuh manusia.",
+        "Saya tertarik mengamati perubahan lingkungan menggunakan data pengukuran.",
+        "Saya ingin mencari hubungan antara beberapa faktor yang memengaruhi suatu masalah."
     ],
     "A": [
-        "Aku suka membuat desain visual dengan ide sendiri.",
-        "Aku menikmati menulis cerita, artikel, atau karya kreatif.",
-        "Aku tertarik membuat karya seni dalam berbagai media.",
-        "Aku suka menyampaikan gagasan melalui gambar, musik, atau tulisan.",
-        "Aku menikmati tugas yang memberi ruang untuk bereksperimen.",
-        "Aku tertarik merancang tampilan atau pengalaman yang menarik.",
-        "Aku suka mengembangkan konsep yang berbeda dari biasanya.",
-        "Aku menikmati kegiatan fotografi, ilustrasi, atau produksi konten.",
-        "Aku tertarik mempelajari budaya dan bentuk ekspresi seni.",
-        "Aku senang mengubah ide abstrak menjadi karya."
+        "Saya tertarik merancang tampilan aplikasi agar mudah digunakan dan menarik.",
+        "Saya ingin membuat ilustrasi untuk menyampaikan suatu cerita atau gagasan.",
+        "Saya menikmati kegiatan menulis cerita dengan karakter dan alur buatan sendiri.",
+        "Saya tertarik membuat desain poster untuk sebuah acara.",
+        "Saya ingin menciptakan komposisi musik atau suara untuk sebuah karya.",
+        "Saya menikmati kegiatan mengambil dan mengolah foto dengan konsep tertentu.",
+        "Saya tertarik merancang interior ruangan berdasarkan tema yang saya pilih.",
+        "Saya ingin membuat video kreatif dengan penyuntingan dan konsep visual sendiri.",
+        "Saya menikmati kegiatan mengembangkan ide produk dengan bentuk atau fungsi yang unik.",
+        "Saya tertarik mengeksplorasi berbagai gaya seni untuk menghasilkan karya orisinal."
     ],
     "S": [
-        "Aku senang membantu orang memahami sesuatu yang sulit.",
-        "Aku tertarik menjadi pendamping bagi orang yang membutuhkan dukungan.",
-        "Aku menikmati kerja kelompok yang melibatkan banyak interaksi.",
-        "Aku suka mengajar atau membagikan pengetahuan.",
-        "Aku tertarik mempelajari cara manusia berpikir dan berperilaku.",
-        "Aku senang mendengarkan dan memahami sudut pandang orang lain.",
-        "Aku tertarik terlibat dalam kegiatan sosial masyarakat.",
-        "Aku suka bekerja sama untuk menyelesaikan kebutuhan orang lain.",
-        "Aku menikmati kegiatan membimbing atau melatih orang.",
-        "Aku tertarik meningkatkan kualitas hidup orang lain."
+        "Saya tertarik membantu teman memahami materi pelajaran yang belum mereka kuasai.",
+        "Saya ingin menjadi pendamping dalam kegiatan belajar anak-anak.",
+        "Saya menikmati kegiatan mendengarkan orang lain ketika mereka menghadapi masalah.",
+        "Saya tertarik mengadakan kegiatan edukasi mengenai kesehatan bagi masyarakat.",
+        "Saya ingin membantu anggota kelompok yang mengalami kesulitan menyelesaikan tugas.",
+        "Saya menikmati kegiatan mengajarkan keterampilan baru kepada orang lain.",
+        "Saya tertarik merancang program untuk membantu masyarakat yang membutuhkan.",
+        "Saya ingin menjadi fasilitator dalam diskusi kelompok.",
+        "Saya menikmati kegiatan membimbing seseorang agar dapat mengembangkan potensinya.",
+        "Saya tertarik mempelajari cara menyelesaikan konflik antarmanusia melalui komunikasi."
     ],
     "E": [
-        "Aku tertarik memimpin tim untuk mencapai tujuan.",
-        "Aku senang menyampaikan ide agar orang lain tertarik.",
-        "Aku tertarik merintis usaha atau proyek baru.",
-        "Aku menikmati kegiatan negosiasi dan membangun kesepakatan.",
-        "Aku suka mengambil keputusan dalam situasi yang menantang.",
-        "Aku tertarik mengembangkan strategi bisnis atau organisasi.",
-        "Aku senang mengatur kegiatan dan membagi tanggung jawab.",
-        "Aku tertarik mempromosikan produk, layanan, atau gagasan.",
-        "Aku menikmati tantangan mencapai target bersama tim.",
-        "Aku ingin mengembangkan kemampuan kepemimpinan."
+        "Saya tertarik memimpin tim dalam mengerjakan sebuah proyek.",
+        "Saya ingin merancang strategi pemasaran untuk memperkenalkan produk baru.",
+        "Saya menikmati kegiatan mempresentasikan ide untuk mendapatkan dukungan orang lain.",
+        "Saya tertarik merintis usaha kecil dengan produk atau layanan buatan sendiri.",
+        "Saya ingin menjadi koordinator dalam penyelenggaraan sebuah acara.",
+        "Saya menikmati kegiatan bernegosiasi untuk mencapai kesepakatan.",
+        "Saya tertarik menentukan strategi agar sebuah organisasi dapat mencapai targetnya.",
+        "Saya ingin mengembangkan konsep bisnis berdasarkan kebutuhan konsumen.",
+        "Saya menikmati kegiatan mengambil keputusan ketika tim menghadapi beberapa pilihan.",
+        "Saya tertarik mencari peluang kerja sama dengan pihak lain untuk mengembangkan proyek."
     ],
     "C": [
-        "Aku senang menyusun data agar mudah dicari dan dipahami.",
-        "Aku teliti saat memeriksa angka atau dokumen.",
-        "Aku nyaman bekerja dengan aturan dan prosedur yang jelas.",
-        "Aku suka membuat jadwal dan memastikan kegiatan berjalan teratur.",
-        "Aku menikmati pekerjaan administrasi yang membutuhkan ketelitian.",
-        "Aku tertarik mengelola catatan keuangan atau inventaris.",
-        "Aku suka memeriksa kembali pekerjaan untuk menemukan kesalahan.",
-        "Aku senang mengolah informasi dalam tabel atau basis data.",
-        "Aku tertarik membuat sistem kerja yang rapi dan konsisten.",
-        "Aku nyaman menyelesaikan tugas secara bertahap dan terstruktur."
+        "Saya tertarik mengelola data dalam spreadsheet agar mudah dianalisis.",
+        "Saya ingin memeriksa laporan keuangan untuk menemukan kesalahan pencatatan.",
+        "Saya menikmati kegiatan menyusun arsip digital berdasarkan kategori tertentu.",
+        "Saya tertarik membuat jadwal kegiatan dan memastikan setiap tugas memiliki tenggat waktu.",
+        "Saya ingin mengelola basis data agar informasi tersimpan secara teratur.",
+        "Saya menikmati kegiatan memeriksa kelengkapan dokumen sebelum dikumpulkan.",
+        "Saya tertarik membuat sistem pencatatan inventaris untuk suatu organisasi.",
+        "Saya ingin menyusun laporan berdasarkan data yang telah dikumpulkan.",
+        "Saya menikmati kegiatan mengikuti prosedur kerja secara sistematis.",
+        "Saya tertarik membuat format administrasi yang memudahkan pekerjaan berulang."
     ]
 }
 PERTANYAAN = [(pertanyaan, tipe) for tipe in ("R", "I", "A", "S", "E", "C")
@@ -112,10 +112,20 @@ def tipe_teratas(profil, jumlah=3):
     return sorted(urutan, key=lambda t: (-float(profil.get(t, 0)), urutan.index(t)))[:jumlah]
 
 def skor_kecocokan(profil_pengguna, profil_jurusan):
-    """Indikator kecocokan sederhana berdasarkan jarak absolut enam dimensi."""
-    selisih = sum(abs(float(profil_pengguna.get(t, 0)) -
-                      float(profil_jurusan.get(t, 0))) for t in NAMA_TIPE)
-    return round(max(0.0, 100 - selisih / 6), 1)
+    """Menghitung kecocokan dengan bobot 70% untuk tiga tipe pengguna tertinggi
+    dan 30% untuk tiga tipe lainnya. Setiap kelompok dibagi rata.
+    """
+    tiga_utama = set(tipe_teratas(profil_pengguna, 3))
+    bobot_per_tipe = {
+        tipe: (0.7 / 3 if tipe in tiga_utama else 0.3 / 3)
+        for tipe in NAMA_TIPE
+    }
+    jarak_berbobot = sum(
+        abs(float(profil_pengguna.get(tipe, 0)) -
+            float(profil_jurusan.get(tipe, 0))) * bobot_per_tipe[tipe]
+        for tipe in NAMA_TIPE
+    )
+    return round(max(0.0, 100 - jarak_berbobot), 1)
 
 def rekomendasikan(profil, katalog, jumlah=10):
     hasil = []
