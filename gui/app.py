@@ -1481,8 +1481,15 @@ class FutureMateApp(ctk.CTk):
                 if profile:
                     from services.minat_bakat import skor_kecocokan
                     match = skor_kecocokan(profile, major["riasec"])
-                action_button(row, "☆ Simpan ke Favorit",
-                              lambda: toggle_favorite(major, match)).pack(side="left")
+                already_favorite = any(
+                    item.get("nama") == major["nama"] for item in murid.favorite_majors
+                )
+                favorite_button = action_button(
+                    row,
+                    "★ Tersimpan di Favorit" if already_favorite else "☆ Simpan ke Favorit",
+                    lambda: toggle_favorite(major, match)
+                )
+                favorite_button.pack(side="left")
                 ctk.CTkButton(row, text="Kembali ke katalog", command=lambda: go("Katalog Jurusan")
                               ).pack(side="left", padx=8)
 
