@@ -60,7 +60,11 @@
         5,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Sistem Informasi",
@@ -123,7 +127,11 @@
         5,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Komputer",
@@ -185,7 +193,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Elektro",
@@ -247,7 +259,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Telekomunikasi",
@@ -309,7 +325,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Industri",
@@ -371,7 +391,11 @@
         5,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Mesin",
@@ -433,7 +457,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Sipil",
@@ -495,7 +523,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Arsitektur",
@@ -557,7 +589,11 @@
         3,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Lingkungan",
@@ -619,7 +655,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Kimia",
@@ -681,7 +721,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Material",
@@ -743,7 +787,11 @@
         4,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Geologi",
@@ -805,7 +853,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Pertambangan",
@@ -867,7 +919,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Perkapalan",
@@ -929,7 +985,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Dirgantara",
@@ -991,7 +1051,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknologi Informasi",
@@ -1053,7 +1117,11 @@
         4,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Rekayasa Perangkat Lunak",
@@ -1115,7 +1183,11 @@
         4,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Biomedis",
@@ -1177,7 +1249,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknik Otomasi",
@@ -1239,7 +1315,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Matematika",
@@ -1301,7 +1381,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Statistika",
@@ -1363,7 +1447,11 @@
         5,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Fisika",
@@ -1425,7 +1513,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kimia",
@@ -1487,7 +1579,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Biologi",
@@ -1549,7 +1645,11 @@
         4,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Bioteknologi",
@@ -1611,7 +1711,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Mikrobiologi",
@@ -1673,7 +1777,11 @@
         3,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Astronomi",
@@ -1735,7 +1843,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Aktuaria",
@@ -1797,7 +1909,11 @@
         5,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Komputer",
@@ -1859,7 +1975,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Geofisika",
@@ -1921,7 +2041,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kimia Analisis",
@@ -1983,7 +2107,11 @@
         4,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Bidang peminatan atau spesialisasi Kimia; status program mandiri perlu diperiksa per perguruan tinggi"
   },
   {
     "nama": "Kedokteran",
@@ -1994,57 +2122,61 @@
       "Dokter setelah pendidikan profesi dan izin praktik"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
+      "R": 50,
+      "I": 90,
       "A": 15,
       "S": 85,
-      "E": 20,
-      "C": 65
+      "E": 40,
+      "C": 60
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        3,
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        3
       ],
       "A": [
-        2,
-        2,
+        4,
         1,
         1,
-        2
+        1,
+        1
       ],
       "S": [
-        4,
         5,
         5,
-        4,
-        4
-      ],
-      "E": [
-        1,
-        2,
-        2,
-        2,
+        5,
+        5,
         2
       ],
+      "E": [
+        5,
+        5,
+        1,
+        1,
+        1
+      ],
       "C": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kedokteran Gigi",
@@ -2055,57 +2187,61 @@
       "Dokter gigi setelah pendidikan profesi"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "R": 85,
+      "I": 75,
+      "A": 45,
+      "S": 70,
+      "E": 35,
+      "C": 60
     },
     "rubrik": {
       "R": [
-        3,
-        2,
-        2,
-        2,
+        5,
+        5,
+        5,
+        5,
         2
       ],
       "I": [
+        5,
+        5,
+        5,
         4,
-        3,
-        3,
-        4,
-        4
+        1
       ],
       "A": [
-        2,
-        2,
+        5,
+        5,
         2,
         1,
         1
       ],
       "S": [
-        4,
-        4,
         5,
         5,
-        4
+        5,
+        3,
+        1
       ],
       "E": [
-        2,
+        5,
+        4,
         1,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Keperawatan",
@@ -2116,57 +2252,61 @@
       "Perawat setelah pendidikan profesi dan registrasi"
     ],
     "riasec": {
-      "R": 30,
+      "R": 45,
       "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
+      "A": 20,
+      "S": 95,
+      "E": 35,
       "C": 65
     },
     "rubrik": {
       "R": [
+        5,
+        5,
         2,
-        3,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "I": [
-        4,
-        4,
-        3,
-        3,
-        4
-      ],
-      "A": [
-        1,
-        2,
-        2,
+        5,
+        5,
+        5,
         2,
         1
       ],
-      "S": [
-        4,
-        4,
-        4,
+      "A": [
         5,
-        5
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        4
       ],
       "E": [
-        2,
-        2,
+        5,
+        4,
         1,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        4,
-        3,
-        3,
-        4,
-        4
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Farmasi",
@@ -2177,57 +2317,61 @@
       "Apoteker setelah pendidikan profesi dan izin"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "R": 55,
+      "I": 90,
+      "A": 20,
+      "S": 45,
+      "E": 35,
+      "C": 85
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        3
       ],
       "A": [
-        2,
-        2,
+        5,
         1,
         1,
-        2
+        1,
+        1
       ],
       "S": [
-        4,
         5,
         5,
-        4,
-        4
+        2,
+        1,
+        1
       ],
       "E": [
+        5,
+        4,
         1,
-        2,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kesehatan Masyarakat",
@@ -2239,57 +2383,61 @@
       "epidemiologist"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
+      "R": 20,
+      "I": 85,
+      "A": 30,
       "S": 85,
-      "E": 20,
-      "C": 65
+      "E": 65,
+      "C": 75
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        3,
-        2
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "I": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        2,
+        5,
+        3,
         1,
         1,
-        2,
-        2
+        1
       ],
       "S": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        2
       ],
       "E": [
-        2,
-        2,
-        2,
+        5,
+        5,
+        5,
         2,
         1
       ],
       "C": [
+        5,
+        5,
+        5,
         4,
-        4,
-        4,
-        3,
-        3
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Gizi",
@@ -2301,57 +2449,61 @@
       "dietitian sesuai kualifikasi"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
+      "R": 35,
+      "I": 80,
+      "A": 25,
       "S": 85,
-      "E": 20,
+      "E": 40,
       "C": 65
     },
     "rubrik": {
       "R": [
-        3,
-        2,
-        2,
-        2,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "I": [
-        4,
-        3,
-        3,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "A": [
+        5,
         2,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "S": [
-        4,
-        4,
         5,
         5,
-        4
-      ],
-      "E": [
-        2,
-        1,
-        2,
-        2,
+        5,
+        5,
         2
       ],
+      "E": [
+        5,
+        5,
+        1,
+        1,
+        1
+      ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kebidanan",
@@ -2362,57 +2514,61 @@
       "Bidan setelah pendidikan profesi dan registrasi"
     ],
     "riasec": {
-      "R": 30,
+      "R": 45,
       "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "A": 20,
+      "S": 95,
+      "E": 35,
+      "C": 60
     },
     "rubrik": {
       "R": [
-        3,
-        2,
-        2,
-        2,
-        2
-      ],
-      "I": [
-        4,
-        3,
-        3,
-        4,
-        4
-      ],
-      "A": [
-        2,
-        2,
+        5,
+        5,
         2,
         1,
         1
       ],
+      "I": [
+        5,
+        5,
+        5,
+        2,
+        1
+      ],
+      "A": [
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
       "S": [
-        4,
-        4,
+        5,
+        5,
         5,
         5,
         4
       ],
       "E": [
-        2,
+        5,
+        4,
         1,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kedokteran Hewan",
@@ -2423,57 +2579,61 @@
       "Dokter hewan setelah pendidikan profesi"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "R": 75,
+      "I": 85,
+      "A": 20,
+      "S": 60,
+      "E": 35,
+      "C": 60
     },
     "rubrik": {
       "R": [
-        3,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "I": [
-        4,
-        3,
-        3,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        2,
-        2,
-        2,
+        5,
+        1,
+        1,
         1,
         1
       ],
       "S": [
-        4,
-        4,
         5,
         5,
-        4
+        5,
+        1,
+        1
       ],
       "E": [
-        2,
+        5,
+        4,
         1,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Fisioterapi",
@@ -2484,57 +2644,61 @@
       "Fisioterapis sesuai kualifikasi"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "R": 75,
+      "I": 70,
+      "A": 20,
+      "S": 90,
+      "E": 35,
+      "C": 55
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        3,
-        2
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        4,
-        4,
-        4,
-        3
+        1
       ],
       "A": [
-        2,
+        5,
         1,
         1,
-        2,
-        2
+        1,
+        1
       ],
       "S": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        3
       ],
       "E": [
-        2,
-        2,
-        2,
-        2,
+        5,
+        4,
+        1,
+        1,
         1
       ],
       "C": [
+        5,
+        5,
         4,
-        4,
-        4,
-        3,
-        3
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknologi Laboratorium Medis",
@@ -2545,57 +2709,61 @@
       "Ahli teknologi laboratorium medis"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
-      "A": 15,
-      "S": 85,
+      "R": 75,
+      "I": 90,
+      "A": 10,
+      "S": 35,
       "E": 20,
-      "C": 65
+      "C": 90
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        3
       ],
       "A": [
-        2,
-        2,
+        3,
         1,
         1,
-        2
+        1,
+        1
       ],
       "S": [
-        4,
-        5,
         5,
         4,
-        4
+        1,
+        1,
+        1
       ],
       "E": [
+        5,
         1,
-        2,
-        2,
-        2,
-        2
+        1,
+        1,
+        1
       ],
       "C": [
-        3,
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
+        5,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kesehatan dan Keselamatan Kerja",
@@ -2607,57 +2775,61 @@
       "safety specialist"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
+      "R": 60,
+      "I": 75,
       "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "S": 50,
+      "E": 60,
+      "C": 85
     },
     "rubrik": {
       "R": [
-        3,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         4,
-        3,
-        3,
-        4,
-        4
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
+        4,
+        1,
+        1,
         1,
         1
       ],
       "S": [
-        4,
-        4,
         5,
         5,
-        4
+        3,
+        1,
+        1
       ],
       "E": [
-        2,
+        5,
+        5,
+        5,
         1,
-        2,
-        2,
-        2
+        1
       ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Radiologi",
@@ -2668,57 +2840,61 @@
       "Radiografer sesuai kualifikasi"
     ],
     "riasec": {
-      "R": 30,
-      "I": 65,
+      "R": 85,
+      "I": 80,
       "A": 15,
-      "S": 85,
-      "E": 20,
-      "C": 65
+      "S": 45,
+      "E": 25,
+      "C": 90
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "A": [
-        2,
-        2,
+        4,
         1,
         1,
-        2
+        1,
+        1
       ],
       "S": [
-        4,
         5,
         5,
-        4,
-        4
+        2,
+        1,
+        1
       ],
       "E": [
+        5,
+        2,
         1,
-        2,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "C": [
-        3,
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
+        5,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Periksa jenjang program, karena banyak program radiologi berada pada jalur vokasi/terapan"
   },
   {
     "nama": "Manajemen",
@@ -2780,7 +2956,11 @@
         4,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Akuntansi",
@@ -2843,7 +3023,11 @@
         5,
         5
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ekonomi Pembangunan",
@@ -2855,57 +3039,61 @@
       "policy researcher"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 10,
+      "I": 90,
+      "A": 20,
+      "S": 35,
+      "E": 65,
+      "C": 75
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
-        2,
+        1,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
-        2,
-        3,
-        3,
-        3,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "E": [
-        4,
         5,
         5,
-        4,
-        4
+        5,
+        2,
+        1
       ],
       "C": [
-        4,
-        4,
+        5,
+        5,
         5,
         4,
-        4
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Bisnis Digital",
@@ -2917,57 +3105,61 @@
       "e-commerce specialist"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
+      "R": 20,
+      "I": 65,
+      "A": 55,
+      "S": 45,
       "E": 85,
-      "C": 80
+      "C": 65
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
+        5,
+        1,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
+        5,
+        5,
         2,
-        2
+        1,
+        1
       ],
       "E": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        2
       ],
       "C": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kewirausahaan",
@@ -2979,57 +3171,61 @@
       "startup founder"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 35,
+      "I": 55,
+      "A": 55,
+      "S": 55,
+      "E": 100,
+      "C": 50
     },
     "rubrik": {
       "R": [
-        2,
+        5,
+        4,
         1,
         1,
-        2,
-        2
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "S": [
-        3,
-        2,
-        2,
-        3,
-        3
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "E": [
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
         5,
         5
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
-        5
+        5,
+        5,
+        3,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Keuangan dan Perbankan",
@@ -3041,57 +3237,61 @@
       "financial analyst"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
+      "R": 5,
+      "I": 75,
+      "A": 10,
       "S": 40,
-      "E": 85,
-      "C": 80
+      "E": 65,
+      "C": 90
     },
     "rubrik": {
       "R": [
         2,
-        2,
-        2,
+        1,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
-        2,
-        2
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "E": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        2,
+        1
       ],
       "C": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        3
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ekonomi Islam",
@@ -3103,57 +3303,61 @@
       "Islamic banking officer"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 10,
+      "I": 75,
+      "A": 20,
+      "S": 45,
+      "E": 65,
+      "C": 85
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
-        2,
+        1,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
+        5,
+        5,
         2,
-        3,
-        3,
-        3,
-        2
+        1,
+        1
       ],
       "E": [
-        4,
         5,
         5,
-        4,
-        4
+        5,
+        2,
+        1
       ],
       "C": [
-        4,
-        4,
         5,
-        4,
-        4
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Administrasi Bisnis",
@@ -3166,56 +3370,60 @@
     ],
     "riasec": {
       "R": 15,
-      "I": 50,
+      "I": 60,
       "A": 25,
-      "S": 40,
-      "E": 85,
+      "S": 70,
+      "E": 80,
       "C": 80
     },
     "rubrik": {
       "R": [
-        2,
-        2,
+        4,
         1,
         1,
-        2
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "A": [
+        5,
         2,
-        2,
-        2,
-        2,
-        2
+        1,
+        1,
+        1
       ],
       "S": [
+        5,
+        5,
+        5,
         3,
-        3,
-        2,
-        2,
-        3
+        1
       ],
       "E": [
         5,
-        4,
-        4,
-        4,
-        5
+        5,
+        5,
+        5,
+        1
       ],
       "C": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Manajemen Pemasaran",
@@ -3227,57 +3435,61 @@
       "brand executive"
     ],
     "riasec": {
-      "R": 15,
+      "R": 10,
       "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "A": 85,
+      "S": 75,
+      "E": 90,
+      "C": 45
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
+        3,
+        1,
+        1,
         1,
         1
       ],
       "I": [
+        5,
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
+        5,
+        5,
+        5,
+        5,
         2
       ],
       "S": [
-        3,
-        3,
-        3,
-        2,
-        2
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "E": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        3
       ],
       "C": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        2,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Manajemen Logistik",
@@ -3289,57 +3501,61 @@
       "logistics planner"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 55,
+      "I": 75,
+      "A": 20,
+      "S": 45,
+      "E": 75,
+      "C": 95
     },
     "rubrik": {
       "R": [
-        2,
+        5,
+        5,
+        4,
         1,
-        1,
-        2,
-        2
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
-        3,
+        5,
+        5,
         2,
-        2,
-        3,
-        3
+        1,
+        1
       ],
       "E": [
-        4,
-        4,
-        4,
         5,
-        5
+        5,
+        5,
+        4,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
-        5
+        5,
+        5,
+        5,
+        5,
+        4
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Perpajakan",
@@ -3351,57 +3567,61 @@
       "tax officer"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 5,
+      "I": 70,
+      "A": 10,
+      "S": 25,
+      "E": 45,
+      "C": 100
     },
     "rubrik": {
       "R": [
+        2,
         1,
-        2,
-        2,
-        2,
+        1,
+        1,
         1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
+        5,
         2,
-        3,
-        3,
-        3,
-        2
+        1,
+        1,
+        1
       ],
       "E": [
-        4,
         5,
         5,
-        4,
-        4
+        2,
+        1,
+        1
       ],
       "C": [
-        4,
-        4,
         5,
-        4,
-        4
+        5,
+        5,
+        5,
+        5
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Bisnis Internasional",
@@ -3413,57 +3633,61 @@
       "export-import specialist"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 25,
-      "S": 40,
-      "E": 85,
-      "C": 80
+      "R": 10,
+      "I": 70,
+      "A": 40,
+      "S": 75,
+      "E": 90,
+      "C": 65
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
+        3,
+        1,
+        1,
         1,
         1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
-        2,
-        2
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "E": [
         5,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        3
       ],
       "C": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Psikologi",
@@ -3526,7 +3750,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Komunikasi",
@@ -3589,7 +3817,11 @@
         2,
         2
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Sosiologi",
@@ -3602,56 +3834,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 85,
+      "A": 45,
+      "S": 85,
+      "E": 35,
+      "C": 50
     },
     "rubrik": {
       "R": [
+        3,
         1,
         1,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        2,
+        1,
+        1
       ],
       "S": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2
       ],
       "E": [
-        3,
-        2,
-        2,
-        3,
-        3
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "C": [
+        5,
+        5,
         3,
-        2,
-        2,
-        2,
-        3
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Politik",
@@ -3664,56 +3900,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 85,
+      "A": 25,
+      "S": 60,
+      "E": 75,
+      "C": 65
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        2,
+        1,
+        1,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        1,
+        1
       ],
       "E": [
-        2,
-        2,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "C": [
+        5,
+        5,
+        5,
         2,
-        2,
-        2,
-        3,
-        3
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Administrasi Negara",
@@ -3725,57 +3965,61 @@
       "policy analyst"
     ],
     "riasec": {
-      "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "R": 15,
+      "I": 70,
+      "A": 20,
+      "S": 75,
+      "E": 75,
+      "C": 85
     },
     "rubrik": {
       "R": [
+        4,
         1,
         1,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        4,
-        4,
-        4
+        1
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
-        4,
+        5,
+        5,
         5,
         4,
-        4,
-        4
+        1
       ],
       "E": [
-        3,
-        2,
-        2,
-        3,
-        3
+        5,
+        5,
+        5,
+        4,
+        1
       ],
       "C": [
-        3,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Hubungan Internasional",
@@ -3788,56 +4032,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 85,
+      "A": 40,
+      "S": 75,
+      "E": 85,
+      "C": 55
     },
     "rubrik": {
       "R": [
+        3,
         1,
         1,
         1,
-        2,
-        2
+        1
       ],
       "I": [
-        4,
-        3,
-        3,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "S": [
-        4,
-        4,
+        5,
+        5,
         5,
         4,
-        4
+        1
       ],
       "E": [
-        3,
-        3,
-        2,
-        2,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "C": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Sejarah",
@@ -3850,57 +4098,61 @@
       "educator"
     ],
     "riasec": {
-      "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "R": 15,
+      "I": 90,
+      "A": 65,
+      "S": 40,
+      "E": 25,
+      "C": 70
     },
     "rubrik": {
       "R": [
+        4,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        1,
+        1,
+        1
       ],
       "E": [
+        5,
         2,
-        2,
-        3,
-        3,
-        3
+        1,
+        1,
+        1
       ],
       "C": [
-        2,
-        2,
-        2,
+        5,
+        5,
+        5,
         3,
-        3
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Antropologi",
@@ -3912,57 +4164,61 @@
       "cultural researcher"
     ],
     "riasec": {
-      "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "R": 25,
+      "I": 85,
+      "A": 60,
+      "S": 85,
+      "E": 30,
+      "C": 45
     },
     "rubrik": {
       "R": [
+        5,
+        2,
         1,
-        2,
-        2,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2
       ],
       "E": [
-        2,
-        2,
+        5,
         3,
-        3,
-        3
+        1,
+        1,
+        1
       ],
       "C": [
+        5,
+        5,
         2,
-        2,
-        2,
-        3,
-        3
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Sastra Indonesia",
@@ -3976,56 +4232,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 70,
+      "A": 95,
+      "S": 45,
+      "E": 25,
+      "C": 45
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        4,
-        4,
-        4,
-        3
+        1
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        4
       ],
       "S": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        2,
+        1,
+        1
       ],
       "E": [
+        5,
         2,
-        2,
-        3,
-        3,
-        3
+        1,
+        1,
+        1
       ],
       "C": [
+        5,
+        5,
         2,
-        2,
-        2,
-        3,
-        3
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Sastra Inggris",
@@ -4039,60 +4299,64 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 75,
+      "A": 90,
+      "S": 50,
+      "E": 35,
+      "C": 45
     },
     "rubrik": {
       "R": [
+        3,
         1,
         1,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
+        5,
+        5,
+        5,
         4,
-        4,
-        4
+        1
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "S": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        3,
+        1,
+        1
       ],
       "E": [
-        3,
-        2,
-        2,
-        3,
-        3
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "C": [
-        3,
+        5,
+        5,
         2,
-        2,
-        2,
-        3
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Bahasa Inggris",
-    "bidang": "Sosial dan Humaniora",
+    "bidang": "Pendidikan",
     "deskripsi": "Mempersiapkan pendidik dan pengembang pembelajaran bahasa Inggris.",
     "mata_kuliah": "Linguistik terapan, metodologi pengajaran, asesmen.",
     "karier": [
@@ -4100,57 +4364,60 @@
       "learning designer"
     ],
     "riasec": {
-      "R": 10,
-      "I": 65,
+      "R": 15,
+      "I": 70,
       "A": 50,
-      "S": 80,
+      "S": 95,
       "E": 40,
-      "C": 35
+      "C": 55
     },
     "rubrik": {
       "R": [
+        4,
         1,
         1,
         1,
-        2,
-        2
+        1
       ],
       "I": [
-        4,
+        5,
+        5,
+        5,
         3,
-        3,
-        4,
-        4
+        1
       ],
       "A": [
+        5,
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1,
+        1
       ],
       "S": [
-        4,
-        4,
         5,
-        4,
+        5,
+        5,
+        5,
         4
       ],
       "E": [
-        3,
-        3,
-        2,
-        2,
-        3
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "C": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan."
   },
   {
     "nama": "Ilmu Perpustakaan",
@@ -4162,57 +4429,61 @@
       "information manager"
     ],
     "riasec": {
-      "R": 10,
+      "R": 20,
       "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "A": 30,
+      "S": 55,
+      "E": 25,
+      "C": 100
     },
     "rubrik": {
       "R": [
+        5,
         1,
         1,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2,
+        1
       ],
       "A": [
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1,
+        1,
+        1
       ],
       "S": [
-        4,
+        5,
         5,
         4,
-        4,
-        4
+        1,
+        1
       ],
       "E": [
-        3,
+        5,
         2,
-        2,
-        3,
-        3
+        1,
+        1,
+        1
       ],
       "C": [
-        3,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        5,
+        5,
+        5
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kriminologi",
@@ -4224,57 +4495,61 @@
       "social researcher"
     ],
     "riasec": {
-      "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "R": 15,
+      "I": 90,
+      "A": 20,
+      "S": 60,
+      "E": 35,
+      "C": 65
     },
     "rubrik": {
       "R": [
+        4,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        1,
+        1,
+        1,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        1,
+        1
       ],
       "E": [
-        2,
-        2,
-        3,
-        3,
-        3
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "C": [
+        5,
+        5,
+        5,
         2,
-        2,
-        2,
-        3,
-        3
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kajian Budaya",
@@ -4287,56 +4562,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 65,
-      "A": 50,
-      "S": 80,
-      "E": 40,
-      "C": 35
+      "I": 80,
+      "A": 85,
+      "S": 55,
+      "E": 35,
+      "C": 45
     },
     "rubrik": {
       "R": [
-        2,
-        2,
+        3,
+        1,
         1,
         1,
         1
       ],
       "I": [
-        4,
-        4,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "A": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "S": [
+        5,
+        5,
         4,
-        4,
-        4,
-        4,
-        5
+        1,
+        1
       ],
       "E": [
-        2,
-        3,
-        3,
-        3,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "C": [
+        5,
+        5,
         2,
-        2,
-        3,
-        3,
-        2
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Hukum",
@@ -4350,56 +4629,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
+      "I": 80,
       "A": 20,
-      "S": 55,
-      "E": 80,
-      "C": 70
+      "S": 65,
+      "E": 65,
+      "C": 90
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "A": [
-        2,
-        2,
+        5,
         1,
-        2,
-        2
+        1,
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
-        4,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ],
       "E": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        2,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
+        5,
+        5,
+        5,
+        5,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Hukum Bisnis",
@@ -4412,56 +4695,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
+      "I": 75,
       "A": 20,
-      "S": 55,
-      "E": 80,
-      "C": 70
+      "S": 50,
+      "E": 85,
+      "C": 85
     },
     "rubrik": {
       "R": [
-        2,
-        2,
+        3,
+        1,
         1,
         1,
         1
       ],
       "I": [
+        5,
+        5,
+        5,
         4,
-        4,
-        3,
-        3,
-        3
+        1
       ],
       "A": [
-        2,
+        5,
         1,
-        2,
-        2,
-        2
+        1,
+        1,
+        1
       ],
       "S": [
+        5,
+        5,
         3,
-        3,
-        4,
-        3,
-        3
+        1,
+        1
       ],
       "E": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2
       ],
       "C": [
-        4,
-        4,
-        4,
-        3,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Konsentrasi atau bidang kajian dalam Ilmu Hukum, bukan selalu program studi mandiri"
   },
   {
     "nama": "Hukum Tata Negara",
@@ -4474,56 +4761,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
+      "I": 85,
       "A": 20,
-      "S": 55,
-      "E": 80,
-      "C": 70
+      "S": 60,
+      "E": 70,
+      "C": 85
     },
     "rubrik": {
       "R": [
-        2,
-        2,
+        3,
+        1,
         1,
         1,
         1
       ],
       "I": [
-        4,
-        4,
-        3,
-        3,
-        3
-      ],
-      "A": [
-        2,
-        1,
-        2,
-        2,
+        5,
+        5,
+        5,
+        5,
         2
       ],
+      "A": [
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
       "S": [
-        3,
-        3,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "E": [
         5,
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        3,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        3,
-        4
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Konsentrasi atau bidang kajian dalam Ilmu Hukum, bukan selalu program studi mandiri"
   },
   {
     "nama": "Hukum Internasional",
@@ -4536,56 +4827,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
-      "A": 20,
-      "S": 55,
+      "I": 85,
+      "A": 35,
+      "S": 70,
       "E": 80,
       "C": 70
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        3,
-        3
-      ],
-      "A": [
-        2,
-        2,
-        1,
-        2,
+        5,
+        5,
+        5,
+        5,
         2
       ],
-      "S": [
-        3,
-        3,
-        3,
-        4,
-        3
-      ],
-      "E": [
-        4,
+      "A": [
         5,
         4,
-        4,
-        4
+        1,
+        1,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        3,
+        1
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        3,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Konsentrasi atau bidang kajian dalam Ilmu Hukum, bukan selalu program studi mandiri"
   },
   {
     "nama": "Ilmu Pemerintahan",
@@ -4597,57 +4892,61 @@
       "public affairs officer"
     ],
     "riasec": {
-      "R": 10,
-      "I": 60,
-      "A": 20,
-      "S": 55,
+      "R": 15,
+      "I": 70,
+      "A": 25,
+      "S": 75,
       "E": 80,
       "C": 70
     },
     "rubrik": {
       "R": [
+        4,
         1,
         1,
         1,
-        2,
-        2
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        4,
-        4
+        1
       ],
       "A": [
+        5,
         2,
-        2,
-        2,
-        2,
+        1,
+        1,
         1
       ],
       "S": [
+        5,
+        5,
+        5,
         4,
-        3,
-        3,
-        3,
-        3
+        1
       ],
       "E": [
-        4,
-        4,
-        4,
         5,
-        4
+        5,
+        5,
+        5,
+        1
       ],
       "C": [
-        4,
+        5,
+        5,
+        5,
         3,
-        4,
-        4,
-        4
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Administrasi Publik",
@@ -4659,57 +4958,61 @@
       "government administrator"
     ],
     "riasec": {
-      "R": 10,
-      "I": 60,
+      "R": 15,
+      "I": 70,
       "A": 20,
-      "S": 55,
-      "E": 80,
-      "C": 70
+      "S": 75,
+      "E": 70,
+      "C": 90
     },
     "rubrik": {
       "R": [
+        4,
         1,
         1,
         1,
-        2,
-        2
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        4,
-        4
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
-        2,
+        5,
+        1,
+        1,
+        1,
         1
       ],
       "S": [
+        5,
+        5,
+        5,
         4,
-        3,
-        3,
-        3,
-        3
+        1
       ],
       "E": [
-        4,
-        4,
-        4,
         5,
-        4
+        5,
+        5,
+        3,
+        1
       ],
       "C": [
-        4,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5,
+        3
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Hukum Ekonomi",
@@ -4722,56 +5025,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
+      "I": 80,
       "A": 20,
-      "S": 55,
+      "S": 45,
       "E": 80,
-      "C": 70
+      "C": 85
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        1
       ],
       "A": [
-        2,
-        2,
+        5,
         1,
-        2,
-        2
+        1,
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
-        4,
-        3
+        5,
+        5,
+        2,
+        1,
+        1
       ],
       "E": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Konsentrasi atau bidang kajian dalam Ilmu Hukum, bukan selalu program studi mandiri"
   },
   {
     "nama": "Studi Kebijakan Publik",
@@ -4784,56 +5091,60 @@
     ],
     "riasec": {
       "R": 10,
-      "I": 60,
-      "A": 20,
-      "S": 55,
-      "E": 80,
-      "C": 70
+      "I": 90,
+      "A": 30,
+      "S": 65,
+      "E": 85,
+      "C": 80
     },
     "rubrik": {
       "R": [
+        3,
         1,
-        2,
-        2,
+        1,
         1,
         1
       ],
       "I": [
-        3,
-        4,
-        4,
-        3,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        2,
-        2,
+        5,
+        3,
         1,
-        2,
-        2
+        1,
+        1
       ],
       "S": [
-        3,
-        3,
-        3,
-        4,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ],
       "E": [
-        4,
         5,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2
       ],
       "C": [
-        4,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        5,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Desain Komunikasi Visual",
@@ -4896,7 +5207,11 @@
         2,
         2
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Desain Produk",
@@ -4958,7 +5273,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Desain Interior",
@@ -5020,7 +5339,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Seni Rupa",
@@ -5034,56 +5357,60 @@
     ],
     "riasec": {
       "R": 35,
-      "I": 35,
-      "A": 95,
+      "I": 40,
+      "A": 100,
       "S": 30,
       "E": 45,
       "C": 35
     },
     "rubrik": {
       "R": [
-        2,
-        3,
-        3,
-        2,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "I": [
-        2,
-        2,
-        3,
-        3,
-        2
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "A": [
         5,
-        4,
+        5,
         5,
         5,
         5
       ],
       "S": [
-        2,
-        2,
-        2,
-        2,
-        3
+        5,
+        3,
+        1,
+        1,
+        1
       ],
       "E": [
-        3,
-        3,
-        3,
-        3,
-        2
+        5,
+        5,
+        2,
+        1,
+        1
       ],
       "C": [
-        2,
-        3,
-        3,
-        2,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Film dan Televisi",
@@ -5096,57 +5423,61 @@
       "cinematographer"
     ],
     "riasec": {
-      "R": 35,
-      "I": 35,
-      "A": 95,
-      "S": 30,
-      "E": 45,
-      "C": 35
+      "R": 55,
+      "I": 55,
+      "A": 100,
+      "S": 65,
+      "E": 70,
+      "C": 50
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        3,
-        3,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "I": [
-        2,
-        2,
-        2,
-        3,
-        3
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "A": [
         5,
         5,
-        4,
+        5,
         5,
         5
       ],
       "S": [
-        3,
+        5,
+        5,
+        5,
         2,
-        2,
-        2,
-        2
+        1
       ],
       "E": [
-        2,
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        3
+        1
       ],
       "C": [
-        2,
-        2,
+        5,
+        5,
         3,
-        3,
-        2
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Musik",
@@ -5159,57 +5490,61 @@
       "music educator"
     ],
     "riasec": {
-      "R": 35,
-      "I": 35,
-      "A": 95,
-      "S": 30,
-      "E": 45,
+      "R": 30,
+      "I": 45,
+      "A": 100,
+      "S": 55,
+      "E": 50,
       "C": 35
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        2,
+        5,
         3,
-        3
+        1,
+        1,
+        1
       ],
       "I": [
-        3,
+        5,
+        5,
         2,
-        2,
-        2,
-        3
+        1,
+        1
       ],
       "A": [
         5,
         5,
         5,
-        4,
+        5,
         5
       ],
       "S": [
-        2,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "E": [
+        5,
+        5,
         3,
-        2,
-        3,
-        3,
-        3
+        1,
+        1
       ],
       "C": [
-        2,
-        2,
-        2,
-        3,
-        3
+        5,
+        4,
+        1,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Animasi",
@@ -5272,7 +5607,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Fotografi",
@@ -5284,57 +5623,61 @@
       "visual content creator"
     ],
     "riasec": {
-      "R": 35,
-      "I": 35,
-      "A": 95,
-      "S": 30,
+      "R": 65,
+      "I": 65,
+      "A": 90,
+      "S": 35,
       "E": 45,
-      "C": 35
+      "C": 55
     },
     "rubrik": {
       "R": [
+        5,
+        5,
+        5,
         2,
-        3,
-        3,
-        2,
-        2
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         2,
-        2,
-        3,
-        3,
-        2
+        1
       ],
       "A": [
         5,
-        4,
         5,
         5,
-        5
-      ],
-      "S": [
-        2,
-        2,
-        2,
-        2,
+        5,
         3
       ],
+      "S": [
+        5,
+        4,
+        1,
+        1,
+        1
+      ],
       "E": [
-        3,
-        3,
-        3,
-        3,
-        2
+        5,
+        5,
+        2,
+        1,
+        1
       ],
       "C": [
-        2,
-        3,
-        3,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Guru Sekolah Dasar",
@@ -5346,56 +5689,60 @@
     ],
     "riasec": {
       "R": 15,
-      "I": 50,
-      "A": 35,
-      "S": 90,
-      "E": 35,
+      "I": 60,
+      "A": 45,
+      "S": 95,
+      "E": 50,
       "C": 65
     },
     "rubrik": {
       "R": [
+        4,
         1,
         1,
-        2,
-        2,
-        2
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "A": [
+        5,
+        5,
         2,
-        3,
-        3,
-        2,
-        2
+        1,
+        1
       ],
       "S": [
-        4,
+        5,
         5,
         5,
         5,
         4
       ],
       "E": [
-        2,
-        2,
-        2,
+        5,
+        5,
         3,
-        3
+        1,
+        1
       ],
       "C": [
-        3,
-        4,
-        4,
-        4,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Matematika",
@@ -5408,56 +5755,60 @@
     ],
     "riasec": {
       "R": 15,
-      "I": 50,
+      "I": 90,
       "A": 35,
-      "S": 90,
-      "E": 35,
-      "C": 65
+      "S": 85,
+      "E": 45,
+      "C": 70
     },
     "rubrik": {
       "R": [
-        2,
-        2,
+        4,
         1,
         1,
-        2
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        2,
-        2,
-        2,
-        3,
-        3
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
         5,
-        5
-      ],
-      "E": [
-        3,
-        3,
-        2,
-        2,
+        5,
+        5,
         2
       ],
+      "E": [
+        5,
+        5,
+        2,
+        1,
+        1
+      ],
       "C": [
-        4,
+        5,
+        5,
+        5,
         3,
-        3,
-        4,
-        4
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Biologi",
@@ -5469,57 +5820,61 @@
       "education researcher"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 35,
+      "R": 30,
+      "I": 85,
+      "A": 40,
       "S": 90,
-      "E": 35,
+      "E": 40,
       "C": 65
     },
     "rubrik": {
       "R": [
+        5,
+        3,
         1,
-        2,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        2
       ],
       "A": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "S": [
         5,
         5,
         5,
-        4,
-        4
+        5,
+        3
       ],
       "E": [
-        2,
-        2,
-        3,
-        3,
-        2
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "C": [
-        4,
-        4,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Fisika",
@@ -5531,57 +5886,61 @@
       "learning content developer"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
+      "R": 35,
+      "I": 90,
       "A": 35,
-      "S": 90,
-      "E": 35,
+      "S": 85,
+      "E": 40,
       "C": 65
     },
     "rubrik": {
       "R": [
+        5,
+        4,
         1,
-        2,
-        2,
-        2,
+        1,
         1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
+        5,
+        5,
+        5,
+        5,
         3
       ],
       "A": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "S": [
         5,
         5,
         5,
-        4,
-        4
-      ],
-      "E": [
-        2,
-        2,
-        3,
-        3,
+        5,
         2
       ],
+      "E": [
+        5,
+        5,
+        1,
+        1,
+        1
+      ],
       "C": [
-        4,
-        4,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Luar Biasa",
@@ -5594,56 +5953,60 @@
     ],
     "riasec": {
       "R": 15,
-      "I": 50,
+      "I": 60,
       "A": 35,
-      "S": 90,
-      "E": 35,
+      "S": 100,
+      "E": 40,
       "C": 65
     },
     "rubrik": {
       "R": [
-        2,
+        4,
         1,
         1,
-        2,
-        2
+        1,
+        1
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        1,
+        1
       ],
       "A": [
-        2,
-        2,
-        3,
-        3,
-        2
+        5,
+        4,
+        1,
+        1,
+        1
       ],
       "S": [
-        4,
-        4,
+        5,
+        5,
         5,
         5,
         5
       ],
       "E": [
-        3,
-        2,
-        2,
-        2,
-        3
+        5,
+        5,
+        1,
+        1,
+        1
       ],
       "C": [
-        3,
-        3,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        2,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Teknologi Pendidikan",
@@ -5655,57 +6018,61 @@
       "learning technology specialist"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 35,
-      "S": 90,
-      "E": 35,
-      "C": 65
+      "R": 25,
+      "I": 70,
+      "A": 90,
+      "S": 65,
+      "E": 65,
+      "C": 70
     },
     "rubrik": {
       "R": [
+        5,
+        2,
         1,
         1,
-        2,
-        2,
-        2
+        1
       ],
       "I": [
+        5,
+        5,
+        5,
         3,
-        3,
-        3,
-        3,
-        3
+        1
       ],
       "A": [
-        2,
-        3,
-        3,
-        2,
-        2
+        5,
+        5,
+        5,
+        5,
+        3
       ],
       "S": [
-        4,
         5,
         5,
         5,
-        4
+        2,
+        1
       ],
       "E": [
+        5,
+        5,
+        5,
         2,
-        2,
-        2,
-        3,
-        3
+        1
       ],
       "C": [
+        5,
+        5,
+        5,
         3,
-        4,
-        4,
-        4,
-        3
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Pendidikan Jasmani",
@@ -5717,57 +6084,61 @@
       "sports educator"
     ],
     "riasec": {
-      "R": 15,
-      "I": 50,
-      "A": 35,
-      "S": 90,
-      "E": 35,
-      "C": 65
+      "R": 85,
+      "I": 55,
+      "A": 30,
+      "S": 95,
+      "E": 55,
+      "C": 50
     },
     "rubrik": {
       "R": [
-        2,
-        2,
-        1,
-        1,
+        5,
+        5,
+        5,
+        5,
         2
       ],
       "I": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "A": [
-        2,
-        2,
-        2,
+        5,
         3,
-        3
+        1,
+        1,
+        1
       ],
       "S": [
         5,
-        4,
-        4,
         5,
-        5
+        5,
+        5,
+        4
       ],
       "E": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        1,
+        1
       ],
       "C": [
-        4,
+        5,
+        5,
         3,
-        3,
-        4,
-        4
+        1,
+        1
       ]
-    }
+    },
+    "status_audit": "Estimasi diperbarui",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Profil dibedakan berdasarkan fokus kegiatan, mata kuliah, dan kompetensi yang tercantum pada deskripsi katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Agribisnis",
@@ -5829,7 +6200,11 @@
         3,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Agroteknologi",
@@ -5891,7 +6266,11 @@
         3,
         4
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Peternakan",
@@ -5953,7 +6332,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Tanah",
@@ -6015,7 +6398,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Kehutanan",
@@ -6077,7 +6464,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Ilmu Kelautan",
@@ -6139,7 +6530,11 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   },
   {
     "nama": "Perikanan",
@@ -6201,6 +6596,10 @@
         3,
         3
       ]
-    }
+    },
+    "status_audit": "Estimasi awal",
+    "keyakinan": "Sedang",
+    "catatan_audit": "Skor awal dipertahankan sementara. Dasar penilaian berupa deskripsi, mata kuliah, dan contoh karier pada katalog. Perlu validasi kurikulum program studi pilihan.",
+    "status_program": "Nama bidang studi; jenjang dan ketersediaan bergantung perguruan tinggi"
   }
 ]
