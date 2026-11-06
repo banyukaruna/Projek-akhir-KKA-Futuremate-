@@ -57,7 +57,7 @@ class FutureMateApp(ctk.CTk):
         ctk.CTkLabel(dialog, text=message, wraplength=360,
                      text_color=COLORS["text"]).pack(padx=24, pady=28)
         ctk.CTkButton(dialog, text="Tutup", command=dialog.destroy,
-                      fg_color=COLORS["primary"], text_color="#071923").pack()
+                      fg_color=COLORS["primary"], text_color="COLORS["text"]").pack()
 
     def _show_welcome(self):
         self._clear()
@@ -77,7 +77,7 @@ class FutureMateApp(ctk.CTk):
         self.class_entry.pack(fill="x", padx=54, pady=(7, 20))
         ctk.CTkButton(panel, text="Masuk ke FutureMate", height=44,
                       fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-                      text_color="#071923", font=ctk.CTkFont(size=14, weight="bold"),
+                      text_color="COLORS["text"]", font=ctk.CTkFont(size=14, weight="bold"),
                       command=self._login).pack(fill="x", padx=54)
         ctk.CTkLabel(panel, text="Data tersimpan secara lokal di data/data.json",
                      text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(pady=18)
@@ -362,7 +362,7 @@ class FutureMateApp(ctk.CTk):
                         actions, text="Selesai", width=72, height=30,
                         fg_color=COLORS["primary"],
                         hover_color=COLORS["primary_hover"],
-                        text_color="#071923",
+                        text_color="COLORS["text"]",
                         command=lambda current=item: complete_item(current)
                     ).pack(side="left", padx=3)
 
@@ -420,7 +420,7 @@ class FutureMateApp(ctk.CTk):
         ctk.CTkButton(
             form, text="Tambah kegiatan", height=38, command=add_item,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-            text_color="#071923"
+            text_color="COLORS["text"]"
         ).grid(row=3, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
 
         ctk.CTkLabel(
@@ -535,7 +535,7 @@ class FutureMateApp(ctk.CTk):
                     self._message("Jadwal tidak valid", str(error))
 
             ctk.CTkButton(dialog, text="Simpan perubahan", command=save_edit,
-                          fg_color=COLORS["primary"], text_color="#071923").pack(pady=12)
+                          fg_color=COLORS["primary"], text_color="COLORS["text"]").pack(pady=12)
 
         def generate_schedule():
             try:
@@ -565,7 +565,7 @@ class FutureMateApp(ctk.CTk):
         ).pack(anchor="w", padx=18, pady=(0, 8))
         ctk.CTkButton(panel, text="Buat ulang jadwal otomatis", command=generate_schedule,
                       height=36, fg_color=COLORS["primary"],
-                      hover_color=COLORS["primary_hover"], text_color="#071923").pack(
+                      hover_color=COLORS["primary_hover"], text_color="COLORS["text"]").pack(
                           fill="x", padx=14, pady=(0, 12))
         refresh_schedule()
 
