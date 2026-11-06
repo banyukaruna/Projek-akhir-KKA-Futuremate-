@@ -1392,7 +1392,7 @@ class FutureMateApp(ctk.CTk):
                                       f"Hasil tes tanggal {latest['tanggal'][:10]}.")
                 score_bars(scores, latest["skor"])
                 rec = section_card(body, "Sepuluh rekomendasi jurusan",
-                                   "Kecocokan dihitung dari jarak skor keenam dimensi RIASEC. Angka ini merupakan indikator eksplorasi, bukan kepastian keberhasilan.")
+                                   "Kecocokan memberi bobot 70% pada tiga tipe RIASEC tertinggimu dan 30% pada tiga tipe lainnya. Angka ini merupakan indikator eksplorasi, bukan kepastian keberhasilan.")
                 for saved in latest["rekomendasi"]:
                     major = next((x for x in katalog if x["nama"] == saved["nama"]), None)
                     if major:
