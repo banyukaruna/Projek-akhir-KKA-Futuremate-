@@ -31,6 +31,12 @@ class Murid(Pengguna):
         self.items = []
         self.targets = []
         self.profil_minat = {}
+        self.jadwal = []
+        self.preferensi_jadwal = {
+            "hari": [0, 1, 2, 3, 4],
+            "mulai": "16:00",
+            "selesai": "18:00",
+        }
 
     def peran(self):
         return "Murid"
@@ -63,6 +69,8 @@ class Murid(Pengguna):
             "items": [i.to_dict() for i in self.items],
             "targets": [t.to_dict() for t in self.targets],
             "portofolio": self.portofolio.to_dict(), "profil_minat": self.profil_minat,
+            "jadwal": self.jadwal,
+            "preferensi_jadwal": self.preferensi_jadwal,
         }
 
     @classmethod
@@ -73,6 +81,10 @@ class Murid(Pengguna):
         m.targets = [Target.dari_dict(x) for x in d["targets"]]
         m.portofolio = Portofolio.dari_dict(d["portofolio"])
         m.profil_minat = d.get("profil_minat", {})
+        m.jadwal = d.get("jadwal", [])
+        m.preferensi_jadwal = d.get("preferensi_jadwal", {
+            "hari": [0, 1, 2, 3, 4], "mulai": "16:00", "selesai": "18:00"
+        })
         return m
 
 
