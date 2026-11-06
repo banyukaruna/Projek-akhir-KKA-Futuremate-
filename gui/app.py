@@ -156,12 +156,15 @@ class FutureMateApp(ctk.CTk):
         self.sidebar.set_active(page)
         for child in self.content.winfo_children():
             child.destroy()
-        if page == "Dashboard":
-            self._dashboard()
-        elif page == "Tugas & Jadwal":
-            self._tugas_page()
-        else:
-            self._placeholder(page)
+        pages = {
+            "Dashboard": self._dashboard,
+            "Tugas & Jadwal": self._tugas_page,
+            "Nilai Akademik": self._nilai_page,
+            "Target Masa Depan": self._target_page,
+            "Tes Minat": self._tes_minat_page,
+            "Portofolio": self._portofolio_page,
+        }
+        pages.get(page, self._dashboard)()
 
     def _dashboard(self):
         murid = self.current_student
@@ -598,16 +601,369 @@ class FutureMateApp(ctk.CTk):
                           fill="x", padx=14, pady=(0, 12))
         refresh_schedule()
 
-    def _placeholder(self, page):
-        self._page_header(page, "Bagian ini akan dibangun pada tahap berikutnya.")
-        panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
-        panel.grid(row=2, column=0, sticky="ew")
-        ctk.CTkLabel(panel, text="Halaman sedang disiapkan",
-                     font=ctk.CTkFont(size=19, weight="bold"),
-                     text_color=COLORS["text"]).pack(anchor="w", padx=22, pady=(22, 8))
-        ctk.CTkLabel(panel, text="Navigasi dan struktur halaman sudah aktif. Fitur pengelolaan data akan ditambahkan bertahap.",
-                     text_color=COLORS["muted"], wraplength=700, justify="left"
-                     ).pack(anchor="w", padx=22, pady=(0, 22))
+    def _section_card(self, parent, title, description):
+        card = ctk.CTkFrame(
+            parent, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
+        )
+        card.pack(fill="x", pady=(0, 14))
+        ctk.CTkLabel(
+            card, text=title, font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=COLORS["text"]
+        ).pack(anchor="w", padx=18, pady=(16, 3))
+        ctk.CTkLabel(
+            card, text=description, text_color=COLORS["muted"],
+            font=ctk.CTkFont(size=11), wraplength=820, justify="left"
+        ).pack(anchor="w", padx=18, pady=(0, 12))
+        return card
+
+    def _nilai_page(self):
+        from models.nilai import NilaiTidakValidError
+        self._page_header(
+            "Nilai Akademik",
+            "Catat hasil belajarmu dan pantau perkembangan setiap mata pelajaran."
+        )
+        form = self._section_card(
+            self.content, "Tambah nilai",
+            "Masukkan mata pelajaran dan nilai yang kamu peroleh. Nilai harus berada pada rentang 0 sampai 100."
+        )
+        fields = ctk.CTkFrame(form, fg_color="transparent")
+        fields.pack(fill="x", padx=18, pady=(0, 12))
+        fields.grid_columnconfigure((0, 1), weight=1)
+        subject = ctk.CTkEntry(fields, placeholder_text="Contoh: Matematika", height=38)
+        subject.grid(row=0, column=0, padx=(0, 7), sticky="ew")
+        score = ctk.CTkEntry(fields, placeholder_text="Nilai, contoh: 88", height=38)
+        score.grid(row=0, column=1, padx=(7, 0), sticky="ew")
+        message = ctk.CTkLabel(form, text="", text_color=COLORS["danger"])
+        message.pack(anchor="w", padx=18)
+
+        summary = ctk.CTkFrame(self.content, fg_color="transparent")
+        summary.pack(fill="x", pady=(0, 14))
+        summary.grid_columnconfigure((0, 1), weight=1)
+        avg_card = self._card(summary, "Rata-rata keseluruhan", "0.0", "Rata-rata dari seluruh mapel")
+        avg_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
+        count_card = self._card(summary, "Mata pelajaran", "0", "Jumlah mapel yang memiliki nilai")
+        count_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
+
+        history = self._section_card(
+            self.content, "Riwayat nilai",
+            "Tren membandingkan nilai terbaru dengan rata-rata nilai sebelumnya pada mapel yang sama."
+        )
+        rows = ctk.CTkFrame(history, fg_color="transparent")
+        rows.pack(fill="x", padx=18, pady=(0, 14))
+
+        def refresh():
+            for child in rows.winfo_children():
+                child.destroy()
+            murid = self.current_student
+            avg = murid.nilai.rata_rata()
+            avg_card.winfo_children()[1].configure(text=f"{avg:.1f}")
+            count_card.winfo_children()[1].configure(text=str(len(murid.nilai.daftar_mapel())))
+            if not murid.nilai.daftar_mapel():
+                ctk.CTkLabel(rows, text="Belum ada nilai. Tambahkan nilai pertamamu di atas.",
+                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
+                return
+            for mapel in murid.nilai.daftar_mapel():
+                line = ctk.CTkFrame(rows, fg_color=COLORS["surface_alt"], corner_radius=9)
+                line.pack(fill="x", pady=4)
+                vals = murid.nilai.to_dict().get(mapel, [])
+                trend = murid.nilai.tren(mapel)
+                ctk.CTkLabel(line, text=mapel, text_color=COLORS["text"],
+                             font=ctk.CTkFont(size=12, weight="bold")).pack(side="left", padx=12, pady=10)
+                ctk.CTkLabel(line, text=f"{murid.nilai.rata_mapel(mapel):.1f}  ·  {len(vals)} data  ·  Tren {trend}",
+                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(side="right", padx=12)
+
+        def add_score():
+            try:
+                mapel = subject.get().strip()
+                if not mapel:
+                    raise ValueError("Nama mata pelajaran wajib diisi.")
+                value = float(score.get().strip().replace(",", "."))
+                self.current_student.nilai.tambah(mapel, value)
+                self._save()
+                subject.delete(0, "end")
+                score.delete(0, "end")
+                message.configure(text="")
+                refresh()
+            except ValueError as error:
+                message.configure(text=str(error) if str(error) else "Masukkan nilai angka yang valid.")
+            except Exception as error:
+                message.configure(text=str(error))
+
+        ctk.CTkButton(form, text="Simpan nilai", command=add_score, height=36,
+                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
+        refresh()
+
+    def _target_page(self):
+        from datetime import date
+        from models.target import Jurusan, Beasiswa, Lomba
+        self._page_header(
+            "Target Masa Depan",
+            "Simpan tujuan pendidikan dan peluang yang ingin kamu persiapkan."
+        )
+        form = self._section_card(
+            self.content, "Tambah target",
+            "Pilih jenis target. Untuk jurusan, pilih dari katalog. Untuk beasiswa dan lomba, isi syarat sesuai informasi resmi yang kamu miliki."
+        )
+        grid = ctk.CTkFrame(form, fg_color="transparent")
+        grid.pack(fill="x", padx=18, pady=(0, 10))
+        grid.grid_columnconfigure((0, 1), weight=1)
+        kind = ctk.CTkOptionMenu(
+            grid, values=["Jurusan", "Beasiswa", "Lomba"],
+            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
+        )
+        kind.grid(row=0, column=0, padx=(0, 7), pady=4, sticky="ew")
+        catalog_names = [f"{j.nama_jurusan} | {j.kampus}" for j in self.katalog]
+        catalog = ctk.CTkOptionMenu(
+            grid, values=catalog_names or ["Katalog kosong"],
+            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
+        )
+        catalog.grid(row=0, column=1, padx=(7, 0), pady=4, sticky="ew")
+        name = ctk.CTkEntry(grid, placeholder_text="Nama beasiswa atau lomba")
+        name.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
+        deadline = ctk.CTkEntry(grid, placeholder_text="Deadline YYYY-MM-DD (opsional)")
+        deadline.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
+        average = ctk.CTkEntry(grid, placeholder_text="Rata-rata minimum, contoh 80")
+        average.grid(row=2, column=0, padx=(0, 7), pady=4, sticky="ew")
+        extra = ctk.CTkEntry(grid, placeholder_text="Prestasi minimum / mata pelajaran")
+        extra.grid(row=2, column=1, padx=(7, 0), pady=4, sticky="ew")
+        extra_value = ctk.CTkEntry(grid, placeholder_text="Nilai minimum mapel (khusus lomba)")
+        extra_value.grid(row=3, column=0, padx=(0, 7), pady=4, sticky="ew")
+        hint = ctk.CTkLabel(form, text="Jurusan menggunakan syarat yang tersedia di katalog.",
+                            text_color=COLORS["muted"], font=ctk.CTkFont(size=10))
+        hint.pack(anchor="w", padx=18, pady=(0, 8))
+        result_area = ctk.CTkFrame(self.content, fg_color="transparent")
+        result_area.pack(fill="x")
+
+        def refresh():
+            for child in result_area.winfo_children():
+                child.destroy()
+            if not self.current_student.targets:
+                ctk.CTkLabel(result_area, text="Belum ada target tersimpan.",
+                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
+            for target in self.current_student.targets:
+                card = ctk.CTkFrame(result_area, fg_color=COLORS["surface"],
+                                    corner_radius=12, border_width=1, border_color=COLORS["border"])
+                card.pack(fill="x", pady=5)
+                fraction = target.kecocokan(self.current_student) * 100
+                ctk.CTkLabel(card, text=f"{target.jenis()} · {target.nama}",
+                             text_color=COLORS["text"], font=ctk.CTkFont(size=13, weight="bold")
+                             ).pack(anchor="w", padx=15, pady=(12, 3))
+                ctk.CTkLabel(card, text=f"Kecocokan syarat: {fraction:.0f}%",
+                             text_color=COLORS["primary"], font=ctk.CTkFont(size=11, weight="bold")
+                             ).pack(anchor="w", padx=15, pady=(0, 5))
+                for requirement in target.cek_syarat(self.current_student):
+                    mark = "Terpenuhi" if requirement.terpenuhi else "Belum terpenuhi"
+                    ctk.CTkLabel(card, text=f"• {requirement.deskripsi} · {mark}",
+                                 text_color=COLORS["muted"], wraplength=780, justify="left"
+                                 ).pack(anchor="w", padx=18, pady=2)
+                ctk.CTkButton(card, text="Hapus target", width=100, height=28,
+                              fg_color=COLORS["danger"],
+                              command=lambda t=target: remove(t)).pack(anchor="e", padx=12, pady=10)
+
+        def remove(target):
+            self.current_student.targets.remove(target)
+            self._save()
+            refresh()
+
+        def add_target():
+            try:
+                selected = kind.get()
+                if selected == "Jurusan":
+                    if not self.katalog:
+                        raise ValueError("Katalog jurusan belum tersedia.")
+                    chosen = catalog.get()
+                    target = next(j for j in self.katalog if f"{j.nama_jurusan} | {j.kampus}" == chosen)
+                    target = Jurusan(target.nama_jurusan, target.kampus, target.rata_min,
+                                     target.syarat_mapel, target.riasec)
+                else:
+                    target_name = name.get().strip()
+                    if not target_name:
+                        raise ValueError("Nama target wajib diisi.")
+                    raw_deadline = deadline.get().strip()
+                    due = date.fromisoformat(raw_deadline) if raw_deadline else None
+                    minimum = float(average.get().strip())
+                    if selected == "Beasiswa":
+                        target = Beasiswa(target_name, due, minimum, int(extra.get().strip()))
+                    else:
+                        subject_name = extra.get().strip()
+                        if not subject_name:
+                            raise ValueError("Isi nama mata pelajaran untuk target lomba.")
+                        target = Lomba(target_name, due, subject_name, float(extra_value.get().strip()))
+                self.current_student.tambah_target(target)
+                self._save()
+                name.delete(0, "end")
+                deadline.delete(0, "end")
+                average.delete(0, "end")
+                extra.delete(0, "end")
+                extra_value.delete(0, "end")
+                refresh()
+            except (ValueError, StopIteration) as error:
+                self._message("Target belum tersimpan", str(error) or "Periksa kembali isian target.")
+
+        ctk.CTkButton(form, text="Simpan target", command=add_target, height=36,
+                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
+        refresh()
+
+    def _tes_minat_page(self):
+        from services.tes_minat import PERTANYAAN, NAMA_TIPE, ProfilMinat
+        self._page_header(
+            "Tes Minat",
+            "Kenali kecenderungan minatmu melalui 12 pernyataan singkat."
+        )
+        intro = self._section_card(
+            self.content, "Tentang tes RIASEC",
+            "Pilih angka 1 sampai 5 untuk setiap pernyataan. 1 berarti sangat tidak sesuai, sedangkan 5 berarti sangat sesuai. Hasil membantu eksplorasi, bukan menentukan masa depan secara mutlak."
+        )
+        answers = []
+        for question, _ in PERTANYAAN:
+            block = ctk.CTkFrame(intro, fg_color=COLORS["surface_alt"], corner_radius=9)
+            block.pack(fill="x", padx=18, pady=4)
+            ctk.CTkLabel(block, text=question, text_color=COLORS["text"],
+                         wraplength=760, justify="left").pack(anchor="w", padx=12, pady=(9, 3))
+            choice = ctk.CTkSegmentedButton(
+                block, values=["1", "2", "3", "4", "5"],
+                selected_color=COLORS["primary"], selected_hover_color=COLORS["primary_hover"],
+                unselected_color=COLORS["surface"], text_color=COLORS["text"]
+            )
+            choice.set("3")
+            choice.pack(anchor="e", padx=10, pady=(0, 8))
+            answers.append(choice)
+
+        result_card = self._section_card(
+            self.content, "Hasil tes dan rekomendasi",
+            "Setelah mengirim jawaban, kamu akan melihat tiga minat teratas dan jurusan yang paling sesuai dengan profilmu."
+        )
+        result_body = ctk.CTkFrame(result_card, fg_color="transparent")
+        result_body.pack(fill="x", padx=18, pady=(0, 14))
+
+        def render_saved():
+            for child in result_body.winfo_children():
+                child.destroy()
+            profile = self.current_student.profil_minat
+            if not profile:
+                ctk.CTkLabel(result_body, text="Kamu belum mengisi tes minat.",
+                             text_color=COLORS["muted"]).pack(anchor="w")
+                return
+            top = ProfilMinat.tipe_teratas(profile)
+            ctk.CTkLabel(result_body, text="Minat dominan: " + " · ".join(
+                f"{t} ({NAMA_TIPE[t]})" for t in top),
+                text_color=COLORS["text"], wraplength=780, justify="left"
+            ).pack(anchor="w", pady=5)
+            for jurusan, match in ProfilMinat.rekomendasikan(profile, self.katalog, 5):
+                ctk.CTkLabel(result_body, text=f"{jurusan.nama_jurusan} · {jurusan.kampus} · kecocokan minat {match:.0f}%",
+                             text_color=COLORS["muted"], wraplength=780, justify="left"
+                             ).pack(anchor="w", pady=3)
+
+        def submit():
+            profile = ProfilMinat.hitung([int(choice.get()) for choice in answers])
+            self.current_student.profil_minat = profile
+            self._save()
+            render_saved()
+
+        ctk.CTkButton(intro, text="Hitung hasil tes", command=submit, height=38,
+                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=14)
+        render_saved()
+
+    def _portofolio_page(self):
+        from models.portofolio import Prestasi
+        self._page_header(
+            "Portofolio",
+            "Dokumentasikan prestasi dan pengalaman yang mendukung rencana masa depanmu."
+        )
+        form = self._section_card(
+            self.content, "Tambah pencapaian",
+            "Catat kegiatan, proyek, sertifikat, atau prestasi. Tingkat pencapaian menentukan poin portofolio."
+        )
+        grid = ctk.CTkFrame(form, fg_color="transparent")
+        grid.pack(fill="x", padx=18, pady=(0, 10))
+        grid.grid_columnconfigure((0, 1), weight=1)
+        title = ctk.CTkEntry(grid, placeholder_text="Nama prestasi atau kegiatan", height=38)
+        title.grid(row=0, column=0, padx=(0, 7), pady=4, sticky="ew")
+        category = ctk.CTkEntry(grid, placeholder_text="Kategori, contoh: Akademik", height=38)
+        category.grid(row=0, column=1, padx=(7, 0), pady=4, sticky="ew")
+        level = ctk.CTkOptionMenu(
+            grid, values=Prestasi.TINGKAT, fg_color=COLORS["surface_alt"],
+            button_color=COLORS["primary"], button_hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"]
+        )
+        level.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
+        year = ctk.CTkEntry(grid, placeholder_text="Tahun, contoh: 2026", height=38)
+        year.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
+        summary = ctk.CTkFrame(self.content, fg_color="transparent")
+        summary.pack(fill="x", pady=(0, 14))
+        summary.grid_columnconfigure((0, 1), weight=1)
+        points_card = self._card(summary, "Total poin", "0", "Poin berdasarkan tingkat pencapaian")
+        points_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
+        total_card = self._card(summary, "Jumlah pencapaian", "0", "Jumlah item portofolio")
+        total_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
+        listing = self._section_card(
+            self.content, "Daftar portofolio",
+            "Gunakan tombol hapus jika ingin menghapus catatan yang tidak lagi diperlukan."
+        )
+        rows = ctk.CTkFrame(listing, fg_color="transparent")
+        rows.pack(fill="x", padx=18, pady=(0, 14))
+
+        def refresh():
+            for child in rows.winfo_children():
+                child.destroy()
+            records = self.current_student.portofolio.daftar()
+            points_card.winfo_children()[1].configure(text=str(self.current_student.portofolio.total_poin()))
+            total_card.winfo_children()[1].configure(text=str(len(records)))
+            if not records:
+                ctk.CTkLabel(rows, text="Belum ada pencapaian yang dicatat.",
+                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
+            for record in records:
+                line = ctk.CTkFrame(rows, fg_color=COLORS["surface_alt"], corner_radius=9)
+                line.pack(fill="x", pady=4)
+                info = ctk.CTkFrame(line, fg_color="transparent")
+                info.pack(side="left", fill="x", expand=True, padx=12, pady=9)
+                ctk.CTkLabel(info, text=record.judul, text_color=COLORS["text"],
+                             font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w")
+                ctk.CTkLabel(info, text=f"{record.kategori} · {record.tingkat} · {record.tahun} · {record.poin} poin",
+                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w", pady=(2, 0))
+                ctk.CTkButton(line, text="Hapus", width=65, height=28,
+                              fg_color=COLORS["danger"],
+                              command=lambda r=record: remove(r)).pack(side="right", padx=10)
+
+        def remove(record):
+            records = self.current_student.portofolio.daftar()
+            records.remove(record)
+            rebuilt = type(self.current_student.portofolio)()
+            for item in records:
+                rebuilt.tambah(item)
+            self.current_student.portofolio = rebuilt
+            self._save()
+            refresh()
+
+        def add_record():
+            try:
+                title_value = title.get().strip()
+                category_value = category.get().strip()
+                if not title_value or not category_value:
+                    raise ValueError("Nama pencapaian dan kategori wajib diisi.")
+                year_value = int(year.get().strip())
+                if year_value < 1900 or year_value > 2100:
+                    raise ValueError("Tahun harus berada pada rentang 1900 sampai 2100.")
+                record = Prestasi(title_value, category_value, level.get(), year_value)
+                self.current_student.portofolio.tambah(record)
+                self._save()
+                title.delete(0, "end")
+                category.delete(0, "end")
+                year.delete(0, "end")
+                refresh()
+            except ValueError as error:
+                self._message("Data belum tersimpan", str(error))
+
+        ctk.CTkButton(form, text="Simpan pencapaian", command=add_record, height=36,
+                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
+        refresh()
 
     def on_closing(self):
         try:
