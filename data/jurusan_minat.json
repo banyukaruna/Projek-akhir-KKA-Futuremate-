@@ -1,0 +1,6206 @@
+[
+  {
+    "nama": "Teknik Informatika",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mengembangkan perangkat lunak, sistem komputasi, dan solusi digital.",
+    "mata_kuliah": "Pemrograman, algoritma, basis data, kecerdasan buatan.",
+    "karier": [
+      "Software developer",
+      "data engineer",
+      "system analyst"
+    ],
+    "riasec": {
+      "R": 90,
+      "I": 90,
+      "A": 0,
+      "S": 0,
+      "E": 10,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        4,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Sistem Informasi",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Menghubungkan teknologi informasi dengan kebutuhan organisasi.",
+    "mata_kuliah": "Analisis proses bisnis, basis data, manajemen sistem informasi.",
+    "karier": [
+      "System analyst",
+      "business analyst",
+      "IT consultant"
+    ],
+    "riasec": {
+      "R": 60,
+      "I": 35,
+      "A": 0,
+      "S": 0,
+      "E": 5,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "I": [
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        2,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Komputer",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang perangkat keras dan sistem komputer terintegrasi.",
+    "mata_kuliah": "Arsitektur komputer, elektronika digital, sistem tertanam.",
+    "karier": [
+      "Computer engineer",
+      "embedded developer"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 55,
+      "A": 15,
+      "S": 70,
+      "E": 95,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        4,
+        5
+      ],
+      "I": [
+        3,
+        2,
+        3,
+        4,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Elektro",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mempelajari energi listrik, elektronika, dan sistem kendali.",
+    "mata_kuliah": "Rangkaian listrik, elektronika, tenaga listrik, kontrol.",
+    "karier": [
+      "Electrical engineer",
+      "control engineer"
+    ],
+    "riasec": {
+      "R": 60,
+      "I": 60,
+      "A": 20,
+      "S": 10,
+      "E": 80,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        3,
+        3
+      ],
+      "I": [
+        3,
+        4,
+        3,
+        3,
+        4
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        2,
+        3
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        3,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Telekomunikasi",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang jaringan dan sistem komunikasi data.",
+    "mata_kuliah": "Sinyal, jaringan komunikasi, antena, transmisi.",
+    "karier": [
+      "Network engineer",
+      "telecommunication engineer"
+    ],
+    "riasec": {
+      "R": 85,
+      "I": 85,
+      "A": 5,
+      "S": 5,
+      "E": 80,
+      "C": 85
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        4,
+        4,
+        4,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        4,
+        5,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Industri",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Meningkatkan efisiensi sistem produksi dan organisasi.",
+    "mata_kuliah": "Riset operasi, ergonomi, manajemen produksi, kualitas.",
+    "karier": [
+      "Industrial engineer",
+      "operations analyst"
+    ],
+    "riasec": {
+      "R": 95,
+      "I": 95,
+      "A": 15,
+      "S": 70,
+      "E": 95,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        4,
+        5,
+        5
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Mesin",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang dan menganalisis mesin serta sistem mekanik.",
+    "mata_kuliah": "Termodinamika, mekanika, desain mesin, manufaktur.",
+    "karier": [
+      "Mechanical engineer",
+      "maintenance engineer"
+    ],
+    "riasec": {
+      "R": 75,
+      "I": 25,
+      "A": 0,
+      "S": 5,
+      "E": 45,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Sipil",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang infrastruktur seperti gedung, jalan, dan jembatan.",
+    "mata_kuliah": "Struktur, geoteknik, hidrologi, manajemen konstruksi.",
+    "karier": [
+      "Civil engineer",
+      "site engineer"
+    ],
+    "riasec": {
+      "R": 55,
+      "I": 50,
+      "A": 0,
+      "S": 5,
+      "E": 45,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        3,
+        3,
+        3
+      ],
+      "I": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Arsitektur",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang ruang dan bangunan dengan pertimbangan fungsi dan estetika.",
+    "mata_kuliah": "Studio perancangan, struktur, sejarah arsitektur, utilitas.",
+    "karier": [
+      "Architect",
+      "urban designer"
+    ],
+    "riasec": {
+      "R": 85,
+      "I": 45,
+      "A": 5,
+      "S": 30,
+      "E": 60,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        5,
+        4,
+        4,
+        5
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        3,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Lingkungan",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mengembangkan solusi teknis untuk masalah lingkungan.",
+    "mata_kuliah": "Pengolahan air, limbah, pencemaran, AMDAL.",
+    "karier": [
+      "Environmental engineer",
+      "water quality specialist"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 70,
+      "A": 5,
+      "S": 45,
+      "E": 20,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        3,
+        4,
+        5
+      ],
+      "I": [
+        3,
+        3,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Kimia",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang proses industri yang mengubah bahan menjadi produk.",
+    "mata_kuliah": "Termodinamika, operasi teknik kimia, reaktor, proses.",
+    "karier": [
+      "Process engineer",
+      "production engineer"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 100,
+      "A": 70,
+      "S": 70,
+      "E": 65,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        4,
+        4,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        4,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Material",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mempelajari sifat dan pengembangan material untuk berbagai aplikasi.",
+    "mata_kuliah": "Metalurgi, polimer, keramik, karakterisasi material.",
+    "karier": [
+      "Materials engineer",
+      "quality engineer"
+    ],
+    "riasec": {
+      "R": 55,
+      "I": 95,
+      "A": 30,
+      "S": 35,
+      "E": 90,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        2,
+        1,
+        2,
+        3,
+        3
+      ],
+      "S": [
+        1,
+        2,
+        3,
+        3,
+        3
+      ],
+      "E": [
+        4,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Geologi",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mengkaji bumi, batuan, dan sumber daya geologi.",
+    "mata_kuliah": "Mineralogi, petrologi, geologi struktur, pemetaan.",
+    "karier": [
+      "Geologist",
+      "geotechnical analyst"
+    ],
+    "riasec": {
+      "R": 30,
+      "I": 35,
+      "A": 5,
+      "S": 10,
+      "E": 80,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        2,
+        2,
+        2
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        3,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Pertambangan",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mempelajari perencanaan dan operasi kegiatan pertambangan.",
+    "mata_kuliah": "Eksplorasi, ventilasi tambang, keselamatan, perencanaan tambang.",
+    "karier": [
+      "Mining engineer",
+      "mine planner"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 75,
+      "A": 10,
+      "S": 55,
+      "E": 55,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        2,
+        3,
+        4
+      ],
+      "I": [
+        3,
+        3,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        3,
+        2
+      ],
+      "E": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Perkapalan",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang kapal dan sistem rekayasa kelautan.",
+    "mata_kuliah": "Hidrodinamika, struktur kapal, propulsi, desain kapal.",
+    "karier": [
+      "Naval architect",
+      "marine engineer"
+    ],
+    "riasec": {
+      "R": 80,
+      "I": 60,
+      "A": 55,
+      "S": 45,
+      "E": 20,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        5,
+        4,
+        5
+      ],
+      "I": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Dirgantara",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Mempelajari perancangan dan analisis wahana udara.",
+    "mata_kuliah": "Aerodinamika, struktur pesawat, propulsi, kendali terbang.",
+    "karier": [
+      "Aerospace engineer",
+      "aircraft design analyst"
+    ],
+    "riasec": {
+      "R": 100,
+      "I": 100,
+      "A": 55,
+      "S": 45,
+      "E": 20,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknologi Informasi",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Menerapkan infrastruktur, jaringan, dan layanan teknologi digital.",
+    "mata_kuliah": "Jaringan komputer, cloud, keamanan sistem, administrasi TI.",
+    "karier": [
+      "IT specialist",
+      "cloud engineer"
+    ],
+    "riasec": {
+      "R": 60,
+      "I": 70,
+      "A": 70,
+      "S": 60,
+      "E": 55,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ],
+      "E": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Rekayasa Perangkat Lunak",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Berfokus pada proses pengembangan dan pemeliharaan perangkat lunak.",
+    "mata_kuliah": "Rekayasa kebutuhan, pengujian, arsitektur perangkat lunak.",
+    "karier": [
+      "Software engineer",
+      "QA engineer"
+    ],
+    "riasec": {
+      "R": 40,
+      "I": 80,
+      "A": 0,
+      "S": 0,
+      "E": 15,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        2,
+        2,
+        2
+      ],
+      "I": [
+        5,
+        4,
+        4,
+        4,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        2,
+        3
+      ],
+      "C": [
+        3,
+        3,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Biomedis",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Menggabungkan rekayasa dengan teknologi kesehatan.",
+    "mata_kuliah": "Instrumentasi medis, biomaterial, pemrosesan sinyal biomedis.",
+    "karier": [
+      "Biomedical engineer",
+      "medical equipment specialist"
+    ],
+    "riasec": {
+      "R": 50,
+      "I": 80,
+      "A": 30,
+      "S": 35,
+      "E": 90,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        4,
+        3,
+        4,
+        5
+      ],
+      "A": [
+        2,
+        1,
+        2,
+        3,
+        3
+      ],
+      "S": [
+        1,
+        2,
+        3,
+        3,
+        3
+      ],
+      "E": [
+        4,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknik Otomasi",
+    "bidang": "Teknik dan Teknologi",
+    "deskripsi": "Merancang sistem otomatis untuk proses industri.",
+    "mata_kuliah": "PLC, robotika, sensor, sistem kendali.",
+    "karier": [
+      "Automation engineer",
+      "robotics technician"
+    ],
+    "riasec": {
+      "R": 80,
+      "I": 95,
+      "A": 55,
+      "S": 10,
+      "E": 80,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        5,
+        4,
+        5,
+        4,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "A": [
+        4,
+        3,
+        2,
+        3,
+        4
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        3,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Matematika",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mengembangkan penalaran matematis dan pemodelan kuantitatif.",
+    "mata_kuliah": "Aljabar, analisis, statistika, matematika terapan.",
+    "karier": [
+      "Mathematician",
+      "quantitative analyst"
+    ],
+    "riasec": {
+      "R": 35,
+      "I": 65,
+      "A": 0,
+      "S": 0,
+      "E": 0,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Statistika",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mengolah data untuk menghasilkan kesimpulan berbasis bukti.",
+    "mata_kuliah": "Probabilitas, inferensi, regresi, analisis data.",
+    "karier": [
+      "Statistician",
+      "data analyst"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 65,
+      "A": 5,
+      "S": 30,
+      "E": 35,
+      "C": 80
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "I": [
+        3,
+        3,
+        3,
+        4,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        5,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Fisika",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari hukum alam melalui teori dan eksperimen.",
+    "mata_kuliah": "Mekanika, elektromagnetik, fisika modern, eksperimen.",
+    "karier": [
+      "Physicist",
+      "laboratory analyst"
+    ],
+    "riasec": {
+      "R": 50,
+      "I": 90,
+      "A": 20,
+      "S": 5,
+      "E": 45,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        3,
+        2,
+        2
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        2,
+        3
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "E": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ],
+      "C": [
+        3,
+        4,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Kimia",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari komposisi, struktur, dan reaksi zat.",
+    "mata_kuliah": "Kimia organik, anorganik, analitik, fisik.",
+    "karier": [
+      "Chemist",
+      "quality control analyst"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 85,
+      "A": 0,
+      "S": 10,
+      "E": 10,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        2,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        4,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      "C": [
+        2,
+        3,
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Biologi",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari makhluk hidup dan proses kehidupannya.",
+    "mata_kuliah": "Genetika, ekologi, mikrobiologi, fisiologi.",
+    "karier": [
+      "Biologist",
+      "laboratory researcher"
+    ],
+    "riasec": {
+      "R": 30,
+      "I": 90,
+      "A": 70,
+      "S": 65,
+      "E": 60,
+      "C": 50
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        4,
+        5,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "E": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ],
+      "C": [
+        4,
+        4,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Bioteknologi",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Memanfaatkan sistem biologis untuk menghasilkan produk dan teknologi.",
+    "mata_kuliah": "Biologi molekuler, rekayasa genetika, bioproses.",
+    "karier": [
+      "Biotechnologist",
+      "research assistant"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 80,
+      "A": 0,
+      "S": 20,
+      "E": 25,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        4,
+        4,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        1,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Mikrobiologi",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari mikroorganisme dan perannya dalam kehidupan.",
+    "mata_kuliah": "Bakteriologi, virologi, mikologi, mikrobiologi industri.",
+    "karier": [
+      "Microbiologist",
+      "laboratory analyst"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 80,
+      "A": 0,
+      "S": 20,
+      "E": 25,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "I": [
+        4,
+        4,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        1,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Astronomi",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari benda langit dan fenomena alam semesta.",
+    "mata_kuliah": "Astrofisika, mekanika langit, kosmologi, observasi.",
+    "karier": [
+      "Astronomer",
+      "science communicator"
+    ],
+    "riasec": {
+      "R": 75,
+      "I": 100,
+      "A": 60,
+      "S": 55,
+      "E": 5,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ],
+      "S": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Aktuaria",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mengukur risiko keuangan menggunakan matematika dan statistika.",
+    "mata_kuliah": "Matematika keuangan, probabilitas, model risiko.",
+    "karier": [
+      "Actuary",
+      "risk analyst"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 85,
+      "A": 0,
+      "S": 20,
+      "E": 25,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        1,
+        2,
+        1,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Komputer",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mempelajari dasar komputasi, algoritma, dan teori komputer.",
+    "mata_kuliah": "Struktur data, algoritma, teori komputasi, AI.",
+    "karier": [
+      "Computer scientist",
+      "algorithm engineer"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 100,
+      "A": 65,
+      "S": 65,
+      "E": 65,
+      "C": 80
+    },
+    "rubrik": {
+      "R": [
+        3,
+        3,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        4,
+        4
+      ],
+      "E": [
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        5,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Geofisika",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Menggunakan prinsip fisika untuk memahami struktur bumi.",
+    "mata_kuliah": "Seismologi, metode gravitasi, geolistrik, pemodelan bumi.",
+    "karier": [
+      "Geophysicist",
+      "exploration analyst"
+    ],
+    "riasec": {
+      "R": 40,
+      "I": 70,
+      "A": 5,
+      "S": 50,
+      "E": 5,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "I": [
+        3,
+        3,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Kimia Analisis",
+    "bidang": "Sains dan Matematika",
+    "deskripsi": "Mengembangkan metode untuk mengidentifikasi dan mengukur zat.",
+    "mata_kuliah": "Instrumentasi analitik, spektroskopi, kromatografi.",
+    "karier": [
+      "Analytical chemist",
+      "lab quality analyst"
+    ],
+    "riasec": {
+      "R": 75,
+      "I": 100,
+      "A": 70,
+      "S": 70,
+      "E": 65,
+      "C": 80
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        3,
+        4
+      ],
+      "S": [
+        4,
+        4,
+        3,
+        4,
+        4
+      ],
+      "E": [
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        5,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Kedokteran",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari ilmu medis untuk pencegahan, diagnosis, dan penanganan penyakit.",
+    "mata_kuliah": "Anatomi, fisiologi, patologi, ilmu klinis.",
+    "karier": [
+      "Dokter setelah pendidikan profesi dan izin praktik"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 55,
+      "A": 35,
+      "S": 100,
+      "E": 35,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        3,
+        4
+      ],
+      "A": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Kedokteran Gigi",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari kesehatan gigi, mulut, dan jaringan terkait.",
+    "mata_kuliah": "Anatomi gigi, konservasi, periodonsia, ilmu klinis.",
+    "karier": [
+      "Dokter gigi setelah pendidikan profesi"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 90,
+      "A": 10,
+      "S": 95,
+      "E": 65,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        2,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        4,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "S": [
+        4,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Keperawatan",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari asuhan keperawatan dan pelayanan pasien.",
+    "mata_kuliah": "Keperawatan dasar, medikal bedah, komunitas, maternitas.",
+    "karier": [
+      "Perawat setelah pendidikan profesi dan registrasi"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 100,
+      "A": 70,
+      "S": 100,
+      "E": 40,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        3,
+        3,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Farmasi",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari obat, bahan aktif, formulasi, dan penggunaannya.",
+    "mata_kuliah": "Kimia farmasi, farmakologi, farmasetika, farmasi klinis.",
+    "karier": [
+      "Apoteker setelah pendidikan profesi dan izin"
+    ],
+    "riasec": {
+      "R": 65,
+      "I": 100,
+      "A": 70,
+      "S": 100,
+      "E": 60,
+      "C": 25
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ],
+      "C": [
+        3,
+        3,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kesehatan Masyarakat",
+    "bidang": "Kesehatan",
+    "deskripsi": "Meningkatkan kesehatan populasi melalui pencegahan dan kebijakan.",
+    "mata_kuliah": "Epidemiologi, promosi kesehatan, biostatistika, kesehatan lingkungan.",
+    "karier": [
+      "Public health officer",
+      "epidemiologist"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 80,
+      "A": 25,
+      "S": 90,
+      "E": 15,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        3,
+        2,
+        1,
+        2
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "C": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Gizi",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari hubungan makanan, zat gizi, dan kesehatan.",
+    "mata_kuliah": "Ilmu bahan pangan, dietetika, gizi klinis, gizi masyarakat.",
+    "karier": [
+      "Nutritionist",
+      "dietitian sesuai kualifikasi"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 65,
+      "A": 10,
+      "S": 55,
+      "E": 5,
+      "C": 5
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        3,
+        3,
+        3
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "E": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "C": [
+        1,
+        2,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kebidanan",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari pelayanan kesehatan ibu, bayi, dan reproduksi.",
+    "mata_kuliah": "Asuhan kebidanan, kesehatan reproduksi, neonatus.",
+    "karier": [
+      "Bidan setelah pendidikan profesi dan registrasi"
+    ],
+    "riasec": {
+      "R": 40,
+      "I": 60,
+      "A": 10,
+      "S": 85,
+      "E": 0,
+      "C": 5
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        4,
+        5,
+        4,
+        4,
+        5
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kedokteran Hewan",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari kesehatan, penyakit, dan kesejahteraan hewan.",
+    "mata_kuliah": "Anatomi hewan, patologi, parasitologi, ilmu klinis.",
+    "karier": [
+      "Dokter hewan setelah pendidikan profesi"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 30,
+      "A": 5,
+      "S": 50,
+      "E": 0,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        3,
+        2,
+        2,
+        2
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        2,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Fisioterapi",
+    "bidang": "Kesehatan",
+    "deskripsi": "Membantu pemulihan gerak dan fungsi tubuh.",
+    "mata_kuliah": "Anatomi gerak, terapi latihan, rehabilitasi, biomekanika.",
+    "karier": [
+      "Fisioterapis sesuai kualifikasi"
+    ],
+    "riasec": {
+      "R": 75,
+      "I": 100,
+      "A": 70,
+      "S": 100,
+      "E": 40,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        3,
+        3,
+        2,
+        3,
+        2
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Teknologi Laboratorium Medis",
+    "bidang": "Kesehatan",
+    "deskripsi": "Melakukan pemeriksaan laboratorium untuk mendukung diagnosis.",
+    "mata_kuliah": "Hematologi, kimia klinik, mikrobiologi, imunologi.",
+    "karier": [
+      "Ahli teknologi laboratorium medis"
+    ],
+    "riasec": {
+      "R": 25,
+      "I": 70,
+      "A": 25,
+      "S": 95,
+      "E": 30,
+      "C": 80
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        3,
+        2,
+        1,
+        2
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        5,
+        5
+      ],
+      "E": [
+        2,
+        1,
+        2,
+        3,
+        3
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Kesehatan dan Keselamatan Kerja",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mengelola risiko keselamatan dan kesehatan di lingkungan kerja.",
+    "mata_kuliah": "Higiene industri, ergonomi, toksikologi, manajemen risiko.",
+    "karier": [
+      "HSE officer",
+      "safety specialist"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 90,
+      "A": 5,
+      "S": 80,
+      "E": 60,
+      "C": 90
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        4,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        4,
+        3,
+        4,
+        5,
+        5
+      ],
+      "E": [
+        2,
+        3,
+        4,
+        4,
+        4
+      ],
+      "C": [
+        4,
+        5,
+        5,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Radiologi",
+    "bidang": "Kesehatan",
+    "deskripsi": "Mempelajari teknologi pencitraan untuk pelayanan kesehatan.",
+    "mata_kuliah": "Fisika radiologi, proteksi radiasi, teknik pencitraan.",
+    "karier": [
+      "Radiografer sesuai kualifikasi"
+    ],
+    "riasec": {
+      "R": 30,
+      "I": 95,
+      "A": 5,
+      "S": 95,
+      "E": 5,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        1,
+        2,
+        3
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "C": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Manajemen",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari pengelolaan organisasi dan sumber daya.",
+    "mata_kuliah": "Manajemen pemasaran, SDM, operasi, strategi.",
+    "karier": [
+      "Business manager",
+      "management trainee"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 90,
+      "A": 55,
+      "S": 75,
+      "E": 70,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        3,
+        4
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "S": [
+        4,
+        5,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        5,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Akuntansi",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mencatat, memeriksa, dan menyajikan informasi keuangan.",
+    "mata_kuliah": "Akuntansi keuangan, audit, pajak, sistem informasi akuntansi.",
+    "karier": [
+      "Accountant",
+      "auditor",
+      "tax associate"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 55,
+      "A": 30,
+      "S": 80,
+      "E": 70,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        3,
+        3,
+        2,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        5,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Ekonomi Pembangunan",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Menganalisis ekonomi dan kebijakan pembangunan.",
+    "mata_kuliah": "Mikroekonomi, makroekonomi, ekonometrika, kebijakan publik.",
+    "karier": [
+      "Economic analyst",
+      "policy researcher"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 30,
+      "A": 10,
+      "S": 80,
+      "E": 95,
+      "C": 90
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        2,
+        3,
+        4
+      ],
+      "I": [
+        2,
+        1,
+        2,
+        3,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      "S": [
+        4,
+        5,
+        5,
+        4,
+        3
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Bisnis Digital",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mengembangkan model bisnis dengan dukungan teknologi digital.",
+    "mata_kuliah": "Digital marketing, e-commerce, analitik bisnis, inovasi.",
+    "karier": [
+      "Digital business analyst",
+      "e-commerce specialist"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 30,
+      "A": 5,
+      "S": 25,
+      "E": 95,
+      "C": 95
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        1,
+        1,
+        2,
+        3,
+        3
+      ],
+      "E": [
+        4,
+        5,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Kewirausahaan",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari penciptaan dan pengembangan usaha.",
+    "mata_kuliah": "Validasi ide, model bisnis, pemasaran, keuangan usaha.",
+    "karier": [
+      "Entrepreneur",
+      "startup founder"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 30,
+      "A": 5,
+      "S": 25,
+      "E": 95,
+      "C": 95
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        1,
+        1,
+        2,
+        3,
+        3
+      ],
+      "E": [
+        4,
+        5,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Keuangan dan Perbankan",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari layanan keuangan, perbankan, dan pengelolaan dana.",
+    "mata_kuliah": "Manajemen keuangan, kredit, investasi, perbankan.",
+    "karier": [
+      "Banking officer",
+      "financial analyst"
+    ],
+    "riasec": {
+      "R": 30,
+      "I": 55,
+      "A": 40,
+      "S": 90,
+      "E": 100,
+      "C": 100
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        2,
+        3,
+        3
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "nama": "Ekonomi Islam",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari sistem ekonomi dan keuangan berdasarkan prinsip syariah.",
+    "mata_kuliah": "Fiqh muamalah, ekonomi mikro syariah, keuangan syariah.",
+    "karier": [
+      "Sharia finance analyst",
+      "Islamic banking officer"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 60,
+      "A": 0,
+      "S": 45,
+      "E": 95,
+      "C": 90
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        2,
+        2,
+        3
+      ],
+      "I": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        3,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        4,
+        5,
+        5,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Administrasi Bisnis",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mengelola proses administrasi dan operasi perusahaan.",
+    "mata_kuliah": "Komunikasi bisnis, operasi, pemasaran, organisasi.",
+    "karier": [
+      "Business administrator",
+      "operations coordinator"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 95,
+      "A": 70,
+      "S": 85,
+      "E": 95,
+      "C": 90
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ],
+      "I": [
+        4,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        3
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Manajemen Pemasaran",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari strategi memahami pasar dan menawarkan produk.",
+    "mata_kuliah": "Perilaku konsumen, riset pasar, branding, pemasaran digital.",
+    "karier": [
+      "Marketing specialist",
+      "brand executive"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 40,
+      "A": 65,
+      "S": 80,
+      "E": 95,
+      "C": 90
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "I": [
+        2,
+        3,
+        2,
+        3,
+        3
+      ],
+      "A": [
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "S": [
+        4,
+        5,
+        5,
+        4,
+        3
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Manajemen Logistik",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mengelola aliran barang, informasi, dan rantai pasok.",
+    "mata_kuliah": "Supply chain, pergudangan, transportasi, pengadaan.",
+    "karier": [
+      "Supply chain analyst",
+      "logistics planner"
+    ],
+    "riasec": {
+      "R": 30,
+      "I": 10,
+      "A": 0,
+      "S": 10,
+      "E": 60,
+      "C": 85
+    },
+    "rubrik": {
+      "R": [
+        2,
+        2,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        3,
+        4
+      ],
+      "C": [
+        5,
+        4,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Perpajakan",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari aturan dan administrasi perpajakan.",
+    "mata_kuliah": "Ketentuan pajak, akuntansi pajak, administrasi fiskal.",
+    "karier": [
+      "Tax consultant",
+      "tax officer"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 15,
+      "A": 0,
+      "S": 15,
+      "E": 60,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "I": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Bisnis Internasional",
+    "bidang": "Ekonomi dan Bisnis",
+    "deskripsi": "Mempelajari aktivitas bisnis lintas negara.",
+    "mata_kuliah": "Perdagangan internasional, ekspor impor, negosiasi, ekonomi global.",
+    "karier": [
+      "International business analyst",
+      "export-import specialist"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 85,
+      "A": 55,
+      "S": 45,
+      "E": 90,
+      "C": 85
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        4,
+        3
+      ],
+      "A": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "S": [
+        4,
+        3,
+        2,
+        3,
+        2
+      ],
+      "E": [
+        5,
+        4,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        4,
+        5,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Psikologi",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari perilaku, proses mental, dan penerapannya.",
+    "mata_kuliah": "Psikologi perkembangan, sosial, klinis, metode penelitian.",
+    "karier": [
+      "HR specialist",
+      "researcher",
+      "counselor after further qualification"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 100,
+      "A": 95,
+      "S": 95,
+      "E": 20,
+      "C": 0
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        2,
+        2,
+        2
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Komunikasi",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari proses komunikasi dalam media, organisasi, dan masyarakat.",
+    "mata_kuliah": "Jurnalistik, komunikasi massa, public relations, media digital.",
+    "karier": [
+      "Public relations",
+      "journalist",
+      "content strategist"
+    ],
+    "riasec": {
+      "R": 15,
+      "I": 50,
+      "A": 60,
+      "S": 100,
+      "E": 95,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        2,
+        3
+      ],
+      "I": [
+        2,
+        2,
+        3,
+        4,
+        4
+      ],
+      "A": [
+        2,
+        3,
+        4,
+        4,
+        4
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        3,
+        3,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Sosiologi",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Menganalisis hubungan sosial, institusi, dan perubahan masyarakat.",
+    "mata_kuliah": "Teori sosiologi, metode penelitian, perubahan sosial.",
+    "karier": [
+      "Social researcher",
+      "community development officer"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 95,
+      "A": 95,
+      "S": 95,
+      "E": 20,
+      "C": 0
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Politik",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari kekuasaan, pemerintahan, dan proses politik.",
+    "mata_kuliah": "Teori politik, perbandingan politik, kebijakan publik.",
+    "karier": [
+      "Policy analyst",
+      "political researcher"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 65,
+      "A": 60,
+      "S": 40,
+      "E": 45,
+      "C": 20
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        3,
+        3,
+        3
+      ],
+      "A": [
+        4,
+        3,
+        3,
+        3,
+        4
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        1,
+        2,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Administrasi Negara",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari tata kelola dan pelayanan sektor publik.",
+    "mata_kuliah": "Administrasi publik, kebijakan, organisasi publik, anggaran.",
+    "karier": [
+      "Public administrator",
+      "policy analyst"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 30,
+      "A": 25,
+      "S": 30,
+      "E": 15,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "A": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        2,
+        3
+      ],
+      "C": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Hubungan Internasional",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari hubungan antarnegara dan aktor global.",
+    "mata_kuliah": "Diplomasi, politik global, hukum internasional, ekonomi politik.",
+    "karier": [
+      "International relations analyst",
+      "researcher"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 45,
+      "A": 50,
+      "S": 80,
+      "E": 90,
+      "C": 65
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        3,
+        4
+      ],
+      "A": [
+        2,
+        2,
+        3,
+        4,
+        4
+      ],
+      "S": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "E": [
+        4,
+        5,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        4,
+        4,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Sejarah",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mengkaji peristiwa masa lalu melalui sumber sejarah.",
+    "mata_kuliah": "Historiografi, sejarah Indonesia, sejarah dunia, arsip.",
+    "karier": [
+      "Historian",
+      "archivist",
+      "educator"
+    ],
+    "riasec": {
+      "R": 15,
+      "I": 70,
+      "A": 100,
+      "S": 100,
+      "E": 65,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "I": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        4,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        3,
+        2,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Antropologi",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari manusia, budaya, dan kehidupan sosial.",
+    "mata_kuliah": "Etnografi, antropologi budaya, arkeologi dasar.",
+    "karier": [
+      "Anthropologist",
+      "cultural researcher"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 30,
+      "A": 30,
+      "S": 40,
+      "E": 45,
+      "C": 20
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "A": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        1,
+        2,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Sastra Indonesia",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari bahasa, sastra, dan budaya Indonesia.",
+    "mata_kuliah": "Linguistik, kritik sastra, penulisan kreatif.",
+    "karier": [
+      "Editor",
+      "writer",
+      "language researcher"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 75,
+      "A": 85,
+      "S": 30,
+      "E": 5,
+      "C": 5
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "A": [
+        5,
+        5,
+        4,
+        4,
+        4
+      ],
+      "S": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Sastra Inggris",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempelajari bahasa, sastra, dan budaya berbahasa Inggris.",
+    "mata_kuliah": "Linguistik, kajian sastra, penerjemahan.",
+    "karier": [
+      "Translator",
+      "editor",
+      "language educator"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 95,
+      "A": 95,
+      "S": 55,
+      "E": 80,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "A": [
+        5,
+        5,
+        4,
+        5,
+        5
+      ],
+      "S": [
+        3,
+        2,
+        3,
+        4,
+        4
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        2,
+        3,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Bahasa Inggris",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mempersiapkan pendidik dan pengembang pembelajaran bahasa Inggris.",
+    "mata_kuliah": "Linguistik terapan, metodologi pengajaran, asesmen.",
+    "karier": [
+      "English teacher",
+      "learning designer"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 45,
+      "A": 70,
+      "S": 70,
+      "E": 20,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ],
+      "A": [
+        4,
+        5,
+        4,
+        3,
+        3
+      ],
+      "S": [
+        5,
+        4,
+        3,
+        3,
+        4
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        2,
+        3
+      ],
+      "C": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Perpustakaan",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mengelola informasi, koleksi, dan layanan pengetahuan.",
+    "mata_kuliah": "Klasifikasi, katalogisasi, arsip, manajemen informasi.",
+    "karier": [
+      "Librarian",
+      "information manager"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 100,
+      "A": 80,
+      "S": 90,
+      "E": 20,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        2,
+        2,
+        1,
+        2,
+        2
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        5,
+        5,
+        4,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        2,
+        1,
+        1,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kriminologi",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mengkaji kejahatan, penyebab, dan respons sosial terhadapnya.",
+    "mata_kuliah": "Teori kriminologi, viktimologi, sistem peradilan.",
+    "karier": [
+      "Crime analyst",
+      "social researcher"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 50,
+      "A": 30,
+      "S": 40,
+      "E": 45,
+      "C": 20
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "A": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        1,
+        2,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kajian Budaya",
+    "bidang": "Sosial dan Humaniora",
+    "deskripsi": "Mengkaji budaya, identitas, media, dan praktik sosial.",
+    "mata_kuliah": "Teori budaya, media, identitas, kajian populer.",
+    "karier": [
+      "Cultural researcher",
+      "content analyst"
+    ],
+    "riasec": {
+      "R": 40,
+      "I": 95,
+      "A": 75,
+      "S": 80,
+      "E": 50,
+      "C": 20
+    },
+    "rubrik": {
+      "R": [
+        3,
+        3,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "A": [
+        4,
+        5,
+        4,
+        3,
+        4
+      ],
+      "S": [
+        5,
+        4,
+        3,
+        4,
+        5
+      ],
+      "E": [
+        3,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        1,
+        2,
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Hukum",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari sistem hukum, aturan, dan penerapannya.",
+    "mata_kuliah": "Hukum pidana, perdata, tata negara, hukum bisnis.",
+    "karier": [
+      "Legal researcher",
+      "legal officer",
+      "advocate after professional requirements"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 30,
+      "A": 0,
+      "S": 35,
+      "E": 60,
+      "C": 35
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        2,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Hukum Bisnis",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari aspek hukum dalam kegiatan usaha.",
+    "mata_kuliah": "Hukum perusahaan, kontrak, perdagangan, kepailitan.",
+    "karier": [
+      "Corporate legal officer",
+      "contract analyst"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 65,
+      "A": 10,
+      "S": 40,
+      "E": 90,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        4,
+        3,
+        3,
+        3
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        4,
+        4,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Hukum Tata Negara",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari konstitusi dan struktur lembaga negara.",
+    "mata_kuliah": "Konstitusi, lembaga negara, pemilu, hukum administrasi.",
+    "karier": [
+      "Legal researcher",
+      "policy analyst"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 90,
+      "A": 40,
+      "S": 30,
+      "E": 55,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        4,
+        4
+      ],
+      "A": [
+        4,
+        3,
+        2,
+        2,
+        2
+      ],
+      "S": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "E": [
+        3,
+        3,
+        3,
+        3,
+        4
+      ],
+      "C": [
+        3,
+        3,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Hukum Internasional",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari aturan dan hubungan hukum lintas negara.",
+    "mata_kuliah": "Hukum perjanjian, organisasi internasional, hukum laut.",
+    "karier": [
+      "International legal researcher",
+      "compliance analyst"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 25,
+      "A": 0,
+      "S": 30,
+      "E": 85,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        2,
+        2,
+        3,
+        2
+      ],
+      "E": [
+        4,
+        4,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Pemerintahan",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari lembaga pemerintahan dan proses penyelenggaraan negara.",
+    "mata_kuliah": "Sistem pemerintahan, politik lokal, tata kelola.",
+    "karier": [
+      "Government analyst",
+      "public affairs officer"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 45,
+      "A": 5,
+      "S": 90,
+      "E": 70,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "I": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        4,
+        4
+      ],
+      "E": [
+        5,
+        4,
+        3,
+        3,
+        4
+      ],
+      "C": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Administrasi Publik",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mempelajari pengelolaan organisasi dan pelayanan publik.",
+    "mata_kuliah": "Kebijakan publik, keuangan negara, manajemen publik.",
+    "karier": [
+      "Public policy analyst",
+      "government administrator"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 85,
+      "A": 40,
+      "S": 95,
+      "E": 95,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "I": [
+        3,
+        4,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        5,
+        4,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Hukum Ekonomi",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Mengkaji aturan yang mengatur kegiatan ekonomi dan bisnis.",
+    "mata_kuliah": "Hukum perbankan, pasar modal, persaingan usaha.",
+    "karier": [
+      "Legal compliance analyst",
+      "corporate legal"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 60,
+      "A": 15,
+      "S": 70,
+      "E": 95,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        4,
+        5
+      ],
+      "E": [
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        3,
+        4,
+        5,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Studi Kebijakan Publik",
+    "bidang": "Hukum dan Politik",
+    "deskripsi": "Menganalisis perumusan, pelaksanaan, dan evaluasi kebijakan.",
+    "mata_kuliah": "Analisis kebijakan, evaluasi program, ekonomi publik.",
+    "karier": [
+      "Policy analyst",
+      "program evaluator"
+    ],
+    "riasec": {
+      "R": 45,
+      "I": 100,
+      "A": 70,
+      "S": 100,
+      "E": 100,
+      "C": 100
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        4,
+        4,
+        4,
+        3,
+        4
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "nama": "Desain Komunikasi Visual",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Menyampaikan pesan melalui solusi visual dan media komunikasi.",
+    "mata_kuliah": "Tipografi, ilustrasi, branding, desain interaksi.",
+    "karier": [
+      "Graphic designer",
+      "art director",
+      "UI designer"
+    ],
+    "riasec": {
+      "R": 55,
+      "I": 70,
+      "A": 85,
+      "S": 0,
+      "E": 15,
+      "C": 70
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "I": [
+        4,
+        5,
+        4,
+        3,
+        3
+      ],
+      "A": [
+        5,
+        5,
+        4,
+        4,
+        4
+      ],
+      "S": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1,
+        1,
+        2,
+        3
+      ],
+      "C": [
+        3,
+        3,
+        4,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "nama": "Desain Produk",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Merancang produk dengan memperhatikan fungsi, pengguna, dan bentuk.",
+    "mata_kuliah": "Ergonomi, material, model produk, prototipe.",
+    "karier": [
+      "Product designer",
+      "industrial designer"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 60,
+      "A": 60,
+      "S": 20,
+      "E": 50,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        3,
+        3,
+        4,
+        3,
+        4
+      ],
+      "S": [
+        1,
+        2,
+        1,
+        2,
+        3
+      ],
+      "E": [
+        3,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Desain Interior",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Merancang ruang dalam yang fungsional dan nyaman.",
+    "mata_kuliah": "Studio interior, material, pencahayaan, ergonomi ruang.",
+    "karier": [
+      "Interior designer",
+      "space planner"
+    ],
+    "riasec": {
+      "R": 65,
+      "I": 90,
+      "A": 100,
+      "S": 70,
+      "E": 95,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "I": [
+        4,
+        5,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        4,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Seni Rupa",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Mengembangkan gagasan dan ekspresi melalui praktik seni visual.",
+    "mata_kuliah": "Gambar, lukis, patung, seni kontemporer.",
+    "karier": [
+      "Fine artist",
+      "art educator",
+      "curator"
+    ],
+    "riasec": {
+      "R": 65,
+      "I": 80,
+      "A": 90,
+      "S": 20,
+      "E": 10,
+      "C": 5
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        3,
+        4,
+        3
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        4,
+        3
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        4,
+        4
+      ],
+      "S": [
+        3,
+        2,
+        1,
+        1,
+        2
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Film dan Televisi",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Mempelajari produksi karya audiovisual dan industri media.",
+    "mata_kuliah": "Sinematografi, penyutradaraan, penyuntingan, produksi.",
+    "karier": [
+      "Film producer",
+      "editor",
+      "cinematographer"
+    ],
+    "riasec": {
+      "R": 35,
+      "I": 55,
+      "A": 90,
+      "S": 15,
+      "E": 10,
+      "C": 30
+    },
+    "rubrik": {
+      "R": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "I": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        4,
+        4
+      ],
+      "S": [
+        3,
+        2,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        2,
+        2,
+        2,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Musik",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Mempelajari teori, praktik, dan penciptaan musik.",
+    "mata_kuliah": "Teori musik, komposisi, pertunjukan, teknologi musik.",
+    "karier": [
+      "Musician",
+      "composer",
+      "music educator"
+    ],
+    "riasec": {
+      "R": 65,
+      "I": 65,
+      "A": 100,
+      "S": 60,
+      "E": 80,
+      "C": 20
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        4,
+        3,
+        4
+      ],
+      "I": [
+        4,
+        4,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "S": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "E": [
+        5,
+        4,
+        5,
+        4,
+        3
+      ],
+      "C": [
+        2,
+        3,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Animasi",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Membuat karya bergerak untuk hiburan, edukasi, dan komunikasi.",
+    "mata_kuliah": "Gambar gerak, 2D/3D, storyboard, produksi animasi.",
+    "karier": [
+      "Animator",
+      "storyboard artist",
+      "3D artist"
+    ],
+    "riasec": {
+      "R": 40,
+      "I": 90,
+      "A": 100,
+      "S": 65,
+      "E": 85,
+      "C": 25
+    },
+    "rubrik": {
+      "R": [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "I": [
+        4,
+        5,
+        4,
+        5,
+        5
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "S": [
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "E": [
+        5,
+        5,
+        5,
+        4,
+        3
+      ],
+      "C": [
+        3,
+        3,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Fotografi",
+    "bidang": "Seni dan Desain",
+    "deskripsi": "Mempelajari penciptaan gambar melalui teknik dan konsep visual.",
+    "mata_kuliah": "Pencahayaan, komposisi, fotografi digital, editing.",
+    "karier": [
+      "Photographer",
+      "visual content creator"
+    ],
+    "riasec": {
+      "R": 65,
+      "I": 65,
+      "A": 95,
+      "S": 55,
+      "E": 20,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        4,
+        4
+      ],
+      "I": [
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "A": [
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "S": [
+        4,
+        4,
+        3,
+        2,
+        3
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Guru Sekolah Dasar",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempersiapkan pendidik untuk pembelajaran tingkat sekolah dasar.",
+    "mata_kuliah": "Strategi pembelajaran, perkembangan anak, evaluasi belajar.",
+    "karier": [
+      "Elementary school teacher"
+    ],
+    "riasec": {
+      "R": 35,
+      "I": 75,
+      "A": 70,
+      "S": 70,
+      "E": 50,
+      "C": 95
+    },
+    "rubrik": {
+      "R": [
+        3,
+        3,
+        3,
+        2,
+        1
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "A": [
+        5,
+        4,
+        3,
+        3,
+        4
+      ],
+      "S": [
+        4,
+        3,
+        3,
+        4,
+        5
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        4,
+        4
+      ],
+      "C": [
+        4,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Matematika",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempersiapkan pendidik dan pengembang pembelajaran matematika.",
+    "mata_kuliah": "Materi matematika, pedagogi, asesmen, media belajar.",
+    "karier": [
+      "Mathematics teacher",
+      "education content developer"
+    ],
+    "riasec": {
+      "R": 20,
+      "I": 45,
+      "A": 30,
+      "S": 100,
+      "E": 90,
+      "C": 100
+    },
+    "rubrik": {
+      "R": [
+        2,
+        1,
+        1,
+        2,
+        3
+      ],
+      "I": [
+        2,
+        2,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        1,
+        2,
+        3,
+        2,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "E": [
+        5,
+        4,
+        5,
+        4,
+        5
+      ],
+      "C": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Biologi",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempersiapkan pendidik dan pengembang pembelajaran biologi.",
+    "mata_kuliah": "Biologi, praktikum, pedagogi, evaluasi pembelajaran.",
+    "karier": [
+      "Biology teacher",
+      "education researcher"
+    ],
+    "riasec": {
+      "R": 0,
+      "I": 35,
+      "A": 35,
+      "S": 55,
+      "E": 10,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "I": [
+        2,
+        3,
+        2,
+        2,
+        3
+      ],
+      "A": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "S": [
+        3,
+        3,
+        4,
+        3,
+        3
+      ],
+      "E": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Fisika",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempersiapkan pendidik dan pengembang pembelajaran fisika.",
+    "mata_kuliah": "Fisika, eksperimen, pedagogi, media pembelajaran.",
+    "karier": [
+      "Physics teacher",
+      "learning content developer"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 10,
+      "A": 5,
+      "S": 80,
+      "E": 10,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "I": [
+        2,
+        1,
+        1,
+        2,
+        1
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        4,
+        5,
+        4,
+        4,
+        4
+      ],
+      "E": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        3,
+        3,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Luar Biasa",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempelajari dukungan pendidikan bagi peserta didik berkebutuhan khusus.",
+    "mata_kuliah": "Pendidikan inklusif, asesmen, strategi intervensi.",
+    "karier": [
+      "Special education teacher",
+      "inclusion support specialist"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 50,
+      "A": 70,
+      "S": 60,
+      "E": 35,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        4,
+        4,
+        3,
+        2,
+        2
+      ],
+      "A": [
+        5,
+        4,
+        3,
+        3,
+        4
+      ],
+      "S": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ],
+      "E": [
+        2,
+        2,
+        3,
+        2,
+        3
+      ],
+      "C": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Teknologi Pendidikan",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mengembangkan media, desain, dan sistem pembelajaran.",
+    "mata_kuliah": "Desain instruksional, media digital, evaluasi pembelajaran.",
+    "karier": [
+      "Instructional designer",
+      "learning technology specialist"
+    ],
+    "riasec": {
+      "R": 10,
+      "I": 55,
+      "A": 50,
+      "S": 90,
+      "E": 40,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "I": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ],
+      "A": [
+        3,
+        4,
+        3,
+        2,
+        3
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "C": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Pendidikan Jasmani",
+    "bidang": "Pendidikan",
+    "deskripsi": "Mempelajari pendidikan gerak, olahraga, dan kesehatan.",
+    "mata_kuliah": "Biomekanika, pedagogi olahraga, fisiologi latihan.",
+    "karier": [
+      "Physical education teacher",
+      "sports educator"
+    ],
+    "riasec": {
+      "R": 5,
+      "I": 10,
+      "A": 35,
+      "S": 55,
+      "E": 10,
+      "C": 60
+    },
+    "rubrik": {
+      "R": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "I": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "A": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "S": [
+        3,
+        3,
+        4,
+        3,
+        3
+      ],
+      "E": [
+        1,
+        2,
+        1,
+        1,
+        2
+      ],
+      "C": [
+        4,
+        3,
+        3,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "nama": "Agribisnis",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari pengelolaan usaha dan rantai nilai pertanian.",
+    "mata_kuliah": "Ekonomi pertanian, pemasaran, manajemen usaha tani.",
+    "karier": [
+      "Agribusiness analyst",
+      "farm business manager"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 55,
+      "A": 35,
+      "S": 65,
+      "E": 60,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        3,
+        3,
+        4,
+        5,
+        4
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        3,
+        4
+      ],
+      "A": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "S": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Agroteknologi",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mengembangkan teknik budidaya tanaman dan produksi pertanian.",
+    "mata_kuliah": "Ilmu tanah, fisiologi tanaman, perlindungan tanaman.",
+    "karier": [
+      "Agronomist",
+      "crop production specialist"
+    ],
+    "riasec": {
+      "R": 75,
+      "I": 90,
+      "A": 20,
+      "S": 25,
+      "E": 80,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "I": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ],
+      "A": [
+        2,
+        1,
+        1,
+        2,
+        3
+      ],
+      "S": [
+        1,
+        1,
+        2,
+        3,
+        3
+      ],
+      "E": [
+        3,
+        4,
+        5,
+        5,
+        4
+      ],
+      "C": [
+        3,
+        4,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Peternakan",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari produksi, nutrisi, dan pengelolaan ternak.",
+    "mata_kuliah": "Nutrisi ternak, genetika, reproduksi, manajemen peternakan.",
+    "karier": [
+      "Livestock specialist",
+      "farm manager"
+    ],
+    "riasec": {
+      "R": 90,
+      "I": 55,
+      "A": 35,
+      "S": 65,
+      "E": 60,
+      "C": 55
+    },
+    "rubrik": {
+      "R": [
+        4,
+        4,
+        5,
+        5,
+        5
+      ],
+      "I": [
+        2,
+        3,
+        4,
+        3,
+        4
+      ],
+      "A": [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "S": [
+        4,
+        3,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        4,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        4,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Tanah",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari sifat tanah dan pengelolaannya untuk lingkungan dan pertanian.",
+    "mata_kuliah": "Kimia tanah, kesuburan, konservasi, survei tanah.",
+    "karier": [
+      "Soil scientist",
+      "land management analyst"
+    ],
+    "riasec": {
+      "R": 100,
+      "I": 90,
+      "A": 30,
+      "S": 80,
+      "E": 20,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        5,
+        4
+      ],
+      "A": [
+        2,
+        3,
+        3,
+        2,
+        1
+      ],
+      "S": [
+        5,
+        5,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Kehutanan",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari ekosistem hutan dan pengelolaan sumber daya hutan.",
+    "mata_kuliah": "Ekologi hutan, silvikultur, konservasi, inventarisasi.",
+    "karier": [
+      "Forester",
+      "conservation officer"
+    ],
+    "riasec": {
+      "R": 70,
+      "I": 50,
+      "A": 5,
+      "S": 75,
+      "E": 20,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        4,
+        5
+      ],
+      "I": [
+        3,
+        2,
+        3,
+        4,
+        3
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        4,
+        5,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "nama": "Ilmu Kelautan",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari ekosistem laut dan proses oseanografi.",
+    "mata_kuliah": "Ekologi laut, oseanografi, konservasi pesisir.",
+    "karier": [
+      "Marine researcher",
+      "coastal conservation officer"
+    ],
+    "riasec": {
+      "R": 60,
+      "I": 35,
+      "A": 0,
+      "S": 45,
+      "E": 50,
+      "C": 45
+    },
+    "rubrik": {
+      "R": [
+        3,
+        4,
+        3,
+        3,
+        4
+      ],
+      "I": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "A": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "S": [
+        2,
+        3,
+        2,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        3,
+        4,
+        3
+      ],
+      "C": [
+        2,
+        3,
+        4,
+        3,
+        2
+      ]
+    }
+  },
+  {
+    "nama": "Perikanan",
+    "bidang": "Pertanian dan Lingkungan",
+    "deskripsi": "Mempelajari budidaya, pengelolaan, dan sumber daya perikanan.",
+    "mata_kuliah": "Akuakultur, biologi ikan, kualitas air, pengolahan hasil.",
+    "karier": [
+      "Aquaculture specialist",
+      "fisheries officer"
+    ],
+    "riasec": {
+      "R": 80,
+      "I": 95,
+      "A": 5,
+      "S": 75,
+      "E": 20,
+      "C": 10
+    },
+    "rubrik": {
+      "R": [
+        5,
+        4,
+        3,
+        4,
+        5
+      ],
+      "I": [
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "A": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "S": [
+        4,
+        5,
+        4,
+        3,
+        4
+      ],
+      "E": [
+        3,
+        2,
+        1,
+        2,
+        1
+      ],
+      "C": [
+        2,
+        1,
+        2,
+        1,
+        1
+      ]
+    }
+  }
+]
