@@ -1662,9 +1662,12 @@ class FutureMateApp(ctk.CTk):
             except ValueError as error:
                 self._message("Data belum tersimpan", str(error))
 
-        ctk.CTkButton(form, text="Simpan pencapaian", command=add_record, height=36,
-                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
+        add_button = ctk.CTkButton(
+            form, text="Tambahkan pencapaian", command=add_record, height=42,
+            fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"], font=ctk.CTkFont(size=13, weight="bold")
+        )
+        add_button.pack(fill="x", padx=18, pady=(2, 16))
         refresh()
 
     def on_closing(self):
