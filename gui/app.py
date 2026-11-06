@@ -1324,6 +1324,8 @@ class FutureMateApp(ctk.CTk):
                 choice.configure(command=lambda value, i=question_index: save_answer(i, value))
             def save_answer(index, value):
                 murid.riasec_answers[str(index)] = int(value)
+                progress.set(len(murid.riasec_answers) / 60)
+                answered_label.configure(text=f"{len(murid.riasec_answers)} dari 60 pertanyaan terjawab")
                 self._save()
             controls = ctk.CTkFrame(card, fg_color="transparent")
             controls.pack(fill="x", padx=14, pady=(0, 14))
@@ -1350,7 +1352,7 @@ class FutureMateApp(ctk.CTk):
                 self.mb_section = index
                 self.show_page("Minat Bakat")
             if answered_count == 60:
-                action_button(body, "Selesaikan Tes", finish_test).pack(anchor="e", pady=8)
+                action_button(body, "Selesaikan Tes", lambda: finish_test()).pack(anchor="e", pady=8)
             else:
                 ctk.CTkLabel(body, text=f"Lengkapi {60 - answered_count} jawaban lagi untuk menyelesaikan tes.",
                              text_color=COLORS["muted"]).pack(anchor="e", pady=8)
