@@ -606,7 +606,9 @@ class FutureMateApp(ctk.CTk):
             parent, fg_color=COLORS["surface"], corner_radius=14,
             border_width=1, border_color=COLORS["border"]
         )
-        card.pack(fill="x", pady=(0, 14))
+        row_index = len(parent.winfo_children())
+        card.grid(row=row_index, column=0, sticky="ew", pady=(0, 14))
+        parent.grid_columnconfigure(0, weight=1)
         ctk.CTkLabel(
             card, text=title, font=ctk.CTkFont(size=16, weight="bold"),
             text_color=COLORS["text"]
@@ -638,7 +640,7 @@ class FutureMateApp(ctk.CTk):
         message.pack(anchor="w", padx=18)
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
-        summary.pack(fill="x", pady=(0, 14))
+        summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
         avg_card = self._card(summary, "Rata-rata keseluruhan", "0.0", "Rata-rata dari seluruh mapel")
         avg_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
@@ -736,7 +738,8 @@ class FutureMateApp(ctk.CTk):
                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10))
         hint.pack(anchor="w", padx=18, pady=(0, 8))
         result_area = ctk.CTkFrame(self.content, fg_color="transparent")
-        result_area.pack(fill="x")
+        result_area.grid(row=3, column=0, sticky="ew")
+        result_area.grid_columnconfigure(0, weight=1)
 
         def refresh():
             for child in result_area.winfo_children():
