@@ -31,6 +31,9 @@ class Murid(Pengguna):
         self.items = []
         self.targets = []
         self.profil_minat = {}
+        self.riasec_history = []
+        self.riasec_answers = {}
+        self.favorite_majors = []
         self.jadwal = []
         self.preferensi_jadwal = {
             "hari": [0, 1, 2, 3, 4],
@@ -69,6 +72,9 @@ class Murid(Pengguna):
             "items": [i.to_dict() for i in self.items],
             "targets": [t.to_dict() for t in self.targets],
             "portofolio": self.portofolio.to_dict(), "profil_minat": self.profil_minat,
+            "riasec_history": self.riasec_history,
+            "riasec_answers": self.riasec_answers,
+            "favorite_majors": self.favorite_majors,
             "jadwal": self.jadwal,
             "preferensi_jadwal": self.preferensi_jadwal,
         }
@@ -81,6 +87,9 @@ class Murid(Pengguna):
         m.targets = [Target.dari_dict(x) for x in d["targets"]]
         m.portofolio = Portofolio.dari_dict(d["portofolio"])
         m.profil_minat = d.get("profil_minat", {})
+        m.riasec_history = d.get("riasec_history", [])
+        m.riasec_answers = d.get("riasec_answers", {})
+        m.favorite_majors = d.get("favorite_majors", [])
         m.jadwal = d.get("jadwal", [])
         m.preferensi_jadwal = d.get("preferensi_jadwal", {
             "hari": [0, 1, 2, 3, 4], "mulai": "16:00", "selesai": "18:00"
