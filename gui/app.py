@@ -606,7 +606,14 @@ class FutureMateApp(ctk.CTk):
             parent, fg_color=COLORS["surface"], corner_radius=14,
             border_width=1, border_color=COLORS["border"]
         )
-        row_index = len(parent.winfo_children())
+        # Cari baris kosong berikutnya berdasarkan widget yang benar-benar
+        # memakai grid. Jumlah seluruh child bisa keliru jika ada widget
+        # yang dibuat dengan pack atau ditempatkan pada baris khusus.
+        used_rows = [
+            int(widget.grid_info().get("row", 0))
+            for widget in parent.grid_slaves()
+        ]
+        row_index = max(used_rows, default=-1) + 1
         card.grid(row=row_index, column=0, sticky="ew", pady=(0, 14))
         parent.grid_columnconfigure(0, weight=1)
         ctk.CTkLabel(
