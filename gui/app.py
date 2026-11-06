@@ -682,11 +682,11 @@ class FutureMateApp(ctk.CTk):
         )
         target_row = ctk.CTkFrame(target_panel, fg_color="transparent")
         target_row.pack(fill="x", padx=18, pady=(0, 8))
-        target_row.grid_columnconfigure(0, weight=1)
+        target_row.grid_columnconfigure((0, 1), weight=1)
         target_entry = ctk.CTkEntry(
             target_row, placeholder_text="Target rerata akhir, contoh: 88", height=38
         )
-        target_entry.grid(row=0, column=0, padx=(0, 8), sticky="ew")
+        target_entry.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 8))
         saved_target = self.current_student.nilai.target_akhir()
         if saved_target is not None:
             target_entry.insert(0, str(saved_target))
@@ -835,16 +835,16 @@ class FutureMateApp(ctk.CTk):
         semester_menu.configure(command=lambda _value: refresh())
 
         ctk.CTkButton(
-            form, text="Simpan nilai rapor", command=add_score, height=36,
+            form, text="Simpan nilai rapor", command=add_score, height=40,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"]
-        ).pack(anchor="e", padx=18, pady=(0, 14))
+        ).pack(fill="x", padx=18, pady=(4, 14))
 
         ctk.CTkButton(
-            target_row, text="Simpan target", command=save_target, height=36,
+            target_row, text="Simpan target akhir", command=save_target, height=40,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"]
-        ).grid(row=0, column=1, sticky="e")
+        ).grid(row=1, column=0, columnspan=2, sticky="ew")
 
         refresh()
 
