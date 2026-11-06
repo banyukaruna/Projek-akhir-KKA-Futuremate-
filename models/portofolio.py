@@ -25,7 +25,16 @@ class Portofolio:
         self.__daftar = []
 
     def tambah(self, prestasi):
+        if not isinstance(prestasi, Prestasi):
+            raise TypeError("Data yang ditambahkan harus berupa Prestasi.")
         self.__daftar.append(prestasi)
+
+    def hapus(self, prestasi):
+        """Menghapus satu pencapaian. Mengembalikan False jika tidak ditemukan."""
+        if prestasi not in self.__daftar:
+            return False
+        self.__daftar.remove(prestasi)
+        return True
 
     def daftar(self):
         return list(self.__daftar)
