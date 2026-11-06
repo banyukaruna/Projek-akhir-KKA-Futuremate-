@@ -125,13 +125,30 @@ class FutureMateApp(ctk.CTk):
                      text_color=COLORS["muted"]).grid(row=1, column=0, sticky="w", pady=(5, 22))
 
     def _card(self, parent, title, value, note, color=None):
-        card = ctk.CTkFrame(parent, fg_color=COLORS["surface"], corner_radius=14)
-        ctk.CTkLabel(card, text=title, text_color=COLORS["muted"],
-                     font=ctk.CTkFont(size=12)).pack(anchor="w", padx=18, pady=(17, 5))
-        ctk.CTkLabel(card, text=value, text_color=color or COLORS["text"],
-                     font=ctk.CTkFont(size=27, weight="bold")).pack(anchor="w", padx=18)
-        ctk.CTkLabel(card, text=note, text_color=COLORS["muted"],
-                     font=ctk.CTkFont(size=10)).pack(anchor="w", padx=18, pady=(3, 16))
+        card = ctk.CTkFrame(
+            parent, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
+        )
+        accent = ctk.CTkFrame(
+            card, width=4, corner_radius=3,
+            fg_color=color or COLORS["success"]
+        )
+        accent.pack(side="left", fill="y", padx=(0, 12), pady=13)
+
+        details = ctk.CTkFrame(card, fg_color="transparent")
+        details.pack(side="left", fill="both", expand=True, pady=13, padx=(0, 12))
+        ctk.CTkLabel(
+            details, text=title, text_color=COLORS["muted"],
+            font=ctk.CTkFont(size=11)
+        ).pack(anchor="w", pady=(0, 4))
+        ctk.CTkLabel(
+            details, text=value, text_color=COLORS["text"],
+            font=ctk.CTkFont(size=25, weight="bold")
+        ).pack(anchor="w")
+        ctk.CTkLabel(
+            details, text=note, text_color=COLORS["muted"],
+            font=ctk.CTkFont(size=10), wraplength=220, justify="left"
+        ).pack(anchor="w", pady=(3, 0))
         return card
 
     def show_page(self, page):
@@ -158,13 +175,16 @@ class FutureMateApp(ctk.CTk):
         avg = murid.nilai.rata_rata()
         targets = len(murid.targets)
         self._card(cards, "Skor kesiapan", f"{result['total']}/100",
-                   self.kesiapan.kategori(result["total"]), COLORS["primary"]).grid(row=0, column=0, sticky="ew", padx=(0, 8))
+                   self.kesiapan.kategori(result["total"]), COLORS["success"]).grid(row=0, column=0, sticky="ew", padx=(0, 8))
         self._card(cards, "Tugas aktif", str(len(active)),
                    "Item yang belum selesai").grid(row=0, column=1, sticky="ew", padx=8)
         self._card(cards, "Rata-rata nilai", f"{avg:.1f}",
                    "Belum ada nilai" if not murid.nilai.daftar_mapel() else "Dari seluruh mata pelajaran").grid(row=0, column=2, sticky="ew", padx=(8, 0))
 
-        guide = ctk.CTkFrame(self.content, fg_color=COLORS["surface_alt"], corner_radius=12)
+        guide = ctk.CTkFrame(
+            self.content, fg_color=COLORS["surface_alt"],
+            corner_radius=12, border_width=1, border_color=COLORS["border"]
+        )
         guide.grid(row=3, column=0, sticky="ew", pady=(12, 0))
         ctk.CTkLabel(
             guide, text="Cara membaca dashboard",
@@ -185,7 +205,10 @@ class FutureMateApp(ctk.CTk):
         lower.grid_columnconfigure((0, 1), weight=1)
         lower.grid_rowconfigure(0, weight=1)
 
-        progress = ctk.CTkFrame(lower, fg_color=COLORS["surface"], corner_radius=14)
+        progress = ctk.CTkFrame(
+            lower, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
+        )
         progress.grid(row=0, column=0, sticky="nsew", padx=(0, 9))
         ctk.CTkLabel(progress, text="Komponen kesiapan", font=ctk.CTkFont(size=16, weight="bold"),
                      text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 4))
@@ -204,7 +227,10 @@ class FutureMateApp(ctk.CTk):
             bar.pack(fill="x", padx=18, pady=(0, 5))
             bar.set(score / self.kesiapan.BOBOT[label] if self.kesiapan.BOBOT[label] else 0)
 
-        right = ctk.CTkFrame(lower, fg_color=COLORS["surface"], corner_radius=14)
+        right = ctk.CTkFrame(
+            lower, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
+        )
         right.grid(row=0, column=1, sticky="nsew", padx=(9, 0))
         ctk.CTkLabel(right, text="Prioritas terdekat", font=ctk.CTkFont(size=16, weight="bold"),
                      text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(18, 4))
@@ -224,7 +250,10 @@ class FutureMateApp(ctk.CTk):
             ctk.CTkLabel(right, text="Belum ada tugas aktif.",
                          text_color=COLORS["muted"]).pack(anchor="w", padx=18)
 
-        roadmap = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
+        roadmap = ctk.CTkFrame(
+            self.content, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
+        )
         roadmap.grid(row=5, column=0, sticky="ew", pady=(18, 0))
         ctk.CTkLabel(roadmap, text="Saran langkah berikutnya",
                      font=ctk.CTkFont(size=16, weight="bold"),
