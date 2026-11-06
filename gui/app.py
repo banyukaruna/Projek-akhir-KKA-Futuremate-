@@ -1602,6 +1602,13 @@ class FutureMateApp(ctk.CTk):
         level.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
         year = ctk.CTkEntry(grid, placeholder_text="Tahun, contoh: 2026", height=38)
         year.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
+        add_button = ctk.CTkButton(
+            grid, text="Tambahkan pencapaian", command=lambda: add_record(),
+            height=42, fg_color=COLORS["primary"],
+            hover_color=COLORS["primary_hover"], text_color=COLORS["text"],
+            font=ctk.CTkFont(size=13, weight="bold")
+        )
+        add_button.grid(row=2, column=0, columnspan=2, padx=0, pady=(10, 8), sticky="ew")
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
@@ -1662,12 +1669,6 @@ class FutureMateApp(ctk.CTk):
             except ValueError as error:
                 self._message("Data belum tersimpan", str(error))
 
-        add_button = ctk.CTkButton(
-            form, text="Tambahkan pencapaian", command=add_record, height=42,
-            fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-            text_color=COLORS["text"], font=ctk.CTkFont(size=13, weight="bold")
-        )
-        add_button.pack(fill="x", padx=18, pady=(2, 16))
         refresh()
 
     def on_closing(self):
