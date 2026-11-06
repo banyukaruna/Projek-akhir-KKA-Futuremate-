@@ -161,7 +161,7 @@ class FutureMateApp(ctk.CTk):
             "Tugas & Jadwal": self._tugas_page,
             "Nilai Akademik": self._nilai_page,
             "Target Masa Depan": self._target_page,
-            "Tes Minat": self._tes_minat_page,
+            "Minat Bakat": self._minat_bakat_page,
             "Portofolio": self._portofolio_page,
         }
         pages.get(page, self._dashboard)()
@@ -1088,66 +1088,476 @@ class FutureMateApp(ctk.CTk):
                       text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
         refresh()
 
-    def _tes_minat_page(self):
-        from services.tes_minat import PERTANYAAN, NAMA_TIPE, ProfilMinat
-        self._page_header(
-            "Tes Minat",
-            "Kenali kecenderungan minatmu melalui 12 pernyataan singkat."
+    def _minat_bakat_page(self):
+        import json
+        import math
+        from pathlib import Path
+        from services.minat_bakat import (
+            NAMA_TIPE, DESKRIPSI_TIPE, PERTANYAAN_PER_TIPE,
+            SKALA_JAWABAN, hitung_profil, tipe_teratas, rekomendasikan
         )
-        intro = self._section_card(
-            self.content, "Tentang tes RIASEC",
-            "Pilih angka 1 sampai 5 untuk setiap pernyataan. 1 berarti sangat tidak sesuai, sedangkan 5 berarti sangat sesuai. Hasil membantu eksplorasi, bukan menentukan masa depan secara mutlak."
-        )
-        answers = []
-        for question, _ in PERTANYAAN:
-            block = ctk.CTkFrame(intro, fg_color=COLORS["surface_alt"], corner_radius=9)
-            block.pack(fill="x", padx=18, pady=4)
-            ctk.CTkLabel(block, text=question, text_color=COLORS["text"],
-                         wraplength=760, justify="left").pack(anchor="w", padx=12, pady=(9, 3))
-            choice = ctk.CTkSegmentedButton(
-                block, values=["1", "2", "3", "4", "5"],
-                selected_color=COLORS["primary"], selected_hover_color=COLORS["primary_hover"],
-                unselected_color=COLORS["surface"], text_color=COLORS["text"]
+
+        catalog_path = Path(__file__).resolve().parents[1] / "data" / "jurusan_minat.json"
+        try:
+            with catalog_path.open("r", encoding="utf-8") as file:
+                katalog = json.load(file)
+        except (OSError, json.JSONDecodeError) as error:
+            self._message("Katalog tidak tersedia", str(error))
+            katalog = []
+
+        murid = self.current_student
+        if not hasattr(self, "mb_view"):
+            self.mb_view = "Beranda"
+        if not hasattr(self, "mb_section"):
+            self.mb_section = 0
+        if not hasattr(self, "mb_selected_major"):
+            self.mb_selected_major = None
+        if not hasattr(self, "mb_history_index"):
+            self.mb_history_index = 0
+
+        types = ["R", "I", "A", "S", "E", "C"]
+        groups = ["Semua bidang"] + list(dict.fromkeys(item["bidang"] for item in katalog))
+        profile = murid.profil_minat if isinstance(murid.profil_minat, dict) else {}
+
+        def go(view):
+            self.mb_view = view
+            self.show_page("Minat Bakat")
+
+        def section_card(parent, title, description=""):
+            card = ctk.CTkFrame(parent, fg_color=COLORS["surface"], corner_radius=14,
+                                border_width=1, border_color=COLORS["border"])
+            card.pack(fill="x", pady=(0, 12))
+            ctk.CTkLabel(card, text=title, text_color=COLORS["text"],
+                         font=ctk.CTkFont(size=16, weight="bold")).pack(
+                             anchor="w", padx=16, pady=(14, 3))
+            if description:
+                ctk.CTkLabel(card, text=description, text_color=COLORS["muted"],
+                             font=ctk.CTkFont(size=11), wraplength=820,
+                             justify="left").pack(anchor="w", padx=16, pady=(0, 12))
+            return card
+
+        def action_button(parent, label, command, **kwargs):
+            return ctk.CTkButton(
+                parent, text=label, command=command, height=34,
+                fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], **kwargs
             )
-            choice.set("3")
-            choice.pack(anchor="e", padx=10, pady=(0, 8))
-            answers.append(choice)
 
-        result_card = self._section_card(
-            self.content, "Hasil tes dan rekomendasi",
-            "Setelah mengirim jawaban, kamu akan melihat tiga minat teratas dan jurusan yang paling sesuai dengan profilmu."
-        )
-        result_body = ctk.CTkFrame(result_card, fg_color="transparent")
-        result_body.pack(fill="x", padx=18, pady=(0, 14))
+        def draw_radar(parent, scores, width=300, height=280):
+            from tkinter import Canvas
+            canvas = Canvas(parent, width=width, height=height,
+                            bg=COLORS["surface"], highlightthickness=0)
+            canvas.pack(padx=8, pady=8)
+            cx, cy, radius = width / 2, height / 2, min(width, height) * 0.32
+            angles = [-math.pi / 2 + i * math.pi / 3 for i in range(6)]
+            for fraction in (0.25, 0.5, 0.75, 1.0):
+                points = []
+                for angle in angles:
+                    points.extend([cx + radius * fraction * math.cos(angle),
+                                   cy + radius * fraction * math.sin(angle)])
+                canvas.create_polygon(points, outline=COLORS["border"], fill="", width=1)
+            values = []
+            for i, angle in enumerate(angles):
+                x, y = cx + radius * math.cos(angle), cy + radius * math.sin(angle)
+                canvas.create_line(cx, cy, x, y, fill=COLORS["border"])
+                canvas.create_text(cx + (radius + 19) * math.cos(angle),
+                                   cy + (radius + 19) * math.sin(angle),
+                                   text=types[i], fill=COLORS["text"],
+                                   font=("Arial", 10, "bold"))
+                value = max(0, min(100, float(scores.get(types[i], 0))))
+                values.extend([cx + radius * value / 100 * math.cos(angle),
+                               cy + radius * value / 100 * math.sin(angle)])
+            canvas.create_polygon(values, fill="#8EAE96", stipple="gray25",
+                                  outline="#557B61", width=2)
+            return canvas
 
-        def render_saved():
-            for child in result_body.winfo_children():
-                child.destroy()
-            profile = self.current_student.profil_minat
-            if not profile:
-                ctk.CTkLabel(result_body, text="Kamu belum mengisi tes minat.",
-                             text_color=COLORS["muted"]).pack(anchor="w")
-                return
-            top = ProfilMinat.tipe_teratas(profile)
-            ctk.CTkLabel(result_body, text="Minat dominan: " + " · ".join(
-                f"{t} ({NAMA_TIPE[t]})" for t in top),
-                text_color=COLORS["text"], wraplength=780, justify="left"
-            ).pack(anchor="w", pady=5)
-            for jurusan, match in ProfilMinat.rekomendasikan(profile, self.katalog, 5):
-                ctk.CTkLabel(result_body, text=f"{jurusan.nama_jurusan} · {jurusan.kampus} · kecocokan minat {match:.0f}%",
-                             text_color=COLORS["muted"], wraplength=780, justify="left"
-                             ).pack(anchor="w", pady=3)
+        def score_bars(parent, scores):
+            for tipe in types:
+                row = ctk.CTkFrame(parent, fg_color="transparent")
+                row.pack(fill="x", padx=12, pady=4)
+                ctk.CTkLabel(row, text=f"{tipe} · {NAMA_TIPE[tipe]}",
+                             text_color=COLORS["text"], width=180,
+                             anchor="w").pack(side="left")
+                value = max(0, min(100, float(scores.get(tipe, 0))))
+                bar = ctk.CTkProgressBar(row, height=10,
+                                         progress_color=COLORS["primary"])
+                bar.pack(side="left", fill="x", expand=True, padx=8)
+                bar.set(value / 100)
+                ctk.CTkLabel(row, text=f"{value:.1f}", width=48,
+                             text_color=COLORS["muted"]).pack(side="right")
 
-        def submit():
-            profile = ProfilMinat.hitung([int(choice.get()) for choice in answers])
-            self.current_student.profil_minat = profile
+        def show_major_card(parent, major, match=None):
+            card = ctk.CTkFrame(parent, fg_color=COLORS["surface_alt"], corner_radius=10)
+            card.pack(fill="x", padx=8, pady=5)
+            info = ctk.CTkFrame(card, fg_color="transparent")
+            info.pack(side="left", fill="x", expand=True, padx=12, pady=10)
+            ctk.CTkLabel(info, text=major["nama"], text_color=COLORS["text"],
+                         font=ctk.CTkFont(size=13, weight="bold")).pack(anchor="w")
+            subtitle = major["bidang"]
+            if match is not None:
+                subtitle += f" · Kecocokan {match:.1f}%"
+            ctk.CTkLabel(info, text=subtitle, text_color=COLORS["muted"],
+                         font=ctk.CTkFont(size=10)).pack(anchor="w", pady=(2, 0))
+            actions = ctk.CTkFrame(card, fg_color="transparent")
+            actions.pack(side="right", padx=8)
+            ctk.CTkButton(actions, text="Detail", width=65, height=29,
+                          command=lambda item=major: open_major(item)).pack(side="left", padx=3)
+            fav_label = "Tersimpan" if any(x.get("nama") == major["nama"] for x in murid.favorite_majors) else "☆ Favorit"
+            ctk.CTkButton(actions, text=fav_label, width=85, height=29,
+                          fg_color=COLORS["surface"], text_color=COLORS["text"],
+                          command=lambda item=major: toggle_favorite(item, match)).pack(side="left", padx=3)
+
+        def open_major(major):
+            self.mb_selected_major = major["nama"]
+            go("Detail Jurusan")
+
+        def toggle_favorite(major, match=None):
+            saved = next((x for x in murid.favorite_majors if x.get("nama") == major["nama"]), None)
+            if saved:
+                murid.favorite_majors.remove(saved)
+            else:
+                murid.favorite_majors.append({
+                    "nama": major["nama"], "bidang": major["bidang"],
+                    "kecocokan": match, "tanggal": __import__("datetime").datetime.now().isoformat(timespec="seconds")
+                })
             self._save()
-            render_saved()
+            self.show_page("Minat Bakat")
 
-        ctk.CTkButton(intro, text="Hitung hasil tes", command=submit, height=38,
-                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=14)
-        render_saved()
+        self._page_header("Minat Bakat", "Kenali profil minatmu dan jelajahi pilihan program studi.")
+        nav = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=12)
+        nav.grid(row=2, column=0, sticky="ew", pady=(0, 14))
+        nav_items = [
+            ("Beranda", "Beranda"), ("Tes RIASEC", "Tes RIASEC"),
+            ("Hasil Tes", "Hasil Tes"), ("Katalog Jurusan", "Katalog Jurusan"),
+            ("Favorit", "Favorit"), ("Riwayat Tes", "Riwayat Tes")
+        ]
+        for label, view in nav_items:
+            ctk.CTkButton(
+                nav, text=label, height=34, corner_radius=8,
+                fg_color=COLORS["primary"] if self.mb_view == view else "transparent",
+                hover_color=COLORS["surface_alt"],
+                text_color=COLORS["text"], command=lambda v=view: go(v)
+            ).pack(side="left", padx=4, pady=7)
+
+        body = ctk.CTkFrame(self.content, fg_color="transparent")
+        body.grid(row=3, column=0, sticky="ew")
+        body.grid_columnconfigure(0, weight=1)
+
+        if self.mb_view == "Beranda":
+            card = section_card(body, "Profil minatmu",
+                                "Kerjakan tes untuk mendapatkan gambaran enam dimensi RIASEC dan rekomendasi jurusan.")
+            if murid.riasec_history:
+                latest = murid.riasec_history[-1]
+                ctk.CTkLabel(card, text="Tiga tipe tertinggi: " + " · ".join(
+                    f"{t} ({NAMA_TIPE[t]})" for t in latest["tiga_teratas"]),
+                    text_color=COLORS["primary"], font=ctk.CTkFont(size=14, weight="bold")
+                ).pack(anchor="w", padx=16, pady=4)
+                ctk.CTkLabel(card, text=f"Tes terakhir: {latest['tanggal'][:10]}",
+                             text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 12))
+            else:
+                action_button(card, "Mulai Tes RIASEC", lambda: go("Tes RIASEC")).pack(
+                    anchor="w", padx=16, pady=(0, 14))
+            access = section_card(body, "Jelajahi Minat Bakat",
+                                  "Pilih fitur yang ingin kamu gunakan.")
+            for label, view in nav_items[1:]:
+                action_button(access, label, lambda v=view: go(v), width=190).pack(
+                    side="left", padx=6, pady=(0, 14))
+            if profile:
+                recommendations = rekomendasikan(profile, katalog, 3)
+                rec = section_card(body, "Rekomendasi jurusan teratas",
+                                   "Tiga rekomendasi teratas berdasarkan hasil tes terbarumu.")
+                for major, match in recommendations:
+                    show_major_card(rec, major, match)
+                action_button(rec, "Lihat 10 rekomendasi", lambda: go("Hasil Tes")).pack(
+                    anchor="e", padx=14, pady=12)
+            activity = section_card(body, "Aktivitas terbaru")
+            ctk.CTkLabel(activity,
+                         text=f"{len(murid.riasec_history)} tes tersimpan · {len(murid.favorite_majors)} jurusan favorit",
+                         text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 10))
+            action_button(activity, "Ulangi tes", lambda: go("Tes RIASEC")).pack(
+                anchor="w", padx=16, pady=(0, 14))
+
+        elif self.mb_view == "Tes RIASEC":
+            section = self.mb_section
+            tipe = types[section]
+            answered = murid.riasec_answers
+            answered_count = sum(str(i) in answered for i in range(60))
+            card = section_card(body, "Tes Minat RIASEC",
+                "Pilih tingkat ketertarikanmu. Jawaban tersimpan otomatis saat kamu memilih angka.")
+            ctk.CTkLabel(card, text=f"Bagian {section + 1} dari 6 · {tipe} · {NAMA_TIPE[tipe]}",
+                         text_color=COLORS["primary"], font=ctk.CTkFont(size=15, weight="bold")
+                         ).pack(anchor="w", padx=16)
+            ctk.CTkLabel(card, text=DESKRIPSI_TIPE[tipe], text_color=COLORS["muted"]
+                         ).pack(anchor="w", padx=16, pady=(3, 8))
+            progress = ctk.CTkProgressBar(card, progress_color=COLORS["primary"])
+            progress.pack(fill="x", padx=16, pady=5)
+            progress.set(answered_count / 60)
+            ctk.CTkLabel(card, text=f"{answered_count} dari 60 pertanyaan terjawab",
+                         text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 10))
+            scroll = ctk.CTkScrollableFrame(card, fg_color="transparent", height=490)
+            scroll.pack(fill="x", padx=10, pady=(0, 10))
+            for idx, question in enumerate(PERTANYAAN_PER_TIPE[tipe]):
+                question_index = section * 10 + idx
+                block = ctk.CTkFrame(scroll, fg_color=COLORS["surface_alt"], corner_radius=9)
+                block.pack(fill="x", padx=4, pady=5)
+                ctk.CTkLabel(block, text=f"{idx + 1}. {question}", text_color=COLORS["text"],
+                             wraplength=780, justify="left").pack(anchor="w", padx=12, pady=(10, 6))
+                choice = ctk.CTkSegmentedButton(
+                    block, values=["1", "2", "3", "4", "5"],
+                    selected_color=COLORS["primary"],
+                    selected_hover_color=COLORS["primary_hover"],
+                    unselected_color=COLORS["surface"], text_color=COLORS["text"]
+                )
+                current = answered.get(str(question_index))
+                if current is not None:
+                    choice.set(str(current))
+                choice.pack(anchor="e", padx=10, pady=(0, 9))
+                choice.configure(command=lambda value, i=question_index: save_answer(i, value))
+            def save_answer(index, value):
+                murid.riasec_answers[str(index)] = int(value)
+                self._save()
+            controls = ctk.CTkFrame(card, fg_color="transparent")
+            controls.pack(fill="x", padx=14, pady=(0, 14))
+            ctk.CTkButton(controls, text="Sebelumnya", width=110,
+                          state="normal" if section > 0 else "disabled",
+                          command=lambda: change_section(-1)).pack(side="left")
+            ctk.CTkButton(controls, text="Berikutnya", width=110,
+                          fg_color=COLORS["primary"], text_color=COLORS["text"],
+                          command=lambda: change_section(1)).pack(side="right")
+            ctk.CTkLabel(card, text="Skala: 1 Sangat tidak tertarik · 2 Tidak tertarik · 3 Netral · 4 Tertarik · 5 Sangat tertarik",
+                         text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
+                         wraplength=800).pack(anchor="w", padx=16, pady=(0, 12))
+            def change_section(offset):
+                self.mb_section = max(0, min(5, self.mb_section + offset))
+                self.show_page("Minat Bakat")
+            section_nav = ctk.CTkFrame(body, fg_color="transparent")
+            section_nav.pack(fill="x", pady=(0, 10))
+            for i, t in enumerate(types):
+                ctk.CTkButton(section_nav, text=t, width=42, height=30,
+                              fg_color=COLORS["primary"] if i == section else COLORS["surface"],
+                              text_color=COLORS["text"],
+                              command=lambda n=i: set_section(n)).pack(side="left", padx=4)
+            def set_section(index):
+                self.mb_section = index
+                self.show_page("Minat Bakat")
+            if answered_count == 60:
+                action_button(body, "Selesaikan Tes", finish_test).pack(anchor="e", pady=8)
+            else:
+                ctk.CTkLabel(body, text=f"Lengkapi {60 - answered_count} jawaban lagi untuk menyelesaikan tes.",
+                             text_color=COLORS["muted"]).pack(anchor="e", pady=8)
+            ctk.CTkLabel(body, text="Kamu dapat berpindah bagian meskipun belum menjawab semua pertanyaan.",
+                         text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w")
+
+        elif self.mb_view == "Hasil Tes":
+            if not murid.riasec_history:
+                card = section_card(body, "Belum ada hasil tes",
+                                    "Selesaikan 60 pertanyaan RIASEC untuk melihat profil dan rekomendasi jurusan.")
+                action_button(card, "Mulai tes", lambda: go("Tes RIASEC")).pack(
+                    anchor="w", padx=16, pady=(0, 14))
+            else:
+                latest = murid.riasec_history[-1]
+                top = latest["tiga_teratas"]
+                pair = ctk.CTkFrame(body, fg_color="transparent")
+                pair.pack(fill="x", pady=(0, 12))
+                pair.grid_columnconfigure((0, 1), weight=1)
+                radar = ctk.CTkFrame(pair, fg_color=COLORS["surface"], corner_radius=12)
+                radar.grid(row=0, column=0, sticky="nsew", padx=(0, 6))
+                ctk.CTkLabel(radar, text="Diagram profil RIASEC",
+                             text_color=COLORS["text"], font=ctk.CTkFont(size=15, weight="bold")
+                             ).pack(pady=(12, 0))
+                draw_radar(radar, latest["skor"])
+                desc = ctk.CTkFrame(pair, fg_color=COLORS["surface"], corner_radius=12)
+                desc.grid(row=0, column=1, sticky="nsew", padx=(6, 0))
+                ctk.CTkLabel(desc, text="Tiga tipe tertinggi",
+                             text_color=COLORS["text"], font=ctk.CTkFont(size=15, weight="bold")
+                             ).pack(anchor="w", padx=14, pady=(14, 8))
+                for tipe in top:
+                    ctk.CTkLabel(desc, text=f"{tipe} · {NAMA_TIPE[tipe]}",
+                                 text_color=COLORS["primary"], font=ctk.CTkFont(size=14, weight="bold")
+                                 ).pack(anchor="w", padx=14, pady=(5, 1))
+                    ctk.CTkLabel(desc, text=DESKRIPSI_TIPE[tipe], text_color=COLORS["muted"],
+                                 wraplength=340, justify="left").pack(anchor="w", padx=14, pady=(0, 5))
+                scores = section_card(body, "Rincian enam skor RIASEC",
+                                      f"Hasil tes tanggal {latest['tanggal'][:10]}.")
+                score_bars(scores, latest["skor"])
+                rec = section_card(body, "Sepuluh rekomendasi jurusan",
+                                   "Kecocokan dihitung dari jarak skor keenam dimensi RIASEC. Angka ini merupakan indikator eksplorasi, bukan kepastian keberhasilan.")
+                for saved in latest["rekomendasi"]:
+                    major = next((x for x in katalog if x["nama"] == saved["nama"]), None)
+                    if major:
+                        show_major_card(rec, major, saved["kecocokan"])
+                action_button(body, "Ulangi Tes RIASEC", lambda: start_new_test()).pack(
+                    anchor="e", pady=8)
+
+        elif self.mb_view == "Katalog Jurusan":
+            card = section_card(body, "Katalog 100 jurusan",
+                                "Cari program studi dari sembilan kelompok bidang. Jika belum tes, kamu tetap dapat melihat profil RIASEC jurusan.")
+            controls = ctk.CTkFrame(card, fg_color="transparent")
+            controls.pack(fill="x", padx=12, pady=(0, 8))
+            search = ctk.CTkEntry(controls, placeholder_text="Cari nama jurusan...", height=36)
+            search.pack(side="left", fill="x", expand=True, padx=(0, 6))
+            group_menu = ctk.CTkOptionMenu(controls, values=groups,
+                                           fg_color=COLORS["surface_alt"],
+                                           button_color=COLORS["primary"],
+                                           text_color=COLORS["text"])
+            group_menu.pack(side="left", padx=6)
+            sort_menu = ctk.CTkOptionMenu(controls, values=["Nama A-Z", "Kecocokan tertinggi"],
+                                          fg_color=COLORS["surface_alt"],
+                                          button_color=COLORS["primary"],
+                                          text_color=COLORS["text"])
+            sort_menu.pack(side="left", padx=(6, 0))
+            listing = ctk.CTkFrame(card, fg_color="transparent")
+            listing.pack(fill="x", padx=8, pady=(0, 12))
+            def refresh_catalog(*_):
+                for child in listing.winfo_children():
+                    child.destroy()
+                query = search.get().strip().lower()
+                chosen_group = group_menu.get()
+                filtered = [x for x in katalog if query in x["nama"].lower()
+                            and (chosen_group == "Semua bidang" or x["bidang"] == chosen_group)]
+                if profile and sort_menu.get() == "Kecocokan tertinggi":
+                    filtered.sort(key=lambda x: -__import__("services.minat_bakat", fromlist=["skor_kecocokan"]).skor_kecocokan(profile, x["riasec"]))
+                else:
+                    filtered.sort(key=lambda x: x["nama"].lower())
+                ctk.CTkLabel(listing, text=f"{len(filtered)} jurusan ditemukan",
+                             text_color=COLORS["muted"]).pack(anchor="w", pady=5)
+                for major in filtered:
+                    match = None
+                    if profile:
+                        match = __import__("services.minat_bakat", fromlist=["skor_kecocokan"]).skor_kecocokan(profile, major["riasec"])
+                    show_major_card(listing, major, match)
+            search.bind("<KeyRelease>", refresh_catalog)
+            group_menu.configure(command=refresh_catalog)
+            sort_menu.configure(command=refresh_catalog)
+            refresh_catalog()
+
+        elif self.mb_view == "Detail Jurusan":
+            major = next((x for x in katalog if x["nama"] == self.mb_selected_major), None)
+            if not major:
+                section_card(body, "Jurusan tidak ditemukan")
+            else:
+                identity = section_card(body, major["nama"], major["bidang"])
+                ctk.CTkLabel(identity, text=major["deskripsi"], text_color=COLORS["text"],
+                             wraplength=820, justify="left").pack(anchor="w", padx=16, pady=(0, 12))
+                pair = ctk.CTkFrame(body, fg_color="transparent")
+                pair.pack(fill="x", pady=(0, 12))
+                pair.grid_columnconfigure((0, 1), weight=1)
+                study = section_card(pair, "Gambaran perkuliahan", major["mata_kuliah"])
+                career = section_card(pair, "Prospek karier", "Contoh bidang pekerjaan yang relevan.")
+                for item in major["karier"]:
+                    ctk.CTkLabel(career, text=f"• {item}", text_color=COLORS["muted"]).pack(
+                        anchor="w", padx=16, pady=2)
+                riasec = section_card(body, "Profil RIASEC jurusan",
+                                      "Skor jurusan dipetakan menggunakan lima aspek: materi kuliah, praktikum/proyek, keterampilan, bidang pekerjaan, dan aktivitas umum.")
+                draw_radar(riasec, major["riasec"])
+                score_bars(riasec, major["riasec"])
+                if profile:
+                    from services.minat_bakat import skor_kecocokan
+                    match = skor_kecocokan(profile, major["riasec"])
+                    ctk.CTkLabel(riasec, text=f"Kecocokan dengan profil terakhirmu: {match:.1f}%",
+                                 text_color=COLORS["primary"],
+                                 font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=16, pady=8)
+                    reasons = sorted(types, key=lambda t: abs(profile.get(t, 0) - major["riasec"].get(t, 0)))
+                    ctk.CTkLabel(riasec, text="Dimensi yang paling mendekati profilmu: " +
+                                 ", ".join(f"{t} ({NAMA_TIPE[t]})" for t in reasons[:3]),
+                                 text_color=COLORS["muted"], wraplength=800).pack(anchor="w", padx=16, pady=(0, 10))
+                else:
+                    ctk.CTkLabel(riasec, text="Kerjakan Tes RIASEC untuk melihat persentase kecocokan pribadimu.",
+                                 text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=8)
+                row = ctk.CTkFrame(body, fg_color="transparent")
+                row.pack(fill="x", pady=8)
+                match = None
+                if profile:
+                    from services.minat_bakat import skor_kecocokan
+                    match = skor_kecocokan(profile, major["riasec"])
+                action_button(row, "☆ Simpan ke Favorit",
+                              lambda: toggle_favorite(major, match)).pack(side="left")
+                ctk.CTkButton(row, text="Kembali ke katalog", command=lambda: go("Katalog Jurusan")
+                              ).pack(side="left", padx=8)
+
+        elif self.mb_view == "Favorit":
+            card = section_card(body, "Jurusan favorit",
+                                "Persentase kecocokan disimpan sebagai snapshot dan tidak berubah setelah tes baru.")
+            if not murid.favorite_majors:
+                ctk.CTkLabel(card, text="Belum ada jurusan favorit.",
+                             text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 12))
+            for saved in list(murid.favorite_majors):
+                major = next((x for x in katalog if x["nama"] == saved["nama"]), None)
+                line = ctk.CTkFrame(card, fg_color=COLORS["surface_alt"], corner_radius=9)
+                line.pack(fill="x", padx=8, pady=4)
+                info = ctk.CTkFrame(line, fg_color="transparent")
+                info.pack(side="left", fill="x", expand=True, padx=10, pady=9)
+                ctk.CTkLabel(info, text=saved["nama"], text_color=COLORS["text"],
+                             font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w")
+                detail = saved["bidang"]
+                if saved.get("kecocokan") is not None:
+                    detail += f" · Snapshot kecocokan {saved['kecocokan']:.1f}%"
+                ctk.CTkLabel(info, text=detail + f" · {saved['tanggal'][:10]}",
+                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w")
+                if major:
+                    ctk.CTkButton(line, text="Detail", width=60, height=28,
+                                  command=lambda m=major: open_major(m)).pack(side="right", padx=4)
+                ctk.CTkButton(line, text="Hapus", width=60, height=28,
+                              fg_color=COLORS["danger"],
+                              command=lambda n=saved["nama"]: remove_favorite(n)).pack(side="right", padx=4)
+            def remove_favorite(name):
+                murid.favorite_majors = [x for x in murid.favorite_majors if x["nama"] != name]
+                self._save()
+                self.show_page("Minat Bakat")
+
+        elif self.mb_view == "Riwayat Tes":
+            card = section_card(body, "Riwayat pengerjaan tes",
+                                "Setiap tes tersimpan terpisah. Membuka riwayat tidak mengubah profil aktif.")
+            if not murid.riasec_history:
+                ctk.CTkLabel(card, text="Belum ada riwayat tes.",
+                             text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 12))
+            for index, record in reversed(list(enumerate(murid.riasec_history))):
+                line = ctk.CTkFrame(card, fg_color=COLORS["surface_alt"], corner_radius=9)
+                line.pack(fill="x", padx=8, pady=4)
+                info = ctk.CTkFrame(line, fg_color="transparent")
+                info.pack(side="left", fill="x", expand=True, padx=10, pady=9)
+                ctk.CTkLabel(info, text=f"Tes {index + 1} · {record['tanggal'][:10]}",
+                             text_color=COLORS["text"], font=ctk.CTkFont(size=12, weight="bold")
+                             ).pack(anchor="w")
+                ctk.CTkLabel(info, text="Tipe utama: " + " · ".join(record["tiga_teratas"]),
+                             text_color=COLORS["muted"]).pack(anchor="w")
+                ctk.CTkButton(line, text="Lihat hasil", width=90, height=29,
+                              command=lambda i=index: view_history(i)).pack(side="right", padx=8)
+            if murid.riasec_history and self.mb_history_index is not None:
+                index = self.mb_history_index
+                if 0 <= index < len(murid.riasec_history):
+                    record = murid.riasec_history[index]
+                    detail = section_card(body, f"Detail riwayat · {record['tanggal'][:10]}")
+                    draw_radar(detail, record["skor"])
+                    score_bars(detail, record["skor"])
+                    ctk.CTkLabel(detail, text="Rekomendasi saat tes: " +
+                                 ", ".join(x["nama"] for x in record["rekomendasi"]),
+                                 text_color=COLORS["muted"], wraplength=800,
+                                 justify="left").pack(anchor="w", padx=16, pady=(0, 12))
+            def view_history(index):
+                self.mb_history_index = index
+                self.show_page("Minat Bakat")
+
+        def finish_test():
+            if len(murid.riasec_answers) != 60 or any(str(i) not in murid.riasec_answers for i in range(60)):
+                self._message("Jawaban belum lengkap", "Jawab seluruh 60 pertanyaan sebelum menyelesaikan tes.")
+                return
+            answers = [murid.riasec_answers[str(i)] for i in range(60)]
+            from services.minat_bakat import buat_riwayat
+            record = buat_riwayat(answers, katalog)
+            murid.riasec_history.append(record)
+            murid.profil_minat = record["skor"]
+            murid.riasec_answers = {}
+            self.mb_history_index = len(murid.riasec_history) - 1
+            self.mb_view = "Hasil Tes"
+            self._save()
+            self.show_page("Minat Bakat")
+
+        def start_new_test():
+            murid.riasec_answers = {}
+            self.mb_section = 0
+            self._save()
+            go("Tes RIASEC")
 
     def _portofolio_page(self):
         from models.portofolio import Prestasi
