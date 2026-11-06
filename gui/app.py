@@ -1118,6 +1118,15 @@ class FutureMateApp(ctk.CTk):
         types = ["R", "I", "A", "S", "E", "C"]
         groups = ["Semua bidang"] + list(dict.fromkeys(item["bidang"] for item in katalog))
         profile = murid.profil_minat if isinstance(murid.profil_minat, dict) else {}
+        # Konversi profil lama (skor 2-10 dari dua pertanyaan per tipe)
+        # ke skala baru 0-100 agar data akun lama tetap terbaca.
+        if profile and murid.riasec_history:
+            profile = murid.riasec_history[-1].get("skor", profile)
+        elif profile and max(float(v) for v in profile.values()) <= 10:
+            profile = {
+                t: round(max(0.0, min(100.0, ((float(profile.get(t, 2)) / 2 - 1) / 4) * 100)), 1)
+                for t in types
+            }
 
         def go(view):
             self.mb_view = view
