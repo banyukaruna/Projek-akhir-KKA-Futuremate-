@@ -4,6 +4,7 @@ import customtkinter as ctk
 
 from gui.theme import COLORS, apply_theme
 from gui.components.sidebar import Sidebar
+from gui.pages.tugas import TugasPage
 from services.penyimpanan import Penyimpanan
 from services.sistem_kesiapan import SistemKesiapan
 from services.notifikasi import Notifikasi
@@ -131,6 +132,10 @@ class FutureMateApp(ctk.CTk):
             child.destroy()
         if page == "Dashboard":
             self._dashboard()
+        elif page == "Tugas & Jadwal":
+            TugasPage(self.content, self.current_student, self._save, COLORS).grid(
+                row=0, column=0, sticky="nsew"
+            )
         else:
             self._placeholder(page)
 
