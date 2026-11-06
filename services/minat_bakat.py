@@ -112,20 +112,17 @@ def tipe_teratas(profil, jumlah=3):
     return sorted(urutan, key=lambda t: (-float(profil.get(t, 0)), urutan.index(t)))[:jumlah]
 
 def skor_kecocokan(profil_pengguna, profil_jurusan):
-    """Menghitung kecocokan dengan bobot 70% untuk tiga tipe pengguna tertinggi
-    dan 30% untuk tiga tipe lainnya. Setiap kelompok dibagi rata.
+    """Menghitung kemiripan profil dengan bobot sama untuk keenam tipe RIASEC.
+
+    Nilai ini merupakan heuristik pencocokan katalog, bukan probabilitas
+    keberhasilan kuliah atau hasil asesmen psikometri resmi.
     """
-    tiga_utama = set(tipe_teratas(profil_pengguna, 3))
-    bobot_per_tipe = {
-        tipe: (0.7 / 3 if tipe in tiga_utama else 0.3 / 3)
-        for tipe in NAMA_TIPE
-    }
-    jarak_berbobot = sum(
+    jarak = sum(
         abs(float(profil_pengguna.get(tipe, 0)) -
-            float(profil_jurusan.get(tipe, 0))) * bobot_per_tipe[tipe]
+            float(profil_jurusan.get(tipe, 0)))
         for tipe in NAMA_TIPE
-    )
-    return round(max(0.0, 100 - jarak_berbobot), 1)
+    ) / len(NAMA_TIPE)
+    return round(max(0.0, 100 - jarak), 1)
 
 def rekomendasikan(profil, katalog, jumlah=10):
     hasil = []
