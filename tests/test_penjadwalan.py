@@ -61,15 +61,15 @@ class PenjadwalanTests(unittest.TestCase):
         self.assertEqual(60, Ujian._bangun(data_ujian).durasi_menit)
 
     def test_durasi_di_luar_rentang_ditolak_untuk_semua_jenis(self):
-        items = [
-            Tugas("PR", "Matematika", self.DEADLINE, 3, 500),
-            Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 500),
-            SesiBelajar("Belajar", "Fisika", self.DEADLINE, 500),
+        pembuat_item = [
+            lambda: Tugas("PR", "Matematika", self.DEADLINE, 3, 500),
+            lambda: Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 500),
+            lambda: SesiBelajar("Belajar", "Fisika", self.DEADLINE, 500),
         ]
-        for item in items:
-            with self.subTest(jenis=item.jenis()):
+        for buat_item in pembuat_item:
+            with self.subTest(pembuat_item=buat_item):
                 with self.assertRaisesRegex(ValueError, "15 sampai 480"):
-                    self.buat(item)
+                    buat_item()
 
 
 if __name__ == "__main__":
