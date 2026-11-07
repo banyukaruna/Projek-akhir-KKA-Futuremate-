@@ -651,7 +651,7 @@ class FutureMateApp(ctk.CTk):
         from datetime import date
         from models.item import Tugas, Ujian, SesiBelajar
 
-        self.content.grid_rowconfigure(3, weight=1)
+        # Semua konten memakai satu area scroll utama pada self.content.
         self._page_header(
             "Tugas & Jadwal",
             "Catat tugas, ujian, dan sesi belajar agar tenggat waktumu terpantau."
@@ -703,9 +703,8 @@ class FutureMateApp(ctk.CTk):
         duration_entry.grid(row=3, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
 
         list_panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
-        list_panel.grid(row=3, column=0, sticky="nsew")
+        list_panel.grid(row=3, column=0, sticky="ew")
         list_panel.grid_columnconfigure(0, weight=1)
-        list_panel.grid_rowconfigure(1, weight=1)
 
         header = ctk.CTkFrame(list_panel, fg_color="transparent")
         header.grid(row=0, column=0, sticky="ew", padx=18, pady=(15, 8))
@@ -718,7 +717,7 @@ class FutureMateApp(ctk.CTk):
         count_label = ctk.CTkLabel(header, text="", text_color=COLORS["muted"])
         count_label.pack(side="right")
 
-        items_frame = ctk.CTkScrollableFrame(
+        items_frame = ctk.CTkFrame(
             list_panel, fg_color="transparent", corner_radius=0
         )
         items_frame.grid(row=1, column=0, sticky="nsew", padx=12, pady=(0, 12))
@@ -942,8 +941,8 @@ class FutureMateApp(ctk.CTk):
         end_entry.insert(0, pref.get("selesai", "18:00"))
         end_entry.pack(side="left", padx=7)
 
-        schedule_frame = ctk.CTkScrollableFrame(
-            panel, fg_color=COLORS["surface_alt"], height=190, corner_radius=10
+        schedule_frame = ctk.CTkFrame(
+            panel, fg_color=COLORS["surface_alt"], corner_radius=10
         )
         schedule_frame.pack(fill="x", padx=14, pady=(4, 12))
 
@@ -1676,11 +1675,11 @@ class FutureMateApp(ctk.CTk):
                 text_color=COLORS["muted"]
             )
             answered_label.pack(anchor="w", padx=16, pady=(0, 10))
-            scroll = ctk.CTkScrollableFrame(card, fg_color="transparent", height=490)
-            scroll.pack(fill="x", padx=10, pady=(0, 10))
+            questions_frame = ctk.CTkFrame(card, fg_color="transparent")
+            questions_frame.pack(fill="x", padx=10, pady=(0, 10))
             for idx, question in enumerate(PERTANYAAN_PER_TIPE[tipe]):
                 question_index = section * 10 + idx
-                block = ctk.CTkFrame(scroll, fg_color=COLORS["surface_alt"], corner_radius=9)
+                block = ctk.CTkFrame(questions_frame, fg_color=COLORS["surface_alt"], corner_radius=9)
                 block.pack(fill="x", padx=4, pady=5)
                 ctk.CTkLabel(block, text=f"{idx + 1}. {question}", text_color=COLORS["text"],
                              wraplength=780, justify="left").pack(anchor="w", padx=12, pady=(10, 6))
