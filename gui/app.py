@@ -473,7 +473,7 @@ class FutureMateApp(ctk.CTk):
             form, text="", text_color=COLORS["danger"],
             font=ctk.CTkFont(size=10), wraplength=800, justify="left"
         )
-        form_feedback.grid(row=4, column=0, columnspan=2, padx=16, pady=(2, 0), sticky="w")
+        form_feedback.grid(row=6, column=0, columnspan=2, padx=16, pady=(2, 8), sticky="w")
 
         def show_message(message):
             form_feedback.configure(text=message, text_color=COLORS["danger"])
