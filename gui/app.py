@@ -32,10 +32,9 @@ class FutureMateApp(ctk.CTk):
         self.storage = Penyimpanan(DATA / "data.json", DATA / "jurusan.json")
         self.kesiapan = SistemKesiapan()
         try:
-            self.katalog = self.storage.muat_katalog()
             self.murid_data = self.storage.muat()
         except FutureMateError as error:
-            self.katalog, self.murid_data = [], {}
+            self.murid_data = {}
             self.after(200, lambda: self._show_error(str(error)))
 
         self.current_student = None
@@ -160,7 +159,6 @@ class FutureMateApp(ctk.CTk):
             "Dashboard": self._dashboard,
             "Tugas & Jadwal": self._tugas_page,
             "Nilai Akademik": self._nilai_page,
-            "Target Masa Depan": self._target_page,
             "Minat Bakat": self._minat_bakat_page,
             "Portofolio": self._portofolio_page,
         }
@@ -346,11 +344,6 @@ class FutureMateApp(ctk.CTk):
                 text_color=COLORS["muted"], anchor="w",
                 justify="left", wraplength=780
             ).pack(fill="x", padx=18, pady=4)
-        ctk.CTkLabel(
-            roadmap, text=f"{len(murid.targets)} target masa depan tersimpan",
-            text_color=COLORS["primary"],
-            font=ctk.CTkFont(size=11, weight="bold")
-        ).pack(anchor="w", padx=18, pady=(10, 15))
 
 
     # ==========================================================
@@ -971,121 +964,6 @@ class FutureMateApp(ctk.CTk):
             text_color=COLORS["text"]
         ).grid(row=1, column=0, columnspan=2, sticky="ew")
 
-        refresh()
-
-    def _target_page(self):
-        from datetime import date
-        from models.target import Jurusan, Beasiswa, Lomba
-        self._page_header(
-            "Target Masa Depan",
-            "Simpan tujuan pendidikan dan peluang yang ingin kamu persiapkan."
-        )
-        form = self._section_card(
-            self.content, "Tambah target",
-            "Pilih jenis target. Untuk jurusan, pilih dari katalog. Untuk beasiswa dan lomba, isi syarat sesuai informasi resmi yang kamu miliki."
-        )
-        grid = ctk.CTkFrame(form, fg_color="transparent")
-        grid.pack(fill="x", padx=18, pady=(0, 10))
-        grid.grid_columnconfigure((0, 1), weight=1)
-        kind = ctk.CTkOptionMenu(
-            grid, values=["Jurusan", "Beasiswa", "Lomba"],
-            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
-            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
-        )
-        kind.grid(row=0, column=0, padx=(0, 7), pady=4, sticky="ew")
-        catalog_names = [f"{j.nama_jurusan} | {j.kampus}" for j in self.katalog]
-        catalog = ctk.CTkOptionMenu(
-            grid, values=catalog_names or ["Katalog kosong"],
-            fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
-            button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
-        )
-        catalog.grid(row=0, column=1, padx=(7, 0), pady=4, sticky="ew")
-        name = ctk.CTkEntry(grid, placeholder_text="Nama beasiswa atau lomba")
-        name.grid(row=1, column=0, padx=(0, 7), pady=4, sticky="ew")
-        deadline = ctk.CTkEntry(grid, placeholder_text="Deadline YYYY-MM-DD (opsional)")
-        deadline.grid(row=1, column=1, padx=(7, 0), pady=4, sticky="ew")
-        average = ctk.CTkEntry(grid, placeholder_text="Rata-rata minimum, contoh 80")
-        average.grid(row=2, column=0, padx=(0, 7), pady=4, sticky="ew")
-        extra = ctk.CTkEntry(grid, placeholder_text="Prestasi minimum / mata pelajaran")
-        extra.grid(row=2, column=1, padx=(7, 0), pady=4, sticky="ew")
-        extra_value = ctk.CTkEntry(grid, placeholder_text="Nilai minimum mapel (khusus lomba)")
-        extra_value.grid(row=3, column=0, padx=(0, 7), pady=4, sticky="ew")
-        hint = ctk.CTkLabel(form, text="Jurusan menggunakan syarat yang tersedia di katalog.",
-                            text_color=COLORS["muted"], font=ctk.CTkFont(size=10))
-        hint.pack(anchor="w", padx=18, pady=(0, 8))
-        result_area = ctk.CTkFrame(self.content, fg_color="transparent")
-        result_area.grid(row=3, column=0, sticky="ew")
-        result_area.grid_columnconfigure(0, weight=1)
-
-        def refresh():
-            for child in result_area.winfo_children():
-                child.destroy()
-            if not self.current_student.targets:
-                ctk.CTkLabel(result_area, text="Belum ada target tersimpan.",
-                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
-            for target in self.current_student.targets:
-                card = ctk.CTkFrame(result_area, fg_color=COLORS["surface"],
-                                    corner_radius=12, border_width=1, border_color=COLORS["border"])
-                card.pack(fill="x", pady=5)
-                fraction = target.kecocokan(self.current_student) * 100
-                ctk.CTkLabel(card, text=f"{target.jenis()} · {target.nama}",
-                             text_color=COLORS["text"], font=ctk.CTkFont(size=13, weight="bold")
-                             ).pack(anchor="w", padx=15, pady=(12, 3))
-                ctk.CTkLabel(card, text=f"Kecocokan syarat: {fraction:.0f}%",
-                             text_color=COLORS["primary"], font=ctk.CTkFont(size=11, weight="bold")
-                             ).pack(anchor="w", padx=15, pady=(0, 5))
-                for requirement in target.cek_syarat(self.current_student):
-                    mark = "Terpenuhi" if requirement.terpenuhi else "Belum terpenuhi"
-                    ctk.CTkLabel(card, text=f"• {requirement.deskripsi} · {mark}",
-                                 text_color=COLORS["muted"], wraplength=780, justify="left"
-                                 ).pack(anchor="w", padx=18, pady=2)
-                ctk.CTkButton(card, text="Hapus target", width=100, height=28,
-                              fg_color=COLORS["danger"],
-                              command=lambda t=target: remove(t)).pack(anchor="e", padx=12, pady=10)
-
-        def remove(target):
-            self.current_student.targets.remove(target)
-            self._save()
-            refresh()
-
-        def add_target():
-            try:
-                selected = kind.get()
-                if selected == "Jurusan":
-                    if not self.katalog:
-                        raise ValueError("Katalog jurusan belum tersedia.")
-                    chosen = catalog.get()
-                    target = next(j for j in self.katalog if f"{j.nama_jurusan} | {j.kampus}" == chosen)
-                    target = Jurusan(target.nama_jurusan, target.kampus, target.rata_min,
-                                     target.syarat_mapel, target.riasec)
-                else:
-                    target_name = name.get().strip()
-                    if not target_name:
-                        raise ValueError("Nama target wajib diisi.")
-                    raw_deadline = deadline.get().strip()
-                    due = date.fromisoformat(raw_deadline) if raw_deadline else None
-                    minimum = float(average.get().strip())
-                    if selected == "Beasiswa":
-                        target = Beasiswa(target_name, due, minimum, int(extra.get().strip()))
-                    else:
-                        subject_name = extra.get().strip()
-                        if not subject_name:
-                            raise ValueError("Isi nama mata pelajaran untuk target lomba.")
-                        target = Lomba(target_name, due, subject_name, float(extra_value.get().strip()))
-                self.current_student.tambah_target(target)
-                self._save()
-                name.delete(0, "end")
-                deadline.delete(0, "end")
-                average.delete(0, "end")
-                extra.delete(0, "end")
-                extra_value.delete(0, "end")
-                refresh()
-            except (ValueError, StopIteration) as error:
-                self._message("Target belum tersimpan", str(error) or "Periksa kembali isian target.")
-
-        ctk.CTkButton(form, text="Simpan target", command=add_target, height=36,
-                      fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
-                      text_color=COLORS["text"]).pack(anchor="e", padx=18, pady=(0, 14))
         refresh()
 
     def _minat_bakat_page(self):
