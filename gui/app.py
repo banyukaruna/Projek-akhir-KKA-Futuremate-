@@ -701,8 +701,8 @@ class FutureMateApp(ctk.CTk):
                      text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(16, 4))
         ctk.CTkLabel(
             panel,
-            text=("Pilih hari dan rentang waktu yang biasanya kamu punya. Sistem menyusun "
-                  "sesi 60 menit untuk kegiatan aktif berdasarkan tenggat dan prioritas."),
+            text=("Pilih hari dan rentang waktu yang biasanya kamu punya. Sistem hanya "
+                  "menjadwalkan Sesi Belajar yang kamu tambahkan sendiri."),
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
             wraplength=820, justify="left"
         ).pack(anchor="w", padx=18, pady=(0, 8))
