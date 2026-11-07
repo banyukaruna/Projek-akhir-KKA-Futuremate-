@@ -82,6 +82,38 @@ class FutureMateApp(ctk.CTk):
         toast.geometry(f"+{max(8, x)}+{max(8, y)}")
         toast.after(duration, lambda: toast.destroy() if toast.winfo_exists() else None)
 
+    def _animate_progress(self, widget, target, duration=180, steps=9):
+        """Animasi progres singkat. Aman dihentikan saat widget ditutup."""
+        target = max(0.0, min(1.0, float(target)))
+        try:
+            previous = getattr(widget, "_progress_animation_after", None)
+            if previous is not None:
+                widget.after_cancel(previous)
+            start = float(widget.get())
+        except Exception:
+            start = 0.0
+
+        state = {"step": 0}
+
+        def advance():
+            try:
+                if not widget.winfo_exists():
+                    return
+                state["step"] += 1
+                fraction = min(1.0, state["step"] / steps)
+                eased = fraction * fraction * (3 - 2 * fraction)
+                widget.set(start + (target - start) * eased)
+                if fraction < 1.0:
+                    widget._progress_animation_after = widget.after(
+                        max(12, duration // steps), advance
+                    )
+                else:
+                    widget._progress_animation_after = None
+            except Exception:
+                return
+
+        advance()
+
     def _confirm(self, title, message):
         """Dialog konfirmasi bertema aplikasi. Mengembalikan True jika disetujui."""
         dialog = ctk.CTkToplevel(self)
@@ -357,7 +389,7 @@ class FutureMateApp(ctk.CTk):
                 else "Dari seluruh mata pelajaran"
             )
             progress_percent.configure(text=f"{progres * 100:.0f}%")
-            progress_bar.set(progres)
+            self._animate_progress(progress_bar, progres)
             activity_count.configure(text=f"{selesai} dari {total} aktivitas selesai")
             remaining_count.configure(text=f"{total - selesai} aktivitas masih perlu dikerjakan")
 
@@ -1141,12 +1173,15 @@ class FutureMateApp(ctk.CTk):
                 bar = ctk.CTkProgressBar(row, height=10,
                                          progress_color=COLORS["primary"])
                 bar.pack(side="left", fill="x", expand=True, padx=8)
-                bar.set(value / 100)
+                self._animate_progress(bar, value / 100)
                 ctk.CTkLabel(row, text=f"{value:.1f}", width=48,
                              text_color=COLORS["muted"]).pack(side="right")
 
         def show_major_card(parent, major, match=None):
-            card = ctk.CTkFrame(parent, fg_color=COLORS["surface_alt"], corner_radius=10)
+            card = ctk.CTkFrame(
+                parent, fg_color=COLORS["surface_alt"], corner_radius=10,
+                border_width=1, border_color=COLORS["border"]
+            )
             card.pack(fill="x", padx=8, pady=5)
             info = ctk.CTkFrame(card, fg_color="transparent")
             info.pack(side="left", fill="x", expand=True, padx=12, pady=10)
@@ -1171,6 +1206,40 @@ class FutureMateApp(ctk.CTk):
                 command=lambda item=major, target=favorite_button: toggle_favorite(item, match, target)
             )
             favorite_button.pack(side="left", padx=3)
+
+            hover_state = {"pending": None}
+
+            def update_card_hover(_event=None):
+                if hover_state["pending"] is not None:
+                    try:
+                        card.after_cancel(hover_state["pending"])
+                    except Exception:
+                        pass
+
+                def apply_hover():
+                    try:
+                        if not card.winfo_exists():
+                            return
+                        pointer_x, pointer_y = card.winfo_pointerxy()
+                        inside = (
+                            card.winfo_rootx() <= pointer_x <= card.winfo_rootx() + card.winfo_width()
+                            and card.winfo_rooty() <= pointer_y <= card.winfo_rooty() + card.winfo_height()
+                        )
+                        card.configure(
+                            border_color=COLORS["primary"] if inside else COLORS["border"]
+                        )
+                    except Exception:
+                        return
+
+                hover_state["pending"] = card.after(45, apply_hover)
+
+            def bind_hover(widget):
+                widget.bind("<Enter>", update_card_hover, add="+")
+                widget.bind("<Leave>", update_card_hover, add="+")
+                for child in widget.winfo_children():
+                    bind_hover(child)
+
+            bind_hover(card)
 
         def open_major(major):
             self.mb_selected_major = major["nama"]
@@ -1284,7 +1353,7 @@ class FutureMateApp(ctk.CTk):
             ).pack(anchor="w", padx=16, pady=(0, 8))
             progress = ctk.CTkProgressBar(card, progress_color=COLORS["primary"])
             progress.pack(fill="x", padx=16, pady=5)
-            progress.set(answered_count / 60)
+            self._animate_progress(progress, answered_count / 60)
             answered_label = ctk.CTkLabel(
                 card, text=f"{answered_count} dari 60 pertanyaan terjawab",
                 text_color=COLORS["muted"]
@@ -1311,7 +1380,7 @@ class FutureMateApp(ctk.CTk):
                 choice.configure(command=lambda value, i=question_index: save_answer(i, value))
             def save_answer(index, value):
                 murid.riasec_answers[str(index)] = int(value)
-                progress.set(len(murid.riasec_answers) / 60)
+                self._animate_progress(progress, len(murid.riasec_answers) / 60)
                 answered_label.configure(
                     text=f"{len(murid.riasec_answers)} dari 60 pertanyaan terjawab · Tersimpan",
                     text_color=COLORS["success"]
