@@ -646,8 +646,16 @@ class FutureMateApp(ctk.CTk):
 
             def save_edit():
                 try:
-                    Penjadwalan.ubah_sesi(session, date_input.get().strip(),
-                                          time_input.get().strip(), duration_input.get().strip())
+                    tanggal_baru = date_input.get().strip()
+                    mulai_baru = time_input.get().strip()
+                    durasi_baru = duration_input.get().strip()
+                    Penjadwalan.validasi_bentrok(
+                        session, tanggal_baru, mulai_baru, durasi_baru,
+                        self.current_student.jadwal
+                    )
+                    Penjadwalan.ubah_sesi(
+                        session, tanggal_baru, mulai_baru, durasi_baru
+                    )
                     self._save()
                     dialog.destroy()
                     refresh_schedule()
@@ -666,22 +674,15 @@ class FutureMateApp(ctk.CTk):
                 self.current_student.preferensi_jadwal = {
                     "hari": selected_days, "mulai": start, "selesai": end
                 }
-                jadwal_lama = {
-                    (
-                        sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
-                        sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
-                    ): sesi.get("selesai", False)
-                    for sesi in self.current_student.jadwal
-                }
+                # Sesi manual dan sesi selesai tidak dihapus saat regenerasi.
+                sesi_dipertahankan = [
+                    sesi for sesi in self.current_student.jadwal
+                    if sesi.get("manual", False) or sesi.get("selesai", False)
+                ]
                 jadwal_baru = Penjadwalan.buat_jadwal(
-                    self.current_student.item_aktif(), selected_days, start, end
+                    self.current_student.item_aktif(), selected_days, start, end,
+                    sesi_manual=sesi_dipertahankan
                 )
-                for sesi in jadwal_baru:
-                    kunci = (
-                        sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
-                        sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
-                    )
-                    sesi["selesai"] = jadwal_lama.get(kunci, False)
                 self.current_student.jadwal = jadwal_baru
                 self._save()
                 refresh_schedule()
@@ -693,7 +694,7 @@ class FutureMateApp(ctk.CTk):
 
         ctk.CTkLabel(
             panel,
-            text="Kamu bisa mengubah tanggal, jam, dan durasi lewat tombol Edit. Membuat ulang jadwal akan mengganti jadwal yang tersimpan saat ini.",
+            text="Sesi yang diedit manual dan sesi yang sudah selesai akan dipertahankan saat jadwal dibuat ulang. Sistem menghindari bentrokan waktu.",
             text_color=COLORS["warning"], font=ctk.CTkFont(size=10),
             wraplength=820, justify="left"
         ).pack(anchor="w", padx=18, pady=(0, 8))
