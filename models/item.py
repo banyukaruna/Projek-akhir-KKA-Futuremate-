@@ -99,14 +99,14 @@ class Tugas(Item):
     def _bangun(cls, d):
         return cls(
             d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
-            d.get("kesulitan", 3), d.get("durasi_menit", 60)
+            d.get("kesulitan", 3), d.get("durasi_menit", 60), d.get("id")
         )
 
 
 class Ujian(Item):
     BONUS = 4  # ujian selalu dianggap penting
 
-    def __init__(self, judul, mapel, deadline, durasi_menit=60):
+    def __init__(self, judul, mapel, deadline, durasi_menit=60, item_id=None):
         super().__init__(judul, mapel, deadline, durasi_menit, item_id)
 
     def jenis(self):
@@ -119,13 +119,13 @@ class Ujian(Item):
     def _bangun(cls, d):
         return cls(
             d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
-            d.get("durasi_menit", 60)
+            d.get("durasi_menit", 60), d.get("id")
         )
 
 
 class SesiBelajar(Item):
     def __init__(self, judul, mapel, deadline, durasi_menit=60):
-        super().__init__(judul, mapel, deadline, durasi_menit)
+        super().__init__(judul, mapel, deadline, durasi_menit, item_id)
 
     def jenis(self):
         return "Sesi"
