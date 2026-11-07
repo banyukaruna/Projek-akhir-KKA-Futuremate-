@@ -74,9 +74,9 @@ class Sidebar(ctk.CTkFrame):
         for label, button in self.buttons.items():
             selected = label == active
             button.configure(
-                fg_color=COLORS["surface_alt"] if selected else "transparent",
-                text_color=COLORS["text"] if selected else COLORS["muted"],
-                hover_color=COLORS["border"] if selected else COLORS["surface_alt"],
+                fg_color=COLORS["primary_soft"] if selected else "transparent",
+                text_color=COLORS["primary"] if selected else COLORS["muted"],
+                hover_color=COLORS["surface_alt"],
                 font=ctk.CTkFont(
                     size=13, weight="bold" if selected else "normal"
                 ),
