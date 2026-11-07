@@ -30,40 +30,38 @@ class Penjadwalan:
         aktif = [item for item in items if not item.selesai and item.deadline >= hari_ini]
         aktif.sort(key=lambda item: (item.deadline, -item.skor_prioritas(hari_ini)))
         jadwal = []
-        indeks_slot = 0
+        slot_terpakai = set()
 
         for item in aktif:
-            if item.jenis() == "Sesi":
-                durasi_total = int(getattr(item, "durasi_menit", 60))
-                if not 15 <= durasi_total <= 480:
-                    raise ValueError("Durasi sesi belajar harus 15 sampai 480 menit.")
-                durasi_sesi = []
-                while durasi_total:
-                    bagian = min(60, durasi_total)
-                    durasi_sesi.append(bagian)
-                    durasi_total -= bagian
-            else:
-                jumlah_sesi = 2 if item.jenis() == "Ujian" else (
-                    2 if item.jenis() == "Tugas" and getattr(item, "kesulitan", 3) >= 4 else 1
-                )
-                durasi_sesi = [60] * jumlah_sesi
+            durasi_total = int(getattr(item, "durasi_menit", 60))
+            if not 15 <= durasi_total <= 480:
+                raise ValueError("Durasi kegiatan harus 15 sampai 480 menit.")
 
-            for durasi in durasi_sesi:
-                while indeks_slot < len(slots) and slots[indeks_slot][0] > item.deadline:
-                    indeks_slot += 1
-                if indeks_slot >= len(slots):
+            sisa_durasi = durasi_total
+            while sisa_durasi > 0:
+                indeks_tersedia = next(
+                    (
+                        indeks for indeks, (tanggal_slot, _) in enumerate(slots)
+                        if indeks not in slot_terpakai and tanggal_slot <= item.deadline
+                    ),
+                    None,
+                )
+                if indeks_tersedia is None:
                     break
-                tanggal_sesi, waktu_sesi = slots[indeks_slot]
+
+                tanggal_sesi, waktu_sesi = slots[indeks_tersedia]
+                durasi_sesi = min(60, sisa_durasi)
                 jadwal.append({
                     "judul": item.judul,
                     "mapel": item.mapel,
                     "jenis": item.jenis(),
                     "tanggal": tanggal_sesi.isoformat(),
                     "mulai": waktu_sesi,
-                    "durasi": durasi,
+                    "durasi": durasi_sesi,
                     "manual": False,
                 })
-                indeks_slot += 1
+                slot_terpakai.add(indeks_tersedia)
+                sisa_durasi -= durasi_sesi
         return jadwal
 
     @staticmethod
@@ -72,7 +70,7 @@ class Penjadwalan:
         waktu_obj = datetime.strptime(mulai, "%H:%M")
         durasi = int(durasi)
         if durasi < 15 or durasi > 240:
-            raise ValueError("Durasi harus 15 sampai 240 menit.")
+            raise ValueError("Durasi sesi harus 15 sampai 240 menit.")
         sesi.update({
             "tanggal": tanggal_obj.isoformat(),
             "mulai": waktu_obj.strftime("%H:%M"),
