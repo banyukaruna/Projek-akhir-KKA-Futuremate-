@@ -34,26 +34,21 @@ class Penjadwalan:
         ]
         aktif.sort(key=lambda item: (item.deadline, -item.skor_prioritas(hari_ini)))
         jadwal = []
-        slot_terpakai = set()
+        indeks_slot = 0
 
+        # Kegiatan sudah diurutkan berdasarkan deadline. Karena itu, slot
+        # dapat dipakai berurutan tanpa memindai ulang seluruh daftar slot.
         for item in aktif:
             durasi_total = int(getattr(item, "durasi_menit", 60))
             if not 15 <= durasi_total <= 480:
                 raise ValueError("Durasi kegiatan harus 15 sampai 480 menit.")
 
             sisa_durasi = durasi_total
-            while sisa_durasi > 0:
-                indeks_tersedia = next(
-                    (
-                        indeks for indeks, (tanggal_slot, jam_slot) in enumerate(slots)
-                        if indeks not in slot_terpakai and tanggal_slot <= item.deadline
-                    ),
-                    None,
-                )
-                if indeks_tersedia is None:
+            while sisa_durasi > 0 and indeks_slot < len(slots):
+                tanggal_sesi, waktu_sesi = slots[indeks_slot]
+                if tanggal_sesi > item.deadline:
                     break
 
-                tanggal_sesi, waktu_sesi = slots[indeks_tersedia]
                 durasi_sesi = min(60, sisa_durasi)
                 jadwal.append({
                     "judul": item.judul,
@@ -64,7 +59,7 @@ class Penjadwalan:
                     "durasi": durasi_sesi,
                     "manual": False,
                 })
-                slot_terpakai.add(indeks_tersedia)
+                indeks_slot += 1
                 sisa_durasi -= durasi_sesi
         return jadwal
 
