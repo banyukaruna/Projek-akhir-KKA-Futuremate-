@@ -274,10 +274,13 @@ class FutureMateApp(ctk.CTk):
 
             # Agenda memakai sumber data yang sama dengan Daftar Kegiatan.
             # Tidak membaca murid.jadwal agar sesi otomatis lama tidak muncul.
-            agenda = [
-                (item.deadline, item.judul, item.mapel, item.jenis(), item)
-                for item in murid.item_aktif()
-            ]
+            agenda = sorted(
+                (
+                    (item.deadline, item.judul, item.mapel, item.jenis(), item)
+                    for item in murid.item_aktif()
+                ),
+                key=lambda data: (data[0], data[1].casefold())
+            )
             return total, selesai, agenda
 
         self._page_header(
@@ -385,7 +388,7 @@ class FutureMateApp(ctk.CTk):
                 child.destroy()
             if not agenda:
                 ctk.CTkLabel(
-                    agenda_list, text="Tidak ada agenda tersisa untuk minggu ini.",
+                    agenda_list, text="Belum ada kegiatan aktif.",
                     text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
                 ).pack(anchor="w", pady=8)
                 return
@@ -408,15 +411,10 @@ class FutureMateApp(ctk.CTk):
                     anchor="w"
                 ).pack(anchor="w", pady=(2, 0))
 
-                def mark_done(current=objek, current_type=jenis):
-                    if current_type in ("Tugas", "Ujian"):
-                        if current.selesai:
-                            return
-                        current.tandai_selesai()
-                    else:
-                        if current.get("selesai", False):
-                            return
-                        current["selesai"] = True
+                def mark_done(current=objek):
+                    if current.selesai:
+                        return
+                    current.tandai_selesai()
                     self._save()
                     refresh_dashboard()
                     self._notify("Aktivitas ditandai selesai.")
@@ -516,6 +514,22 @@ class FutureMateApp(ctk.CTk):
         )
         form_feedback.grid(row=6, column=0, columnspan=2, padx=16, pady=(2, 8), sticky="w")
 
+        editing = {"item": None}
+
+        def reset_item_form():
+            editing["item"] = None
+            title_entry.delete(0, "end")
+            subject_entry.delete(0, "end")
+            date_entry.delete(0, "end")
+            date_entry.insert(0, date.today().isoformat())
+            duration_entry.delete(0, "end")
+            duration_entry.insert(0, "60")
+            type_menu.set("Tugas")
+            difficulty_menu.set("Sedang")
+            submit_button.configure(text="Tambah kegiatan")
+            cancel_edit_button.grid_remove()
+
+
         def show_message(message):
             form_feedback.configure(text=message, text_color=COLORS["danger"])
 
@@ -593,6 +607,10 @@ class FutureMateApp(ctk.CTk):
                     done_checkbox.configure(state="disabled")
 
                 ctk.CTkButton(
+                    actions, text="Edit", width=52, height=30,
+                    command=lambda current=item: edit_item(current)
+                ).pack(side="left", padx=3)
+                ctk.CTkButton(
                     actions, text="Hapus", width=62, height=30,
                     fg_color=COLORS["danger"], hover_color=COLORS["danger_hover"],
                     command=lambda current=item: delete_item(current)
@@ -612,10 +630,27 @@ class FutureMateApp(ctk.CTk):
             ):
                 return
             self.current_student.items.remove(item)
+            if editing["item"] is item:
+                reset_item_form()
             bersihkan_jadwal_tidak_terkait()
             self._save()
             refresh_list()
             self._notify("Kegiatan berhasil dihapus.")
+
+        def edit_item(item):
+            editing["item"] = item
+            title_entry.delete(0, "end")
+            title_entry.insert(0, item.judul)
+            subject_entry.delete(0, "end")
+            subject_entry.insert(0, item.mapel)
+            date_entry.delete(0, "end")
+            date_entry.insert(0, item.deadline.isoformat())
+            duration_entry.delete(0, "end")
+            duration_entry.insert(0, str(item.durasi_menit))
+            type_menu.set({"Sesi": "Sesi Belajar"}.get(item.jenis(), item.jenis()))
+            difficulty_menu.set(getattr(item, "kesulitan", "Sedang"))
+            submit_button.configure(text="Simpan perubahan")
+            cancel_edit_button.grid()
 
         def add_item():
             title = title_entry.get().strip()
@@ -643,18 +678,24 @@ class FutureMateApp(ctk.CTk):
                 else:
                     item = SesiBelajar(title, subject, deadline, duration)
 
-                # Bersihkan sesi dari kegiatan lama sebelum menambahkan item baru.
-                # Ini mencegah jadwal yatim muncul kembali di Agenda terdekat.
+                current = editing["item"]
+                if current is not None:
+                    if current.selesai:
+                        item.tandai_selesai()
+                    index = self.current_student.items.index(current)
+                    self.current_student.items[index] = item
+                    message = "Kegiatan berhasil diperbarui."
+                else:
+                    self.current_student.tambah_item(item)
+                    message = "Kegiatan berhasil ditambahkan."
+
+                # Hapus referensi jadwal lama yang tidak lagi sesuai dengan item.
                 bersihkan_jadwal_tidak_terkait()
-                self.current_student.tambah_item(item)
                 self._save()
-                title_entry.delete(0, "end")
-                subject_entry.delete(0, "end")
-                duration_entry.delete(0, "end")
-                duration_entry.insert(0, "60")
+                reset_item_form()
                 refresh_list()
                 form_feedback.configure(text="")
-                self._notify("Kegiatan berhasil ditambahkan.")
+                self._notify(message)
             except ValueError as error:
                 show_message(
                     "Periksa tanggal dan durasi. Tanggal memakai YYYY-MM-DD. "
@@ -662,11 +703,18 @@ class FutureMateApp(ctk.CTk):
                     f"Detail: {error}"
                 )
 
-        ctk.CTkButton(
+        submit_button = ctk.CTkButton(
             form, text="Tambah kegiatan", height=38, command=add_item,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"]
-        ).grid(row=4, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+        )
+        submit_button.grid(row=4, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+        cancel_edit_button = ctk.CTkButton(
+            form, text="Batal edit", height=38, command=reset_item_form,
+            fg_color=COLORS["surface_alt"], text_color=COLORS["text"]
+        )
+        cancel_edit_button.grid(row=4, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
+        cancel_edit_button.grid_remove()
 
         ctk.CTkLabel(
             form,
