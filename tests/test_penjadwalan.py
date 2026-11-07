@@ -94,6 +94,40 @@ class PenjadwalanTests(unittest.TestCase):
 
 
 
+    def test_slot_dipakai_berurutan_tanpa_tumpang_tindih(self):
+        tugas_pertama = Tugas("PR 1", "Matematika", self.DEADLINE, 3, 120)
+        tugas_kedua = Tugas("PR 2", "Fisika", self.DEADLINE, 2, 60)
+
+        jadwal = Penjadwalan.buat_jadwal(
+            [tugas_pertama, tugas_kedua], [0], "16:00", "20:00",
+            hari_ini=self.HARI_INI
+        )
+
+        slot = [(item["tanggal"], item["mulai"]) for item in jadwal]
+        self.assertEqual(len(slot), len(set(slot)))
+        self.assertEqual(3, len(jadwal))
+        self.assertEqual(
+            ["16:00", "17:15", "18:30"],
+            [item["mulai"] for item in jadwal]
+        )
+
+    def test_deadline_lebih_lambat_tetap_mendapat_slot_setelah_deadline_awal(self):
+        tugas_deadline_awal = Tugas(
+            "Tugas awal", "Matematika", self.HARI_INI, 3, 60
+        )
+        tugas_deadline_berikutnya = Tugas(
+            "Tugas berikutnya", "Fisika", date(2024, 1, 2), 2, 60
+        )
+
+        jadwal = Penjadwalan.buat_jadwal(
+            [tugas_deadline_awal, tugas_deadline_berikutnya],
+            [1], "16:00", "17:00", hari_ini=self.HARI_INI
+        )
+
+        self.assertEqual(1, len(jadwal))
+        self.assertEqual("Tugas berikutnya", jadwal[0]["judul"])
+        self.assertEqual("2024-01-02", jadwal[0]["tanggal"])
+
     def test_durasi_di_luar_rentang_ditolak_untuk_semua_jenis(self):
         pembuat_item = [
             lambda: Tugas("PR", "Matematika", self.DEADLINE, 3, 500),
