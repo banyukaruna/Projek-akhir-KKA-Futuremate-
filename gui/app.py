@@ -257,12 +257,7 @@ class FutureMateApp(ctk.CTk):
         pages.get(page, self._dashboard)()
 
     def _dashboard(self):
-        from datetime import date
-
         murid = self.current_student
-        hari_ini = date.today()
-        awal_minggu = hari_ini.fromordinal(hari_ini.toordinal() - hari_ini.weekday())
-        akhir_minggu = awal_minggu.fromordinal(awal_minggu.toordinal() + 6)
 
         def aktivitas_belajar():
             # Progres dan agenda memakai seluruh kegiatan dari sumber data yang sama.
@@ -594,6 +589,7 @@ class FutureMateApp(ctk.CTk):
         def complete_item(item):
             if not item.selesai:
                 item.tandai_selesai()
+                bersihkan_jadwal_tidak_terkait()
                 self._save()
                 refresh_list()
                 self._notify("Kegiatan ditandai selesai.")
