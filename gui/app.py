@@ -56,6 +56,67 @@ class FutureMateApp(ctk.CTk):
         ctk.CTkButton(dialog, text="Tutup", command=dialog.destroy,
                       fg_color=COLORS["primary"], text_color=COLORS["text"]).pack()
 
+    def _notify(self, message, tone="success", duration=2200):
+        """Tampilkan umpan balik singkat tanpa mengganggu alur kerja."""
+        if hasattr(self, "_toast") and self._toast.winfo_exists():
+            self._toast.destroy()
+
+        colors = {
+            "success": COLORS["success"],
+            "warning": COLORS["warning"],
+            "error": COLORS["danger"],
+        }
+        toast = ctk.CTkToplevel(self)
+        self._toast = toast
+        toast.overrideredirect(True)
+        toast.attributes("-topmost", True)
+        toast.configure(fg_color=COLORS["surface_alt"])
+        ctk.CTkLabel(
+            toast, text=message, text_color=colors.get(tone, COLORS["text"]),
+            font=ctk.CTkFont(size=12, weight="bold"),
+            wraplength=340, justify="left"
+        ).pack(padx=18, pady=12)
+        toast.update_idletasks()
+        x = self.winfo_rootx() + self.winfo_width() - toast.winfo_width() - 24
+        y = self.winfo_rooty() + 24
+        toast.geometry(f"+{max(8, x)}+{max(8, y)}")
+        toast.after(duration, lambda: toast.destroy() if toast.winfo_exists() else None)
+
+    def _confirm(self, title, message):
+        """Dialog konfirmasi bertema aplikasi. Mengembalikan True jika disetujui."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title(title)
+        dialog.geometry("430x190")
+        dialog.resizable(False, False)
+        dialog.transient(self)
+        dialog.grab_set()
+        result = {"confirmed": False}
+
+        ctk.CTkLabel(
+            dialog, text=message, text_color=COLORS["text"],
+            wraplength=370, justify="left"
+        ).pack(fill="both", expand=True, padx=24, pady=(22, 12))
+
+        actions = ctk.CTkFrame(dialog, fg_color="transparent")
+        actions.pack(fill="x", padx=20, pady=(0, 18))
+
+        def close(confirmed):
+            result["confirmed"] = confirmed
+            dialog.destroy()
+
+        ctk.CTkButton(
+            actions, text="Batal", fg_color=COLORS["surface"],
+            hover_color=COLORS["border"], text_color=COLORS["text"],
+            command=lambda: close(False)
+        ).pack(side="right", padx=(8, 0))
+        ctk.CTkButton(
+            actions, text="Ya, lanjutkan", fg_color=COLORS["danger"],
+            hover_color=COLORS["danger_hover"], text_color=COLORS["text"],
+            command=lambda: close(True)
+        ).pack(side="right")
+        self.wait_window(dialog)
+        return result["confirmed"]
+
     def _show_welcome(self):
         self._clear()
         panel = ctk.CTkFrame(self, fg_color=COLORS["surface"], corner_radius=20)
@@ -95,6 +156,7 @@ class FutureMateApp(ctk.CTk):
         self.current_student = self.murid_data[key]
         self._save()
         self._show_main()
+        self._notify(f"Selamat datang, {self.current_student.nama}.")
 
     def _save(self):
         if self.current_student:
@@ -407,8 +469,14 @@ class FutureMateApp(ctk.CTk):
         )
         items_frame.grid(row=1, column=0, sticky="nsew", padx=12, pady=(0, 12))
 
+        form_feedback = ctk.CTkLabel(
+            form, text="", text_color=COLORS["danger"],
+            font=ctk.CTkFont(size=10), wraplength=800, justify="left"
+        )
+        form_feedback.grid(row=4, column=0, columnspan=2, padx=16, pady=(2, 0), sticky="w")
+
         def show_message(message):
-            self._message("FutureMate", message)
+            form_feedback.configure(text=message, text_color=COLORS["danger"])
 
         def refresh_list():
             for child in items_frame.winfo_children():
@@ -478,11 +546,18 @@ class FutureMateApp(ctk.CTk):
                 item.tandai_selesai()
                 self._save()
                 refresh_list()
+                self._notify("Kegiatan ditandai selesai.")
 
         def delete_item(item):
+            if not self._confirm(
+                "Hapus kegiatan?",
+                f"Kegiatan '{item.judul}' akan dihapus dari daftar. Tindakan ini tidak dapat dibatalkan."
+            ):
+                return
             self.current_student.items.remove(item)
             self._save()
             refresh_list()
+            self._notify("Kegiatan berhasil dihapus.")
 
         def add_item():
             title = title_entry.get().strip()
@@ -517,6 +592,8 @@ class FutureMateApp(ctk.CTk):
                 duration_entry.delete(0, "end")
                 duration_entry.insert(0, "60")
                 refresh_list()
+                form_feedback.configure(text="")
+                self._notify("Kegiatan berhasil ditambahkan.")
             except ValueError as error:
                 show_message(
                     "Periksa tanggal dan durasi. Tanggal memakai YYYY-MM-DD. "
@@ -627,6 +704,11 @@ class FutureMateApp(ctk.CTk):
                 refresh_schedule()
 
         def generate_schedule():
+            if self.current_student.jadwal and not self._confirm(
+                "Buat ulang jadwal?",
+                "Jadwal tersimpan akan diganti dengan hasil baru. Status selesai pada sesi yang cocok akan dipertahankan."
+            ):
+                return
             try:
                 selected_days = [i for i, var in enumerate(day_vars) if var.get()]
                 start, end = start_entry.get().strip(), end_entry.get().strip()
@@ -655,10 +737,11 @@ class FutureMateApp(ctk.CTk):
                 self._save()
                 refresh_schedule()
                 if not self.current_student.jadwal:
-                    self._message("Jadwal belum terbentuk",
-                                  "Tidak ada slot yang cocok. Periksa deadline dan waktu luangmu.")
+                    self._notify("Jadwal belum terbentuk. Periksa hari, waktu luang, dan tenggat.", "warning", 3600)
+                else:
+                    self._notify("Jadwal belajar berhasil diperbarui.")
             except ValueError as error:
-                self._message("Pengaturan tidak valid", str(error))
+                self._notify(str(error), "error", 3600)
 
         ctk.CTkLabel(
             panel,
@@ -880,9 +963,15 @@ class FutureMateApp(ctk.CTk):
             message.configure(text="Nilai dimuat ke formulir. Ubah angkanya lalu simpan.")
 
         def remove_score(semester, mapel):
+            if not self._confirm(
+                "Hapus nilai rapor?",
+                f"Nilai {mapel} pada Semester {semester} akan dihapus."
+            ):
+                return
             self.current_student.nilai.hapus_nilai_rapor(semester, mapel)
             self._save()
             refresh()
+            self._notify("Nilai rapor berhasil dihapus.")
 
         def add_score():
             try:
@@ -895,6 +984,7 @@ class FutureMateApp(ctk.CTk):
                 score.delete(0, "end")
                 message.configure(text="Nilai rapor berhasil disimpan.", text_color=COLORS["success"])
                 refresh()
+                self._notify("Nilai rapor berhasil disimpan.")
             except (ValueError, NilaiTidakValidError) as error:
                 message.configure(text=str(error), text_color=COLORS["danger"])
 
@@ -907,8 +997,9 @@ class FutureMateApp(ctk.CTk):
                 self._save()
                 message.configure(text="")
                 refresh()
+                self._notify("Target rerata akhir berhasil disimpan.")
             except ValueError as error:
-                self._message("Target belum tersimpan", str(error))
+                target_status.configure(text=str(error), text_color=COLORS["danger"])
 
         semester_menu.configure(command=lambda _value: refresh())
 
@@ -1069,6 +1160,7 @@ class FutureMateApp(ctk.CTk):
                 })
             self._save()
             self.show_page("Minat Bakat")
+            self._notify("Jurusan ditambahkan ke favorit." if saved is None else "Jurusan dihapus dari favorit.")
 
         self._page_header("Eksplorasi Minat RIASEC", "Kenali aktivitas yang menarik bagimu dan jelajahi pilihan program studi.")
         nav = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=12)
@@ -1185,7 +1277,10 @@ class FutureMateApp(ctk.CTk):
             def save_answer(index, value):
                 murid.riasec_answers[str(index)] = int(value)
                 progress.set(len(murid.riasec_answers) / 60)
-                answered_label.configure(text=f"{len(murid.riasec_answers)} dari 60 pertanyaan terjawab")
+                answered_label.configure(
+                    text=f"{len(murid.riasec_answers)} dari 60 pertanyaan terjawab · Tersimpan",
+                    text_color=COLORS["success"]
+                )
                 self._save()
             controls = ctk.CTkFrame(card, fg_color="transparent")
             controls.pack(fill="x", padx=14, pady=(0, 14))
@@ -1379,9 +1474,15 @@ class FutureMateApp(ctk.CTk):
                               fg_color=COLORS["danger"],
                               command=lambda n=saved["nama"]: remove_favorite(n)).pack(side="right", padx=4)
             def remove_favorite(name):
+                if not self._confirm(
+                    "Hapus dari favorit?",
+                    f"Jurusan {name} akan dihapus dari daftar favorit."
+                ):
+                    return
                 murid.favorite_majors = [x for x in murid.favorite_majors if x["nama"] != name]
                 self._save()
                 self.show_page("Minat Bakat")
+                self._notify("Jurusan dihapus dari favorit.")
 
         elif self.mb_view == "Riwayat Tes":
             card = section_card(body, "Riwayat pengerjaan tes",
@@ -1430,6 +1531,7 @@ class FutureMateApp(ctk.CTk):
             self.mb_view = "Hasil Tes"
             self._save()
             self.show_page("Minat Bakat")
+            self._notify("Hasil tes RIASEC berhasil disimpan.")
 
         def start_new_test():
             murid.riasec_answers = {}
@@ -1521,9 +1623,21 @@ class FutureMateApp(ctk.CTk):
                               command=lambda r=record: remove(r)).pack(side="right", padx=10)
 
         def remove(record):
+            if not self._confirm(
+                "Hapus pencapaian?",
+                f"Catatan '{record.judul}' akan dihapus dari portofolio."
+            ):
+                return
             self.current_student.portofolio.hapus(record)
             self._save()
             refresh()
+            self._notify("Pencapaian berhasil dihapus.")
+
+        portfolio_feedback = ctk.CTkLabel(
+            fields, text="", text_color=COLORS["danger"],
+            font=ctk.CTkFont(size=10), wraplength=800, justify="left"
+        )
+        portfolio_feedback.pack(anchor="w", pady=(5, 0))
 
         def add_record():
             try:
@@ -1540,9 +1654,11 @@ class FutureMateApp(ctk.CTk):
                 title.delete(0, "end")
                 category.delete(0, "end")
                 year.delete(0, "end")
+                portfolio_feedback.configure(text="")
                 refresh()
+                self._notify("Pencapaian berhasil ditambahkan.")
             except ValueError as error:
-                self._message("Data belum tersimpan", str(error))
+                portfolio_feedback.configure(text=str(error), text_color=COLORS["danger"])
 
         refresh()
 
