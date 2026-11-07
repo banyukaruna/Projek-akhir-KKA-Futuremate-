@@ -104,6 +104,19 @@ class MinatBakatTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     skor_kecocokan(*pasangan)
 
+    def test_skor_profil_boolean_dan_nan_ditolak(self):
+        profil_boolean = {t: 50 for t in URUTAN_TIPE}
+        profil_boolean["R"] = True
+        profil_nan = {t: 50 for t in URUTAN_TIPE}
+        profil_nan["I"] = float("nan")
+        profil_infinity = {t: 50 for t in URUTAN_TIPE}
+        profil_infinity["A"] = float("inf")
+        profil_valid = {t: 50 for t in URUTAN_TIPE}
+        for tidak_valid in (profil_boolean, profil_nan, profil_infinity):
+            with self.subTest(profil=tidak_valid):
+                with self.assertRaises(ValueError):
+                    skor_kecocokan(profil_valid, tidak_valid)
+
     def test_rekomendasi_menggunakan_kemiripan_enam_dimensi(self):
         profil = {t: 50 for t in URUTAN_TIPE}
         katalog = [
