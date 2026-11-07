@@ -868,6 +868,7 @@ class FutureMateApp(ctk.CTk):
 
         message = ctk.CTkLabel(form, text="", text_color=COLORS["danger"])
         message.pack(anchor="w", padx=18, pady=(0, 4))
+        editing_score = {"semester": None, "mapel": None}
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
@@ -979,7 +980,7 @@ class FutureMateApp(ctk.CTk):
                     ).pack(side="right", padx=4)
                     ctk.CTkButton(
                         line, text="Edit", width=52, height=27,
-                        command=lambda m=mapel, v=nilai: load_score(m, v)
+                        command=lambda m=mapel, v=nilai, s=semester: load_score(s, m, v)
                     ).pack(side="right", padx=4)
 
             target = murid.nilai.target_akhir()
@@ -1008,12 +1009,31 @@ class FutureMateApp(ctk.CTk):
                          f"kamu perlu meraih rerata sekitar {required:.2f} pada setiap semester tersisa."
                 )
 
-        def load_score(mapel, nilai):
+        def load_score(semester, mapel, nilai):
+            editing_score["semester"] = semester
+            editing_score["mapel"] = mapel
+            semester_menu.set(f"Semester {semester}")
+            semester_menu.configure(state="disabled")
             subject.delete(0, "end")
             subject.insert(0, mapel)
             score.delete(0, "end")
             score.insert(0, f"{nilai:g}")
-            message.configure(text="Nilai dimuat ke formulir. Ubah angkanya lalu simpan.")
+            save_score_button.configure(text="Perbarui nilai rapor")
+            cancel_edit_button.pack(fill="x", padx=18, pady=(0, 10))
+            message.configure(
+                text=f"Mode edit: {mapel}, Semester {semester}. Ubah data lalu pilih Perbarui.",
+                text_color=COLORS["primary"]
+            )
+            subject.focus_set()
+
+        def cancel_score_edit():
+            editing_score.update(semester=None, mapel=None)
+            semester_menu.configure(state="normal")
+            subject.delete(0, "end")
+            score.delete(0, "end")
+            save_score_button.configure(text="Simpan nilai rapor")
+            cancel_edit_button.pack_forget()
+            message.configure(text="Mode edit dibatalkan.", text_color=COLORS["muted"])
 
         def remove_score(semester, mapel):
             if not self._confirm(
@@ -1031,13 +1051,42 @@ class FutureMateApp(ctk.CTk):
                 mapel = subject.get().strip()
                 value = float(score.get().strip().replace(",", "."))
                 semester = int(semester_menu.get().split()[-1])
-                self.current_student.nilai.tambah_nilai_rapor(semester, mapel, value)
+                if editing_score["mapel"] is not None:
+                    old_mapel = editing_score["mapel"]
+                    old_semester = editing_score["semester"]
+                    normalized_name = mapel.title()
+                    existing = self.current_student.nilai.data_semester(old_semester)
+                    if normalized_name != old_mapel and normalized_name in existing:
+                        raise ValueError(
+                            f"Nilai untuk {normalized_name} sudah ada pada Semester {old_semester}."
+                        )
+                    # Validasi nilai dan nama dilakukan sebelum data lama dihapus.
+                    if not mapel:
+                        raise ValueError("Nama mata pelajaran wajib diisi.")
+                    if not 0 <= value <= 100:
+                        raise NilaiTidakValidError("Nilai harus di antara 0 dan 100.")
+                    nilai_model = self.current_student.nilai
+                    if normalized_name != old_mapel:
+                        nilai_model.hapus_nilai_rapor(old_semester, old_mapel)
+                    nilai_model.tambah_nilai_rapor(old_semester, normalized_name, value)
+                    saved_semester = old_semester
+                    success_message = "Perubahan nilai rapor berhasil disimpan."
+                else:
+                    self.current_student.nilai.tambah_nilai_rapor(semester, mapel, value)
+                    saved_semester = semester
+                    success_message = "Nilai rapor berhasil disimpan."
+
                 self._save()
+                editing_score.update(semester=None, mapel=None)
+                semester_menu.configure(state="normal")
                 subject.delete(0, "end")
                 score.delete(0, "end")
-                message.configure(text="Nilai rapor berhasil disimpan.", text_color=COLORS["success"])
+                save_score_button.configure(text="Simpan nilai rapor")
+                cancel_edit_button.pack_forget()
+                message.configure(text=success_message, text_color=COLORS["success"])
+                semester_menu.set(f"Semester {saved_semester}")
                 refresh()
-                self._notify("Nilai rapor berhasil disimpan.")
+                self._notify(success_message)
             except (ValueError, NilaiTidakValidError) as error:
                 message.configure(text=str(error), text_color=COLORS["danger"])
 
@@ -1056,11 +1105,17 @@ class FutureMateApp(ctk.CTk):
 
         semester_menu.configure(command=lambda _value: refresh())
 
-        ctk.CTkButton(
+        save_score_button = ctk.CTkButton(
             form, text="Simpan nilai rapor", command=add_score, height=40,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"]
-        ).pack(fill="x", padx=18, pady=(4, 14))
+        )
+        save_score_button.pack(fill="x", padx=18, pady=(4, 6))
+        cancel_edit_button = ctk.CTkButton(
+            form, text="Batal edit", command=cancel_score_edit, height=32,
+            fg_color=COLORS["surface"], hover_color=COLORS["border"],
+            text_color=COLORS["text"]
+        )
 
         ctk.CTkButton(
             target_row, text="Simpan target akhir", command=save_target, height=40,
