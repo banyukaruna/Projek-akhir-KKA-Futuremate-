@@ -216,6 +216,68 @@ class FutureMateApp(ctk.CTk):
 
         advance()
 
+    def _run_background_task(
+        self, parent, message, worker, on_success, on_error=None, button=None
+    ):
+        """Jalankan komputasi di thread terpisah dan perbarui GUI di thread utama."""
+        import threading
+
+        status = ctk.CTkFrame(parent, fg_color="transparent")
+        status.pack(fill="x", padx=14, pady=(0, 10))
+        label = ctk.CTkLabel(
+            status, text=message, text_color=COLORS["muted"],
+            font=ctk.CTkFont(size=11)
+        )
+        label.pack(anchor="w", pady=(0, 4))
+        progress = ctk.CTkProgressBar(
+            status, mode="indeterminate", progress_color=COLORS["primary"]
+        )
+        progress.pack(fill="x")
+        progress.start()
+        if button is not None:
+            button.configure(state="disabled")
+
+        state = {"done": False, "result": None, "error": None}
+
+        def run():
+            try:
+                state["result"] = worker()
+            except Exception as error:
+                state["error"] = error
+            finally:
+                state["done"] = True
+
+        threading.Thread(target=run, daemon=True).start()
+
+        def check_result():
+            if not self.winfo_exists():
+                return
+            if not state["done"]:
+                self.after(40, check_result)
+                return
+
+            try:
+                progress.stop()
+                status.destroy()
+            except Exception:
+                pass
+            if button is not None:
+                try:
+                    if button.winfo_exists():
+                        button.configure(state="normal")
+                except Exception:
+                    pass
+
+            if state["error"] is not None:
+                if on_error is not None:
+                    on_error(state["error"])
+                else:
+                    self._notify(str(state["error"]), "error", 3600)
+                return
+            on_success(state["result"])
+
+        self.after(40, check_result)
+
     def _confirm(self, title, message):
         """Dialog konfirmasi bertema aplikasi. Mengembalikan True jika disetujui."""
         dialog = ctk.CTkToplevel(self)
@@ -947,25 +1009,40 @@ class FutureMateApp(ctk.CTk):
                     ): sesi.get("selesai", False)
                     for sesi in self.current_student.jadwal
                 }
-                jadwal_baru = Penjadwalan.buat_jadwal(
-                    self.current_student.item_aktif(), selected_days, start, end
+                student = self.current_student
+                active_items = student.item_aktif()
+
+                def build_schedule():
+                    result = Penjadwalan.buat_jadwal(
+                        active_items, selected_days, start, end
+                    )
+                    for sesi in result:
+                        kunci = (
+                            sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
+                            sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
+                        )
+                        sesi["selesai"] = jadwal_lama.get(kunci, False)
+                    return result
+
+                def apply_schedule(jadwal_baru):
+                    student.jadwal = jadwal_baru
+                    self._save()
+                    if schedule_frame.winfo_exists():
+                        refresh_schedule()
+                    if not jadwal_baru:
+                        self._notify(
+                            "Jadwal belum terbentuk. Periksa kegiatan aktif, hari, waktu luang, dan tenggat.",
+                            "warning", 3600
+                        )
+                    else:
+                        self._notify("Jadwal otomatis berhasil dibuat.")
+
+                self._run_background_task(
+                    panel, "Menyusun jadwal otomatis...", build_schedule,
+                    apply_schedule,
+                    on_error=lambda error: self._notify(str(error), "error", 3600),
+                    button=generate_button
                 )
-                for sesi in jadwal_baru:
-                    kunci = (
-                        sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
-                        sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
-                    )
-                    sesi["selesai"] = jadwal_lama.get(kunci, False)
-                self.current_student.jadwal = jadwal_baru
-                self._save()
-                refresh_schedule()
-                if not jadwal_baru:
-                    self._notify(
-                        "Jadwal belum terbentuk. Periksa kegiatan aktif, hari, waktu luang, dan tenggat.",
-                        "warning", 3600
-                    )
-                else:
-                    self._notify("Jadwal otomatis berhasil dibuat.")
             except ValueError as error:
                 self._notify(str(error), "error", 3600)
 
@@ -975,11 +1052,12 @@ class FutureMateApp(ctk.CTk):
             text_color=COLORS["warning"], font=ctk.CTkFont(size=10),
             wraplength=820, justify="left"
         ).pack(anchor="w", padx=18, pady=(0, 8))
-        ctk.CTkButton(
+        generate_button = ctk.CTkButton(
             panel, text="Buat Jadwal Otomatis", command=generate_schedule,
             height=36, fg_color=COLORS["primary"],
             hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
-        ).pack(fill="x", padx=14, pady=(0, 12))
+        )
+        generate_button.pack(fill="x", padx=14, pady=(0, 12))
         refresh_schedule()
 
     def _section_card(self, parent, title, description):
@@ -1655,7 +1733,10 @@ class FutureMateApp(ctk.CTk):
                 self.mb_section = index
                 self.show_page("Minat Bakat")
             if answered_count == 60:
-                action_button(body, "Selesaikan Tes", lambda: finish_test()).pack(anchor="e", pady=8)
+                finish_button = action_button(
+                    body, "Selesaikan Tes", lambda: finish_test()
+                )
+                finish_button.pack(anchor="e", pady=8)
             else:
                 ctk.CTkLabel(body, text=f"Lengkapi {60 - answered_count} jawaban lagi untuk menyelesaikan tes.",
                              text_color=COLORS["muted"]).pack(anchor="e", pady=8)
@@ -1722,24 +1803,50 @@ class FutureMateApp(ctk.CTk):
             sort_menu.pack(side="left", padx=(6, 0))
             listing = ctk.CTkFrame(card, fg_color="transparent")
             listing.pack(fill="x", padx=8, pady=(0, 12))
+            catalog_job = {"version": 0}
+
             def refresh_catalog(*_):
-                for child in listing.winfo_children():
-                    child.destroy()
+                catalog_job["version"] += 1
+                version = catalog_job["version"]
                 query = search.get().strip().lower()
                 chosen_group = group_menu.get()
-                filtered = [x for x in katalog if query in x["nama"].lower()
-                            and (chosen_group == "Semua bidang" or x["bidang"] == chosen_group)]
-                if profile and sort_menu.get() == "Kecocokan tertinggi":
-                    filtered.sort(key=lambda x: -__import__("services.minat_bakat", fromlist=["skor_kecocokan"]).skor_kecocokan(profile, x["riasec"]))
-                else:
-                    filtered.sort(key=lambda x: x["nama"].lower())
-                ctk.CTkLabel(listing, text=f"{len(filtered)} jurusan ditemukan",
-                             text_color=COLORS["muted"]).pack(anchor="w", pady=5)
-                for major in filtered:
-                    match = None
-                    if profile:
-                        match = __import__("services.minat_bakat", fromlist=["skor_kecocokan"]).skor_kecocokan(profile, major["riasec"])
-                    show_major_card(listing, major, match)
+                sort_by_match = bool(
+                    profile and sort_menu.get() == "Kecocokan tertinggi"
+                )
+
+                def search_catalog():
+                    from services.minat_bakat import skor_kecocokan
+                    filtered = [
+                        major for major in katalog
+                        if query in major["nama"].lower()
+                        and (chosen_group == "Semua bidang" or major["bidang"] == chosen_group)
+                    ]
+                    results = []
+                    for major in filtered:
+                        match = skor_kecocokan(profile, major["riasec"]) if profile else None
+                        results.append((major, match))
+                    if sort_by_match:
+                        results.sort(key=lambda item: -item[1])
+                    else:
+                        results.sort(key=lambda item: item[0]["nama"].lower())
+                    return results
+
+                def show_results(results):
+                    if version != catalog_job["version"] or not listing.winfo_exists():
+                        return
+                    for child in listing.winfo_children():
+                        child.destroy()
+                    ctk.CTkLabel(
+                        listing, text=f"{len(results)} jurusan ditemukan",
+                        text_color=COLORS["muted"]
+                    ).pack(anchor="w", pady=5)
+                    for major, match in results:
+                        show_major_card(listing, major, match)
+
+                self._run_background_task(
+                    listing, "Memproses pencarian katalog...", search_catalog,
+                    show_results
+                )
 
             pending_search = {"after_id": None}
 
@@ -1887,15 +1994,28 @@ class FutureMateApp(ctk.CTk):
                 return
             answers = [murid.riasec_answers[str(i)] for i in range(60)]
             from services.minat_bakat import buat_riwayat
-            record = buat_riwayat(answers, katalog)
-            murid.riasec_history.append(record)
-            murid.profil_minat = record["skor"]
-            murid.riasec_answers = {}
-            self.mb_history_index = len(murid.riasec_history) - 1
-            self.mb_view = "Hasil Tes"
-            self._save()
-            self.show_page("Minat Bakat")
-            self._notify("Hasil tes RIASEC berhasil disimpan.")
+
+            def calculate_result():
+                return buat_riwayat(answers, katalog)
+
+            def save_result(record):
+                murid.riasec_history.append(record)
+                murid.profil_minat = record["skor"]
+                murid.riasec_answers = {}
+                self.mb_history_index = len(murid.riasec_history) - 1
+                self.mb_view = "Hasil Tes"
+                self._save()
+                self.show_page("Minat Bakat")
+                self._notify("Hasil tes RIASEC berhasil disimpan.")
+
+            self._run_background_task(
+                body, "Mengolah jawaban dan menyiapkan rekomendasi...",
+                calculate_result, save_result,
+                on_error=lambda error: self._notify(
+                    f"Hasil tes gagal diproses: {error}", "error", 3600
+                ),
+                button=finish_button
+            )
 
         def start_new_test():
             if murid.riasec_answers and not self._confirm(
