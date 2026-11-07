@@ -1070,7 +1070,7 @@ class FutureMateApp(ctk.CTk):
             self._save()
             self.show_page("Minat Bakat")
 
-        self._page_header("Minat Bakat", "Kenali profil minatmu dan jelajahi pilihan program studi.")
+        self._page_header("Eksplorasi Minat RIASEC", "Kenali aktivitas yang menarik bagimu dan jelajahi pilihan program studi.")
         nav = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=12)
         nav.grid(row=2, column=0, sticky="ew", pady=(0, 14))
         nav_items = [
@@ -1092,10 +1092,10 @@ class FutureMateApp(ctk.CTk):
 
         if self.mb_view == "Beranda":
             card = section_card(body, "Profil minatmu",
-                                "Kerjakan tes untuk mendapatkan gambaran enam dimensi RIASEC dan rekomendasi jurusan.")
+                                "Kerjakan tes untuk mengeksplorasi enam dimensi minat RIASEC. Hasilnya menjadi bahan refleksi awal, bukan ukuran bakat atau kemampuan.")
             if murid.riasec_history:
                 latest = murid.riasec_history[-1]
-                ctk.CTkLabel(card, text="Tiga tipe tertinggi: " + " · ".join(
+                ctk.CTkLabel(card, text="Tipe minat teratas: " + " · ".join(
                     f"{t} ({NAMA_TIPE[t]})" for t in latest["tiga_teratas"]),
                     text_color=COLORS["primary"], font=ctk.CTkFont(size=14, weight="bold")
                 ).pack(anchor="w", padx=16, pady=4)
@@ -1104,7 +1104,20 @@ class FutureMateApp(ctk.CTk):
             else:
                 action_button(card, "Mulai Tes RIASEC", lambda: go("Tes RIASEC")).pack(
                     anchor="w", padx=16, pady=(0, 14))
-            access = section_card(body, "Jelajahi Minat Bakat",
+            limits = section_card(
+                body, "Batas penggunaan tes",
+                "Tes ini disusun untuk eksplorasi minat berdasarkan kerangka RIASEC. "
+                "Instrumen belum melalui validasi psikometri. Hasil bukan ukuran bakat "
+                "atau kemampuan, diagnosis, maupun penentu jurusan dan karier. "
+                "Gunakan sebagai bahan refleksi dan diskusikan dengan guru BK."
+            )
+            ctk.CTkLabel(
+                limits,
+                text="Landasan konsep: teori Holland RIASEC, O*NET Interest Profiler, "
+                     "dan Profiler Minat Karier Kemnaker. Butir FutureMate disusun mandiri.",
+                text_color=COLORS["muted"], wraplength=800, justify="left"
+            ).pack(anchor="w", padx=16, pady=(0, 12))
+            access = section_card(body, "Jelajahi Minat RIASEC",
                                   "Pilih fitur yang ingin kamu gunakan.")
             for label, view in nav_items[1:]:
                 action_button(access, label, lambda v=view: go(v), width=190).pack(
@@ -1130,12 +1143,18 @@ class FutureMateApp(ctk.CTk):
             answered = murid.riasec_answers
             answered_count = sum(str(i) in answered for i in range(60))
             card = section_card(body, "Tes Minat RIASEC",
-                "Pilih tingkat ketertarikanmu. Jawaban tersimpan otomatis saat kamu memilih angka.")
+                "Seberapa tertarik kamu melakukan setiap aktivitas? Jawaban tersimpan otomatis saat kamu memilih angka.")
             ctk.CTkLabel(card, text=f"Bagian {section + 1} dari 6 · {tipe} · {NAMA_TIPE[tipe]}",
                          text_color=COLORS["primary"], font=ctk.CTkFont(size=15, weight="bold")
                          ).pack(anchor="w", padx=16)
             ctk.CTkLabel(card, text=DESKRIPSI_TIPE[tipe], text_color=COLORS["muted"]
                          ).pack(anchor="w", padx=16, pady=(3, 8))
+            ctk.CTkLabel(
+                card,
+                text="Tes eksplorasi minat. Instrumen belum tervalidasi secara psikometri. "
+                     "Jawaban menunjukkan ketertarikan pada aktivitas, bukan tingkat kemampuan.",
+                text_color=COLORS["warning"], wraplength=800, justify="left"
+            ).pack(anchor="w", padx=16, pady=(0, 8))
             progress = ctk.CTkProgressBar(card, progress_color=COLORS["primary"])
             progress.pack(fill="x", padx=16, pady=5)
             progress.set(answered_count / 60)
@@ -1220,7 +1239,7 @@ class FutureMateApp(ctk.CTk):
                 draw_radar(radar, latest["skor"])
                 desc = ctk.CTkFrame(pair, fg_color=COLORS["surface"], corner_radius=12)
                 desc.grid(row=0, column=1, sticky="nsew", padx=(6, 0))
-                ctk.CTkLabel(desc, text="Tiga tipe tertinggi",
+                ctk.CTkLabel(desc, text="Tipe minat teratas",
                              text_color=COLORS["text"], font=ctk.CTkFont(size=15, weight="bold")
                              ).pack(anchor="w", padx=14, pady=(14, 8))
                 for tipe in top:
@@ -1233,7 +1252,7 @@ class FutureMateApp(ctk.CTk):
                                       f"Hasil tes tanggal {latest['tanggal'][:10]}.")
                 score_bars(scores, latest["skor"])
                 rec = section_card(body, "Sepuluh rekomendasi jurusan",
-                                   "Kecocokan memberi bobot 70% pada tiga tipe RIASEC tertinggimu dan 30% pada tiga tipe lainnya. Angka ini merupakan indikator eksplorasi, bukan kepastian keberhasilan.")
+                                   "Skor kemiripan dihitung dengan bobot sama untuk keenam dimensi RIASEC. Nilai ini hanya heuristik untuk menjelajahi katalog, bukan peluang atau prediksi keberhasilan studi.")
                 for saved in latest["rekomendasi"]:
                     major = next((x for x in katalog if x["nama"] == saved["nama"]), None)
                     if major:
