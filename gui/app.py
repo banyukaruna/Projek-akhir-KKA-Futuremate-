@@ -1141,26 +1141,40 @@ class FutureMateApp(ctk.CTk):
             ctk.CTkButton(actions, text="Detail", width=65, height=29,
                           command=lambda item=major: open_major(item)).pack(side="left", padx=3)
             fav_label = "Tersimpan" if any(x.get("nama") == major["nama"] for x in murid.favorite_majors) else "☆ Favorit"
-            ctk.CTkButton(actions, text=fav_label, width=85, height=29,
-                          fg_color=COLORS["surface"], text_color=COLORS["text"],
-                          command=lambda item=major: toggle_favorite(item, match)).pack(side="left", padx=3)
+            favorite_button = ctk.CTkButton(
+                actions, text=fav_label, width=85, height=29,
+                fg_color=COLORS["surface"], text_color=COLORS["text"],
+                command=lambda item=major, target=None: toggle_favorite(item, match, target)
+            )
+            favorite_button.configure(
+                command=lambda item=major, target=favorite_button: toggle_favorite(item, match, target)
+            )
+            favorite_button.pack(side="left", padx=3)
 
         def open_major(major):
             self.mb_selected_major = major["nama"]
             go("Detail Jurusan")
 
-        def toggle_favorite(major, match=None):
+        def toggle_favorite(major, match=None, button=None):
             saved = next((x for x in murid.favorite_majors if x.get("nama") == major["nama"]), None)
             if saved:
                 murid.favorite_majors.remove(saved)
+                is_saved = False
             else:
                 murid.favorite_majors.append({
                     "nama": major["nama"], "bidang": major["bidang"],
                     "kecocokan": match, "tanggal": __import__("datetime").datetime.now().isoformat(timespec="seconds")
                 })
+                is_saved = True
             self._save()
-            self.show_page("Minat Bakat")
-            self._notify("Jurusan ditambahkan ke favorit." if saved is None else "Jurusan dihapus dari favorit.")
+            if button is not None and button.winfo_exists():
+                if self.mb_view == "Detail Jurusan":
+                    button.configure(
+                        text="★ Tersimpan di Favorit" if is_saved else "☆ Simpan ke Favorit"
+                    )
+                else:
+                    button.configure(text="Tersimpan" if is_saved else "☆ Favorit")
+            self._notify("Jurusan ditambahkan ke favorit." if is_saved else "Jurusan dihapus dari favorit.")
 
         self._page_header("Eksplorasi Minat RIASEC", "Kenali aktivitas yang menarik bagimu dan jelajahi pilihan program studi.")
         nav = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=12)
@@ -1442,7 +1456,7 @@ class FutureMateApp(ctk.CTk):
                 favorite_button = action_button(
                     row,
                     "★ Tersimpan di Favorit" if already_favorite else "☆ Simpan ke Favorit",
-                    lambda: toggle_favorite(major, match)
+                    lambda target=None: toggle_favorite(major, match, favorite_button)
                 )
                 favorite_button.pack(side="left")
                 ctk.CTkButton(row, text="Kembali ke katalog", command=lambda: go("Katalog Jurusan")
@@ -1534,6 +1548,11 @@ class FutureMateApp(ctk.CTk):
             self._notify("Hasil tes RIASEC berhasil disimpan.")
 
         def start_new_test():
+            if murid.riasec_answers and not self._confirm(
+                "Mulai tes baru?",
+                "Jawaban tes yang sedang berjalan akan dihapus. Hasil tes yang sudah tersimpan tetap aman."
+            ):
+                return
             murid.riasec_answers = {}
             self.mb_section = 0
             self._save()
