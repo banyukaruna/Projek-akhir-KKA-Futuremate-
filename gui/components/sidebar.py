@@ -3,11 +3,11 @@ import customtkinter as ctk
 from gui.theme import COLORS
 
 NAV_ITEMS = [
-    ("⌂", "Dashboard"),
-    ("▤", "Tugas & Jadwal"),
-    ("▥", "Nilai Akademik"),
-    ("✳", "Minat Bakat"),
-    ("▧", "Portofolio"),
+    ("⌂", "Dashboard", "Dashboard"),
+    ("▤", "Tugas & Jadwal", "Tugas & Jadwal"),
+    ("▥", "Nilai Akademik", "Nilai Akademik"),
+    ("✳", "Minat RIASEC", "Minat Bakat"),
+    ("▧", "Portofolio", "Portofolio"),
 ]
 
 
@@ -39,7 +39,7 @@ class Sidebar(ctk.CTkFrame):
             text_color=COLORS["muted"]
         ).pack(anchor="w", padx=22, pady=(0, 9))
 
-        for icon, label in NAV_ITEMS:
+        for icon, label, page in NAV_ITEMS:
             button = ctk.CTkButton(
                 self,
                 text=f"  {icon}    {label}",
@@ -50,10 +50,10 @@ class Sidebar(ctk.CTkFrame):
                 fg_color="transparent",
                 hover_color=COLORS["surface_alt"],
                 text_color=COLORS["muted"],
-                command=lambda page=label: self.on_navigate(page),
+                command=lambda target=page: self.on_navigate(target),
             )
             button.pack(fill="x", padx=12, pady=3)
-            self.buttons[label] = button
+            self.buttons[page] = button
 
         footer = ctk.CTkFrame(
             self, fg_color=COLORS["surface_alt"], corner_radius=10
