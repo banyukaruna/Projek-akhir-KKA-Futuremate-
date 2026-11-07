@@ -267,28 +267,15 @@ class FutureMateApp(ctk.CTk):
         def aktivitas_mingguan():
             item_mingguan = [
                 item for item in murid.items
-                if item.jenis() in ("Tugas", "Ujian")
+                if item.jenis() in ("Tugas", "Ujian", "Sesi")
                 and awal_minggu <= item.deadline <= akhir_minggu
             ]
-            sesi_mingguan = [
-                sesi for sesi in murid.jadwal
-                if awal_minggu <= date.fromisoformat(sesi["tanggal"]) <= akhir_minggu
+            total = len(item_mingguan)
+            selesai = sum(1 for item in item_mingguan if item.selesai)
+            agenda = [
+                (item.deadline, item.judul, item.mapel, item.jenis(), item)
+                for item in item_mingguan if not item.selesai
             ]
-            total = len(item_mingguan) + len(sesi_mingguan)
-            selesai = (
-                sum(1 for item in item_mingguan if item.selesai)
-                + sum(1 for sesi in sesi_mingguan if sesi.get("selesai", False))
-            )
-            agenda = []
-            for item in item_mingguan:
-                if not item.selesai:
-                    agenda.append((item.deadline, item.judul, item.mapel, item.jenis(), item))
-            for sesi in sesi_mingguan:
-                if not sesi.get("selesai", False):
-                    agenda.append((
-                        date.fromisoformat(sesi["tanggal"]), sesi["judul"],
-                        sesi["mapel"], "Sesi Belajar", sesi
-                    ))
             agenda.sort(key=lambda data: (data[0], data[1]))
             return total, selesai, agenda
 
@@ -690,77 +677,68 @@ class FutureMateApp(ctk.CTk):
         self._jadwal_panel()
 
     def _jadwal_panel(self):
-        from datetime import date, datetime
-        from services.penjadwalan import Penjadwalan
+        from datetime import date
 
         panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
         panel.grid(row=4, column=0, sticky="ew", pady=(16, 0))
         panel.grid_columnconfigure(0, weight=1)
-        ctk.CTkLabel(panel, text="Jadwal belajar otomatis",
-                     font=ctk.CTkFont(size=16, weight="bold"),
-                     text_color=COLORS["text"]).pack(anchor="w", padx=18, pady=(16, 4))
+        ctk.CTkLabel(
+            panel, text="Sesi belajar yang kamu tambahkan",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=COLORS["text"]
+        ).pack(anchor="w", padx=18, pady=(16, 4))
         ctk.CTkLabel(
             panel,
-            text=("Pilih hari dan rentang waktu yang biasanya kamu punya. Sistem hanya "
-                  "menjadwalkan Sesi Belajar yang kamu tambahkan sendiri."),
-            text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
-            wraplength=820, justify="left"
-        ).pack(anchor="w", padx=18, pady=(0, 8))
-        ctk.CTkLabel(
-            panel,
-            text="Jadwal dibuat untuk 30 hari ke depan. Setiap sesi berjarak 75 menit, termasuk jeda 15 menit.",
+            text="Daftar ini hanya menampilkan Sesi Belajar yang kamu buat sendiri melalui formulir kegiatan. Tugas dan ujian tidak akan diubah menjadi sesi belajar.",
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10),
             wraplength=820, justify="left"
         ).pack(anchor="w", padx=18, pady=(0, 10))
 
-        pref = self.current_student.preferensi_jadwal
-        days_frame = ctk.CTkFrame(panel, fg_color="transparent")
-        days_frame.pack(fill="x", padx=14)
-        day_vars = []
-        for index, day in enumerate(Penjadwalan.HARI):
-            var = ctk.BooleanVar(value=index in pref.get("hari", []))
-            day_vars.append(var)
-            ctk.CTkCheckBox(days_frame, text=day[:3], variable=var,
-                            text_color=COLORS["text"], checkbox_width=16,
-                            checkbox_height=16).pack(side="left", padx=5, pady=5)
+        # Jadwal lama berasal dari fitur otomatis sebelumnya. Hapus agar tidak
+        # muncul lagi setelah pengguna beralih ke pencatatan sesi secara manual.
+        if self.current_student.jadwal:
+            self.current_student.jadwal = []
+            self._save()
 
-        time_frame = ctk.CTkFrame(panel, fg_color="transparent")
-        time_frame.pack(fill="x", padx=18, pady=8)
-        ctk.CTkLabel(time_frame, text="Mulai", text_color=COLORS["muted"]).pack(side="left")
-        start_entry = ctk.CTkEntry(time_frame, width=85, height=32)
-        start_entry.insert(0, pref.get("mulai", "16:00"))
-        start_entry.pack(side="left", padx=(7, 16))
-        ctk.CTkLabel(time_frame, text="Selesai", text_color=COLORS["muted"]).pack(side="left")
-        end_entry = ctk.CTkEntry(time_frame, width=85, height=32)
-        end_entry.insert(0, pref.get("selesai", "18:00"))
-        end_entry.pack(side="left", padx=7)
-
-        schedule_frame = ctk.CTkScrollableFrame(panel, fg_color=COLORS["surface_alt"],
-                                                height=190, corner_radius=10)
+        schedule_frame = ctk.CTkScrollableFrame(
+            panel, fg_color=COLORS["surface_alt"], height=190, corner_radius=10
+        )
         schedule_frame.pack(fill="x", padx=14, pady=(4, 12))
 
         def refresh_schedule():
             for child in schedule_frame.winfo_children():
                 child.destroy()
-            sessions = sorted(self.current_student.jadwal,
-                              key=lambda s: (s["tanggal"], s["mulai"]))
+            sessions = sorted(
+                (item for item in self.current_student.items
+                 if item.jenis() == "Sesi"),
+                key=lambda item: (item.deadline, item.judul.lower())
+            )
             if not sessions:
-                ctk.CTkLabel(schedule_frame, text="Belum ada jadwal. Tekan tombol Buat Jadwal.",
-                             text_color=COLORS["muted"]).pack(anchor="w", padx=8, pady=10)
+                ctk.CTkLabel(
+                    schedule_frame,
+                    text="Belum ada sesi belajar. Tambahkan melalui formulir kegiatan.",
+                    text_color=COLORS["muted"]
+                ).pack(anchor="w", padx=8, pady=10)
                 return
+
             for session in sessions:
-                row = ctk.CTkFrame(schedule_frame, fg_color=COLORS["surface"], corner_radius=8)
+                row = ctk.CTkFrame(
+                    schedule_frame, fg_color=COLORS["surface"], corner_radius=8
+                )
                 row.pack(fill="x", padx=4, pady=4)
                 info = ctk.CTkFrame(row, fg_color="transparent")
                 info.pack(side="left", fill="x", expand=True, padx=9, pady=7)
-                tanggal_obj = date.fromisoformat(session["tanggal"])
-                ctk.CTkLabel(info, text=f'{session["judul"]} · {session["mapel"]}',
-                             text_color=COLORS["text"],
-                             font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w")
-                ctk.CTkLabel(info,
-                             text=f'{Penjadwalan.HARI[tanggal_obj.weekday()]}, {tanggal_obj:%d-%m-%Y} · {session["mulai"]} · {session["durasi"]} menit',
-                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w")
-                done_var = ctk.BooleanVar(value=session.get("selesai", False))
+                ctk.CTkLabel(
+                    info, text=f"{session.judul} · {session.mapel}",
+                    text_color=COLORS["text"],
+                    font=ctk.CTkFont(size=12, weight="bold")
+                ).pack(anchor="w")
+                ctk.CTkLabel(
+                    info,
+                    text=f"Tenggat {session.deadline:%d-%m-%Y} · {session.durasi_menit} menit",
+                    text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
+                ).pack(anchor="w")
+                done_var = ctk.BooleanVar(value=session.selesai)
                 done_checkbox = ctk.CTkCheckBox(
                     row, text="Selesai", variable=done_var,
                     checkbox_width=18, checkbox_height=18,
@@ -768,64 +746,15 @@ class FutureMateApp(ctk.CTk):
                     command=lambda current=session: complete_session(current)
                 )
                 done_checkbox.pack(side="right", padx=6)
-                if session.get("selesai", False):
+                if session.selesai:
                     done_checkbox.configure(state="disabled")
+
         def complete_session(session):
-            if not session.get("selesai", False):
-                session["selesai"] = True
+            if not session.selesai:
+                session.tandai_selesai(date.today())
                 self._save()
                 refresh_schedule()
 
-        def generate_schedule():
-            if self.current_student.jadwal and not self._confirm(
-                "Buat ulang jadwal?",
-                "Jadwal tersimpan akan diganti dengan hasil baru. Status selesai pada sesi yang cocok akan dipertahankan."
-            ):
-                return
-            try:
-                selected_days = [i for i, var in enumerate(day_vars) if var.get()]
-                start, end = start_entry.get().strip(), end_entry.get().strip()
-                datetime.strptime(start, "%H:%M")
-                datetime.strptime(end, "%H:%M")
-                self.current_student.preferensi_jadwal = {
-                    "hari": selected_days, "mulai": start, "selesai": end
-                }
-                jadwal_lama = {
-                    (
-                        sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
-                        sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
-                    ): sesi.get("selesai", False)
-                    for sesi in self.current_student.jadwal
-                }
-                jadwal_baru = Penjadwalan.buat_jadwal(
-                    self.current_student.item_aktif(), selected_days, start, end
-                )
-                for sesi in jadwal_baru:
-                    kunci = (
-                        sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"),
-                        sesi.get("tanggal"), sesi.get("mulai"), sesi.get("durasi")
-                    )
-                    sesi["selesai"] = jadwal_lama.get(kunci, False)
-                self.current_student.jadwal = jadwal_baru
-                self._save()
-                refresh_schedule()
-                if not self.current_student.jadwal:
-                    self._notify("Jadwal belum terbentuk. Periksa hari, waktu luang, dan tenggat.", "warning", 3600)
-                else:
-                    self._notify("Jadwal belajar berhasil diperbarui.")
-            except ValueError as error:
-                self._notify(str(error), "error", 3600)
-
-        ctk.CTkLabel(
-            panel,
-            text="Membuat ulang jadwal akan mengganti jadwal tersimpan. Status selesai tetap dipertahankan untuk sesi yang cocok.",
-            text_color=COLORS["warning"], font=ctk.CTkFont(size=10),
-            wraplength=820, justify="left"
-        ).pack(anchor="w", padx=18, pady=(0, 8))
-        ctk.CTkButton(panel, text="Buat ulang jadwal otomatis", command=generate_schedule,
-                      height=36, fg_color=COLORS["primary"],
-                      hover_color=COLORS["primary_hover"], text_color=COLORS["text"]).pack(
-                          fill="x", padx=14, pady=(0, 12))
         refresh_schedule()
 
     def _section_card(self, parent, title, description):
