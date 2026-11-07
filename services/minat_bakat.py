@@ -74,7 +74,7 @@ PERTANYAAN_PER_TIPE = {
         "Mengajak orang lain mendukung sebuah gagasan atau rencana.",
         "Mempresentasikan usulan agar pihak lain bersedia mempertimbangkannya.",
         "Menawarkan produk atau gagasan kepada calon pengguna.",
-        "Memulai sebuah kegiatan dari ide yang saya ajukan.",
+        "Memulai sebuah kegiatan berdasarkan gagasan sendiri.",
         "Mengoordinasikan pembagian tugas dalam sebuah kelompok.",
         "Bernegosiasi untuk mencapai kesepakatan bersama.",
         "Menentukan langkah untuk mencapai target sebuah kelompok.",
