@@ -373,11 +373,11 @@ class FutureMateApp(ctk.CTk):
         type_menu.grid(row=2, column=1, padx=(8, 16), pady=8, sticky="ew")
 
         difficulty_menu = ctk.CTkOptionMenu(
-            form, values=["1", "2", "3", "4", "5"],
+            form, values=["Mudah", "Sedang", "Sulit"],
             fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
             button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
         )
-        difficulty_menu.set("3")
+        difficulty_menu.set("Sedang")
         difficulty_menu.grid(row=3, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
 
         duration_entry = ctk.CTkEntry(
@@ -499,7 +499,7 @@ class FutureMateApp(ctk.CTk):
 
                 if kind == "Tugas":
                     item = Tugas(
-                        title, subject, deadline, int(difficulty_menu.get()), duration
+                        title, subject, deadline, difficulty_menu.get(), duration
                     )
                 elif kind == "Ujian":
                     item = Ujian(title, subject, deadline, duration)
