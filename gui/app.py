@@ -28,6 +28,12 @@ class FutureMateApp(ctk.CTk):
         self.minsize(min(760, screen_width), min(560, screen_height))
         self.configure(fg_color=COLORS["background"])
 
+        from concurrent.futures import ThreadPoolExecutor
+
+        self._background_executor = ThreadPoolExecutor(
+            max_workers=2, thread_name_prefix="FutureMate"
+        )
+        self._background_tasks = {}
         self.storage = Penyimpanan(DATA / "data.json", DATA / "jurusan.json")
         self.murid_data = {}
         self.current_student = None
@@ -217,11 +223,10 @@ class FutureMateApp(ctk.CTk):
         advance()
 
     def _run_background_task(
-        self, parent, message, worker, on_success, on_error=None, button=None
+        self, parent, message, worker, on_success, on_error=None,
+        button=None, task_key=None
     ):
-        """Jalankan komputasi di thread terpisah dan perbarui GUI di thread utama."""
-        import threading
-
+        """Jalankan tugas pada executor terbatas dan perbarui GUI di thread utama."""
         status = ctk.CTkFrame(parent, fg_color="transparent")
         status.pack(fill="x", padx=14, pady=(0, 10))
         label = ctk.CTkLabel(
@@ -237,22 +242,20 @@ class FutureMateApp(ctk.CTk):
         if button is not None:
             button.configure(state="disabled")
 
-        state = {"done": False, "result": None, "error": None}
+        # Ganti pekerjaan sejenis yang belum selesai agar antrean tidak menumpuk.
+        if task_key is not None:
+            previous = self._background_tasks.get(task_key)
+            if previous is not None and not previous.done():
+                previous.cancel()
 
-        def run():
-            try:
-                state["result"] = worker()
-            except Exception as error:
-                state["error"] = error
-            finally:
-                state["done"] = True
-
-        threading.Thread(target=run, daemon=True).start()
+        future = self._background_executor.submit(worker)
+        if task_key is not None:
+            self._background_tasks[task_key] = future
 
         def check_result():
             if not self.winfo_exists():
                 return
-            if not state["done"]:
+            if not future.done():
                 self.after(40, check_result)
                 return
 
@@ -268,13 +271,20 @@ class FutureMateApp(ctk.CTk):
                 except Exception:
                     pass
 
-            if state["error"] is not None:
-                if on_error is not None:
-                    on_error(state["error"])
-                else:
-                    self._notify(str(state["error"]), "error", 3600)
+            if task_key is not None and self._background_tasks.get(task_key) is future:
+                self._background_tasks.pop(task_key, None)
+
+            if future.cancelled():
                 return
-            on_success(state["result"])
+            try:
+                result = future.result()
+            except Exception as error:
+                if on_error is not None:
+                    on_error(error)
+                else:
+                    self._notify(str(error), "error", 3600)
+                return
+            on_success(result)
 
         self.after(40, check_result)
 
@@ -1041,7 +1051,7 @@ class FutureMateApp(ctk.CTk):
                     panel, "Menyusun jadwal otomatis...", build_schedule,
                     apply_schedule,
                     on_error=lambda error: self._notify(str(error), "error", 3600),
-                    button=generate_button
+                    button=generate_button, task_key="schedule_generation"
                 )
             except ValueError as error:
                 self._notify(str(error), "error", 3600)
@@ -1845,7 +1855,7 @@ class FutureMateApp(ctk.CTk):
 
                 self._run_background_task(
                     listing, "Memproses pencarian katalog...", search_catalog,
-                    show_results
+                    show_results, task_key="catalog_search"
                 )
 
             pending_search = {"after_id": None}
@@ -2014,7 +2024,7 @@ class FutureMateApp(ctk.CTk):
                 on_error=lambda error: self._notify(
                     f"Hasil tes gagal diproses: {error}", "error", 3600
                 ),
-                button=finish_button
+                button=finish_button, task_key="riasec_result"
             )
 
         def start_new_test():
