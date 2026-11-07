@@ -6,7 +6,6 @@ NAV_ITEMS = [
     ("⌂", "Dashboard"),
     ("▤", "Tugas & Jadwal"),
     ("▥", "Nilai Akademik"),
-    ("◎", "Target Masa Depan"),
     ("✳", "Minat Bakat"),
     ("▧", "Portofolio"),
 ]
