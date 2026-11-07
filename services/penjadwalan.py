@@ -36,7 +36,10 @@ class Penjadwalan:
         durasi_manual = {}
         for sesi in sesi_manual:
             item_id = sesi.get("item_id")
-            if item_id in item_by_id:
+            if sesi.get("selesai", False):
+                sesi.setdefault("id", str(uuid4()))
+                jadwal.append(sesi)
+            elif item_id in item_by_id:
                 sesi.setdefault("id", str(uuid4()))
                 sesi["manual"] = True
                 jadwal.append(sesi)
