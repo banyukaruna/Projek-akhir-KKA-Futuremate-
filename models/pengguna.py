@@ -2,6 +2,7 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from datetime import date
+from uuid import uuid4
 
 from models.item import Item
 from models.nilai import NilaiAkademik
@@ -91,6 +92,16 @@ class Murid(Pengguna):
         m.riasec_answers = d.get("riasec_answers", {})
         m.favorite_majors = d.get("favorite_majors", [])
         m.jadwal = d.get("jadwal", [])
+        # Migrasi identitas sesi dari format data lama.
+        for sesi in m.jadwal:
+            sesi.setdefault("id", str(uuid4()))
+            if not sesi.get("item_id"):
+                item_asal = next((item for item in m.items
+                                  if item.judul == sesi.get("judul")
+                                  and item.mapel == sesi.get("mapel")
+                                  and item.jenis() == sesi.get("jenis")), None)
+                if item_asal:
+                    sesi["item_id"] = item_asal.id
         m.preferensi_jadwal = d.get("preferensi_jadwal", {
             "hari": [0, 1, 2, 3, 4], "mulai": "16:00", "selesai": "18:00"
         })
