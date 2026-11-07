@@ -232,26 +232,33 @@ class FutureMateApp(ctk.CTk):
         awal_minggu = hari_ini.fromordinal(hari_ini.toordinal() - hari_ini.weekday())
         akhir_minggu = awal_minggu.fromordinal(awal_minggu.toordinal() + 6)
 
-        # Tugas dan ujian dihitung berdasarkan tenggat pada minggu berjalan.
-        item_mingguan = [
-            item for item in murid.items
-            if item.jenis() in ("Tugas", "Ujian")
-            and awal_minggu <= item.deadline <= akhir_minggu
-        ]
-        # Sesi belajar dihitung satu per satu berdasarkan tanggal jadwal otomatis.
-        sesi_mingguan = [
-            sesi for sesi in murid.jadwal
-            if awal_minggu <= date.fromisoformat(sesi["tanggal"]) <= akhir_minggu
-        ]
-
-        total_aktivitas = len(item_mingguan) + len(sesi_mingguan)
-        selesai = (
-            sum(1 for item in item_mingguan if item.selesai)
-            + sum(1 for sesi in sesi_mingguan if sesi.get("selesai", False))
-        )
-        progres = selesai / total_aktivitas if total_aktivitas else 0
-        aktif = murid.item_aktif()
-        rata_nilai = murid.nilai.rata_rata()
+        def aktivitas_mingguan():
+            item_mingguan = [
+                item for item in murid.items
+                if item.jenis() in ("Tugas", "Ujian")
+                and awal_minggu <= item.deadline <= akhir_minggu
+            ]
+            sesi_mingguan = [
+                sesi for sesi in murid.jadwal
+                if awal_minggu <= date.fromisoformat(sesi["tanggal"]) <= akhir_minggu
+            ]
+            total = len(item_mingguan) + len(sesi_mingguan)
+            selesai = (
+                sum(1 for item in item_mingguan if item.selesai)
+                + sum(1 for sesi in sesi_mingguan if sesi.get("selesai", False))
+            )
+            agenda = []
+            for item in item_mingguan:
+                if not item.selesai:
+                    agenda.append((item.deadline, item.judul, item.mapel, item.jenis(), item))
+            for sesi in sesi_mingguan:
+                if not sesi.get("selesai", False):
+                    agenda.append((
+                        date.fromisoformat(sesi["tanggal"]), sesi["judul"],
+                        sesi["mapel"], "Sesi Belajar", sesi
+                    ))
+            agenda.sort(key=lambda data: (data[0], data[1]))
+            return total, selesai, agenda
 
         self._page_header(
             "Dashboard",
@@ -261,15 +268,24 @@ class FutureMateApp(ctk.CTk):
         cards = ctk.CTkFrame(self.content, fg_color="transparent")
         cards.grid(row=2, column=0, sticky="ew")
         cards.grid_columnconfigure((0, 1), weight=1)
-        self._card(
-            cards, "Tugas aktif", str(len(aktif)),
+        task_card = self._card(
+            cards, "Tugas aktif", str(len(murid.item_aktif())),
             "Kegiatan yang belum selesai"
-        ).grid(row=0, column=0, sticky="ew", padx=(0, 8))
-        self._card(
-            cards, "Rata-rata nilai", f"{rata_nilai:.1f}",
+        )
+        task_card.grid(row=0, column=0, sticky="ew", padx=(0, 8))
+        grade_card = self._card(
+            cards, "Rata-rata nilai", f"{murid.nilai.rata_rata():.1f}",
             "Belum ada nilai" if not murid.nilai.daftar_mapel()
             else "Dari seluruh mata pelajaran"
-        ).grid(row=0, column=1, sticky="ew", padx=(8, 0))
+        )
+        grade_card.grid(row=0, column=1, sticky="ew", padx=(8, 0))
+
+        def update_card(card, value, note=None):
+            details = card.winfo_children()[1]
+            labels = details.winfo_children()
+            labels[1].configure(text=value)
+            if note is not None:
+                labels[2].configure(text=note)
 
         panel = ctk.CTkFrame(
             self.content, fg_color=COLORS["surface"], corner_radius=14,
@@ -299,63 +315,64 @@ class FutureMateApp(ctk.CTk):
             font=ctk.CTkFont(size=14, weight="bold"),
             text_color=COLORS["text"]
         ).pack(anchor="w", pady=(0, 10))
-        ctk.CTkLabel(
-            progress_area, text=f"{progres * 100:.0f}%",
+        progress_percent = ctk.CTkLabel(
+            progress_area, text="0%",
             font=ctk.CTkFont(size=30, weight="bold"),
             text_color=COLORS["primary"]
-        ).pack(anchor="w")
-        bar = ctk.CTkProgressBar(
+        )
+        progress_percent.pack(anchor="w")
+        progress_bar = ctk.CTkProgressBar(
             progress_area, height=10, progress_color=COLORS["primary"]
         )
-        bar.pack(fill="x", pady=(8, 8))
-        bar.set(progres)
-        ctk.CTkLabel(
-            progress_area,
-            text=f"{selesai} dari {total_aktivitas} aktivitas selesai",
+        progress_bar.pack(fill="x", pady=(8, 8))
+        activity_count = ctk.CTkLabel(
+            progress_area, text="0 dari 0 aktivitas selesai",
             text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
-        ).pack(anchor="w")
-        ctk.CTkLabel(
-            progress_area,
-            text=f"{total_aktivitas - selesai} aktivitas masih perlu dikerjakan",
+        )
+        activity_count.pack(anchor="w")
+        remaining_count = ctk.CTkLabel(
+            progress_area, text="0 aktivitas masih perlu dikerjakan",
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
-        ).pack(anchor="w", pady=(3, 0))
+        )
+        remaining_count.pack(anchor="w", pady=(3, 0))
 
         ctk.CTkLabel(
             agenda_area, text="Agenda terdekat",
             font=ctk.CTkFont(size=14, weight="bold"),
             text_color=COLORS["text"]
         ).pack(anchor="w", pady=(0, 6))
+        agenda_list = ctk.CTkFrame(agenda_area, fg_color="transparent")
+        agenda_list.pack(fill="x")
 
-        agenda = []
-        for item in item_mingguan:
-            if not item.selesai:
-                agenda.append((
-                    item.deadline, item.judul, item.mapel,
-                    item.jenis(), item
-                ))
-        for sesi in sesi_mingguan:
-            if not sesi.get("selesai", False):
-                agenda.append((
-                    date.fromisoformat(sesi["tanggal"]), sesi["judul"],
-                    sesi["mapel"], "Sesi Belajar", sesi
-                ))
-        agenda.sort(key=lambda data: (data[0], data[1]))
+        def refresh_dashboard():
+            total, selesai, agenda = aktivitas_mingguan()
+            aktif = murid.item_aktif()
+            rata_nilai = murid.nilai.rata_rata()
+            progres = selesai / total if total else 0
 
-        def tandai_item_selesai(item):
-            if not item.selesai:
-                item.tandai_selesai()
-                self._save()
-                self.show_page("Dashboard")
+            update_card(task_card, str(len(aktif)))
+            update_card(
+                grade_card, f"{rata_nilai:.1f}",
+                "Belum ada nilai" if not murid.nilai.daftar_mapel()
+                else "Dari seluruh mata pelajaran"
+            )
+            progress_percent.configure(text=f"{progres * 100:.0f}%")
+            progress_bar.set(progres)
+            activity_count.configure(text=f"{selesai} dari {total} aktivitas selesai")
+            remaining_count.configure(text=f"{total - selesai} aktivitas masih perlu dikerjakan")
 
-        def tandai_sesi_selesai(sesi):
-            sesi["selesai"] = True
-            self._save()
-            self.show_page("Dashboard")
+            for child in agenda_list.winfo_children():
+                child.destroy()
+            if not agenda:
+                ctk.CTkLabel(
+                    agenda_list, text="Tidak ada agenda tersisa untuk minggu ini.",
+                    text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
+                ).pack(anchor="w", pady=8)
+                return
 
-        if agenda:
             for tanggal, judul, mapel, jenis, objek in agenda[:5]:
                 line = ctk.CTkFrame(
-                    agenda_area, fg_color=COLORS["surface_alt"], corner_radius=9
+                    agenda_list, fg_color=COLORS["surface_alt"], corner_radius=9
                 )
                 line.pack(fill="x", pady=3)
                 detail = ctk.CTkFrame(line, fg_color="transparent")
@@ -366,27 +383,31 @@ class FutureMateApp(ctk.CTk):
                     anchor="w", wraplength=270
                 ).pack(anchor="w")
                 ctk.CTkLabel(
-                    detail,
-                    text=f"{jenis} · {mapel} · {tanggal:%d %b}",
+                    detail, text=f"{jenis} · {mapel} · {tanggal:%d %b}",
                     text_color=COLORS["muted"], font=ctk.CTkFont(size=9),
                     anchor="w"
                 ).pack(anchor="w", pady=(2, 0))
-                command = (
-                    (lambda current=objek: tandai_item_selesai(current))
-                    if jenis in ("Tugas", "Ujian")
-                    else (lambda current=objek: tandai_sesi_selesai(current))
-                )
+
+                def mark_done(current=objek, current_type=jenis):
+                    if current_type in ("Tugas", "Ujian"):
+                        if current.selesai:
+                            return
+                        current.tandai_selesai()
+                    else:
+                        if current.get("selesai", False):
+                            return
+                        current["selesai"] = True
+                    self._save()
+                    refresh_dashboard()
+                    self._notify("Aktivitas ditandai selesai.")
+
                 ctk.CTkCheckBox(
                     line, text="Selesai", width=76,
                     checkbox_width=18, checkbox_height=18,
-                    text_color=COLORS["text"], command=command
+                    text_color=COLORS["text"], command=mark_done
                 ).pack(side="right", padx=9)
-        else:
-            ctk.CTkLabel(
-                agenda_area,
-                text="Tidak ada agenda tersisa untuk minggu ini.",
-                text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
-            ).pack(anchor="w", pady=8)
+
+        refresh_dashboard()
 
     # ==========================================================
     # HALAMAN TUGAS & JADWAL
@@ -1313,10 +1334,25 @@ class FutureMateApp(ctk.CTk):
             section_nav = ctk.CTkFrame(body, fg_color="transparent")
             section_nav.pack(fill="x", pady=(0, 10))
             for i, t in enumerate(types):
-                ctk.CTkButton(section_nav, text=t, width=42, height=30,
-                              fg_color=COLORS["primary"] if i == section else COLORS["surface"],
-                              text_color=COLORS["text"],
-                              command=lambda n=i: set_section(n)).pack(side="left", padx=4)
+                section_answered = sum(
+                    str(question_index) in answered
+                    for question_index in range(i * 10, (i + 1) * 10)
+                )
+                section_label = (
+                    f"{t} ✓" if section_answered == 10
+                    else f"{t} {section_answered}/10" if section_answered
+                    else t
+                )
+                section_color = (
+                    COLORS["primary"] if i == section
+                    else COLORS["primary_soft"] if section_answered == 10
+                    else COLORS["surface"]
+                )
+                ctk.CTkButton(
+                    section_nav, text=section_label, width=66, height=30,
+                    fg_color=section_color, text_color=COLORS["text"],
+                    command=lambda n=i: set_section(n)
+                ).pack(side="left", padx=4)
             def set_section(index):
                 self.mb_section = index
                 self.show_page("Minat Bakat")
@@ -1406,7 +1442,23 @@ class FutureMateApp(ctk.CTk):
                     if profile:
                         match = __import__("services.minat_bakat", fromlist=["skor_kecocokan"]).skor_kecocokan(profile, major["riasec"])
                     show_major_card(listing, major, match)
-            search.bind("<KeyRelease>", refresh_catalog)
+
+            pending_search = {"after_id": None}
+
+            def schedule_catalog_refresh(_event=None):
+                if pending_search["after_id"] is not None:
+                    try:
+                        self.after_cancel(pending_search["after_id"])
+                    except Exception:
+                        pass
+                pending_search["after_id"] = self.after(
+                    140, lambda: (
+                        refresh_catalog(),
+                        pending_search.update(after_id=None)
+                    )
+                )
+
+            search.bind("<KeyRelease>", schedule_catalog_refresh)
             group_menu.configure(command=refresh_catalog)
             sort_menu.configure(command=refresh_catalog)
             refresh_catalog()
