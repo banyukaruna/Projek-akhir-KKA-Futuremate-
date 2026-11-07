@@ -5,7 +5,6 @@ import customtkinter as ctk
 from gui.theme import COLORS, apply_theme
 from gui.components.sidebar import Sidebar
 from services.penyimpanan import Penyimpanan
-from services.sistem_kesiapan import SistemKesiapan
 from services.notifikasi import Notifikasi
 from models.pengguna import Murid
 from exceptions import FutureMateError
@@ -30,7 +29,6 @@ class FutureMateApp(ctk.CTk):
         self.configure(fg_color=COLORS["background"])
 
         self.storage = Penyimpanan(DATA / "data.json", DATA / "jurusan.json")
-        self.kesiapan = SistemKesiapan()
         try:
             self.murid_data = self.storage.muat()
         except FutureMateError as error:
@@ -327,24 +325,6 @@ class FutureMateApp(ctk.CTk):
                 text="Tidak ada agenda tersisa untuk minggu ini.",
                 text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
             ).pack(anchor="w", pady=8)
-
-        roadmap = ctk.CTkFrame(
-            self.content, fg_color=COLORS["surface"], corner_radius=14,
-            border_width=1, border_color=COLORS["border"]
-        )
-        roadmap.grid(row=4, column=0, sticky="ew", pady=(16, 0))
-        ctk.CTkLabel(
-            roadmap, text="Saran langkah berikutnya",
-            font=ctk.CTkFont(size=16, weight="bold"),
-            text_color=COLORS["text"]
-        ).pack(anchor="w", padx=18, pady=(16, 8))
-        for suggestion in self.kesiapan.roadmap(murid)[:3]:
-            ctk.CTkLabel(
-                roadmap, text=f"•  {suggestion}",
-                text_color=COLORS["muted"], anchor="w",
-                justify="left", wraplength=780
-            ).pack(fill="x", padx=18, pady=4)
-
 
     # ==========================================================
     # HALAMAN TUGAS & JADWAL
