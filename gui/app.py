@@ -378,7 +378,13 @@ class FutureMateApp(ctk.CTk):
             button_hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
         )
         difficulty_menu.set("3")
-        difficulty_menu.grid(row=3, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
+        difficulty_menu.grid(row=3, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+
+        duration_entry = ctk.CTkEntry(
+            form, placeholder_text="Estimasi durasi (15-480 menit)", height=38
+        )
+        duration_entry.insert(0, "60")
+        duration_entry.grid(row=3, column=0, padx=(16, 8), pady=(8, 4), sticky="ew")
 
         list_panel = ctk.CTkFrame(self.content, fg_color=COLORS["surface"], corner_radius=14)
         list_panel.grid(row=3, column=0, sticky="nsew")
@@ -439,7 +445,7 @@ class FutureMateApp(ctk.CTk):
                 ).pack(anchor="w")
                 ctk.CTkLabel(
                     info,
-                    text=f"{item.mapel}  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
+                    text=f"{item.mapel}  |  Durasi {item.durasi_menit} menit  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
                     text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
                 ).pack(anchor="w", pady=(3, 0))
 
@@ -478,48 +484,53 @@ class FutureMateApp(ctk.CTk):
             title = title_entry.get().strip()
             subject = subject_entry.get().strip()
             raw_date = date_entry.get().strip()
+            raw_duration = duration_entry.get().strip()
 
-            if not title or not subject or not raw_date:
+            if not title or not subject or not raw_date or not raw_duration:
                 show_message(
-                    "Nama kegiatan, mata pelajaran, dan tenggat wajib diisi."
+                    "Nama, mata pelajaran, tenggat, dan durasi wajib diisi."
                 )
                 return
 
             try:
                 deadline = date.fromisoformat(raw_date)
                 kind = type_menu.get()
+                duration = int(raw_duration)
 
                 if kind == "Tugas":
                     item = Tugas(
-                        title, subject, deadline, int(difficulty_menu.get())
+                        title, subject, deadline, int(difficulty_menu.get()), duration
                     )
                 elif kind == "Ujian":
-                    item = Ujian(title, subject, deadline)
+                    item = Ujian(title, subject, deadline, duration)
                 else:
-                    item = SesiBelajar(title, subject, deadline)
+                    item = SesiBelajar(title, subject, deadline, duration)
 
                 self.current_student.tambah_item(item)
                 self._save()
                 title_entry.delete(0, "end")
                 subject_entry.delete(0, "end")
+                duration_entry.delete(0, "end")
+                duration_entry.insert(0, "60")
                 refresh_list()
-            except ValueError:
+            except ValueError as error:
                 show_message(
-                    "Tanggal harus menggunakan format YYYY-MM-DD, "
-                    "misalnya 2026-11-20."
+                    "Periksa tanggal dan durasi. Tanggal memakai YYYY-MM-DD. "
+                    "Durasi harus berupa angka 15 sampai 480 menit. "
+                    f"Detail: {error}"
                 )
 
         ctk.CTkButton(
             form, text="Tambah kegiatan", height=38, command=add_item,
             fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"]
-        ).grid(row=3, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
+        ).grid(row=4, column=1, padx=(8, 16), pady=(8, 4), sticky="ew")
 
         ctk.CTkLabel(
             form,
-            text="Tingkat kesulitan berlaku untuk jenis Tugas. Gunakan tanggal YYYY-MM-DD.",
+            text="Durasi berlaku untuk semua kegiatan. Maksimal 480 menit. Kesulitan hanya berlaku untuk Tugas.",
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
-        ).grid(row=4, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
+        ).grid(row=5, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
 
         refresh_list()
         self._jadwal_panel()
