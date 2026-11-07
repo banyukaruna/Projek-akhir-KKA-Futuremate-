@@ -302,13 +302,20 @@ class FutureMateApp(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.sidebar = Sidebar(self, self.show_page)
         self.sidebar.grid(row=0, column=0, sticky="nsw")
-        # Area konten dibuat scrollable agar halaman panjang tetap bisa diakses
-        # pada layar laptop yang lebih kecil.
-        self.content = ctk.CTkScrollableFrame(
+        # Viewport membatasi area gerak konten saat transisi halaman.
+        self.content_viewport = ctk.CTkFrame(
             self, fg_color=COLORS["background"], corner_radius=0
         )
-        self.content.grid(row=0, column=1, sticky="nsew", padx=14, pady=12)
+        self.content_viewport.grid(
+            row=0, column=1, sticky="nsew", padx=14, pady=12
+        )
+        self.content = ctk.CTkScrollableFrame(
+            self.content_viewport, fg_color=COLORS["background"],
+            corner_radius=0
+        )
+        self.content.place(x=0, y=0, relwidth=1, relheight=1)
         self.content.grid_columnconfigure(0, weight=1)
+        self._page_transition_after = None
         self.show_page("Dashboard")
 
     def _page_header(self, title, subtitle):
@@ -347,8 +354,19 @@ class FutureMateApp(ctk.CTk):
     def show_page(self, page):
         self.current_page = page
         self.sidebar.set_active(page)
+
+        # Batalkan animasi sebelumnya jika pengguna berpindah halaman cepat.
+        previous_animation = getattr(self, "_page_transition_after", None)
+        if previous_animation is not None:
+            try:
+                self.after_cancel(previous_animation)
+            except Exception:
+                pass
+            self._page_transition_after = None
+
         for child in self.content.winfo_children():
             child.destroy()
+
         pages = {
             "Dashboard": self._dashboard,
             "Tugas & Jadwal": self._tugas_page,
@@ -357,6 +375,32 @@ class FutureMateApp(ctk.CTk):
             "Portofolio": self._portofolio_page,
         }
         pages.get(page, self._dashboard)()
+
+        # Geser konten baru dari kanan ke posisi normal dalam sekitar 144 ms.
+        steps = 6
+        duration_per_step = 24
+        start_offset = 24
+        self.content.place_configure(x=start_offset)
+
+        def animate_page(step=0):
+            if not self.winfo_exists() or not self.content.winfo_exists():
+                self._page_transition_after = None
+                return
+
+            progress = min(1.0, step / steps)
+            remaining = (1.0 - progress) ** 2
+            offset = round(start_offset * remaining)
+            self.content.place_configure(x=offset)
+
+            if step < steps:
+                self._page_transition_after = self.after(
+                    duration_per_step, lambda: animate_page(step + 1)
+                )
+            else:
+                self.content.place_configure(x=0)
+                self._page_transition_after = None
+
+        animate_page()
 
     def _dashboard(self):
         murid = self.current_student
