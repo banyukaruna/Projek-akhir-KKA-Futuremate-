@@ -443,9 +443,13 @@ class FutureMateApp(ctk.CTk):
                     font=ctk.CTkFont(size=13, weight="bold"),
                     text_color=COLORS["text"]
                 ).pack(anchor="w")
+                difficulty_text = (
+                    f"  |  Kesulitan {item.kesulitan}"
+                    if item.jenis() == "Tugas" else ""
+                )
                 ctk.CTkLabel(
                     info,
-                    text=f"{item.mapel}  |  Durasi {item.durasi_menit} menit  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
+                    text=f"{item.mapel}  |  Durasi {item.durasi_menit} menit{difficulty_text}  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
                     text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
                 ).pack(anchor="w", pady=(3, 0))
 
