@@ -1486,17 +1486,15 @@ class FutureMateApp(ctk.CTk):
         )
         year.pack(fill="x", pady=4)
 
-        # Tombol diletakkan langsung pada area konten utama, di luar kartu
-        # form, agar tetap tampak meski tinggi kartu berubah pada layar laptop.
         add_button = ctk.CTkButton(
-            self.content, text="Tambahkan pencapaian",
+            fields, text="Tambahkan pencapaian",
             command=lambda: add_record(), height=44,
             fg_color=COLORS["primary"],
             hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"],
             font=ctk.CTkFont(size=13, weight="bold")
         )
-        add_button.grid(row=3, column=0, sticky="ew", pady=(0, 14))
+        add_button.pack(fill="x", pady=(8, 0))
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=4, column=0, sticky="ew", pady=(0, 14))
