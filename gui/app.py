@@ -309,11 +309,18 @@ class FutureMateApp(ctk.CTk):
         self.content_viewport.grid(
             row=0, column=1, sticky="nsew", padx=14, pady=12
         )
-        self.content = ctk.CTkScrollableFrame(
+        # Lapisan animasi dipisah dari scrollable frame agar ukuran konten
+        # tetap mengikuti lebar viewport selama dan setelah transisi.
+        self.page_surface = ctk.CTkFrame(
             self.content_viewport, fg_color=COLORS["background"],
             corner_radius=0
         )
-        self.content.place(x=0, y=0, relwidth=1, relheight=1)
+        self.page_surface.place(x=0, y=0, relwidth=1, relheight=1)
+        self.content = ctk.CTkScrollableFrame(
+            self.page_surface, fg_color=COLORS["background"],
+            corner_radius=0
+        )
+        self.content.pack(fill="both", expand=True)
         self.content.grid_columnconfigure(0, weight=1)
         self._page_transition_after = None
         self.show_page("Dashboard")
@@ -380,24 +387,24 @@ class FutureMateApp(ctk.CTk):
         steps = 6
         duration_per_step = 24
         start_offset = 24
-        self.content.place_configure(x=start_offset)
+        self.page_surface.place_configure(x=start_offset)
 
         def animate_page(step=0):
-            if not self.winfo_exists() or not self.content.winfo_exists():
+            if not self.winfo_exists() or not self.page_surface.winfo_exists():
                 self._page_transition_after = None
                 return
 
             progress = min(1.0, step / steps)
             remaining = (1.0 - progress) ** 2
             offset = round(start_offset * remaining)
-            self.content.place_configure(x=offset)
+            self.page_surface.place_configure(x=offset)
 
             if step < steps:
                 self._page_transition_after = self.after(
                     duration_per_step, lambda: animate_page(step + 1)
                 )
             else:
-                self.content.place_configure(x=0)
+                self.page_surface.place_configure(x=0)
                 self._page_transition_after = None
 
         animate_page()
