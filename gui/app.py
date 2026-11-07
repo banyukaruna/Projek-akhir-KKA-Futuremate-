@@ -267,16 +267,17 @@ class FutureMateApp(ctk.CTk):
         def aktivitas_mingguan():
             item_mingguan = [
                 item for item in murid.items
-                if item.jenis() in ("Tugas", "Ujian", "Sesi")
-                and awal_minggu <= item.deadline <= akhir_minggu
+                if awal_minggu <= item.deadline <= akhir_minggu
             ]
             total = len(item_mingguan)
             selesai = sum(1 for item in item_mingguan if item.selesai)
+
+            # Agenda memakai sumber data yang sama dengan Daftar Kegiatan.
+            # Tidak membaca murid.jadwal agar sesi otomatis lama tidak muncul.
             agenda = [
                 (item.deadline, item.judul, item.mapel, item.jenis(), item)
-                for item in item_mingguan if not item.selesai
+                for item in murid.item_aktif()
             ]
-            agenda.sort(key=lambda data: (data[0], data[1]))
             return total, selesai, agenda
 
         self._page_header(
