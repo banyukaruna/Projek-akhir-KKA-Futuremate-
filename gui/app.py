@@ -1301,8 +1301,11 @@ class FutureMateApp(ctk.CTk):
             progress = ctk.CTkProgressBar(card, progress_color=COLORS["primary"])
             progress.pack(fill="x", padx=16, pady=5)
             progress.set(answered_count / 60)
-            ctk.CTkLabel(card, text=f"{answered_count} dari 60 pertanyaan terjawab",
-                         text_color=COLORS["muted"]).pack(anchor="w", padx=16, pady=(0, 10))
+            answered_label = ctk.CTkLabel(
+                card, text=f"{answered_count} dari 60 pertanyaan terjawab",
+                text_color=COLORS["muted"]
+            )
+            answered_label.pack(anchor="w", padx=16, pady=(0, 10))
             scroll = ctk.CTkScrollableFrame(card, fg_color="transparent", height=490)
             scroll.pack(fill="x", padx=10, pady=(0, 10))
             for idx, question in enumerate(PERTANYAAN_PER_TIPE[tipe]):
