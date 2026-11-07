@@ -34,37 +34,61 @@ class FutureMateApp(ctk.CTk):
         self.current_page = "Dashboard"
         self._show_splash()
 
-        # Pembacaan data dilakukan di thread terpisah agar animasi pembuka
-        # tetap berjalan dan jendela tidak tampak membeku.
+        # Beri Tkinter waktu menggambar splash sebelum membaca data.
+        self._startup_started_at = None
+        self.after(120, self._load_startup_data)
+
+    def _load_startup_data(self):
+        """Muat data lokal tanpa menghentikan event loop GUI."""
         import threading
-        load_state = {"done": False, "data": {}, "error": None}
+        import time
+
+        self._startup_started_at = time.monotonic()
+        state = {"done": False, "data": {}, "error": None}
+        self._startup_load_state = state
 
         def load_data():
             try:
-                load_state["data"] = self.storage.muat()
+                state["data"] = self.storage.muat()
             except FutureMateError as error:
-                load_state["error"] = error
+                state["error"] = error
             except Exception as error:
-                load_state["error"] = FutureMateError(
+                state["error"] = FutureMateError(
                     f"Data lokal tidak dapat dimuat: {error}"
                 )
             finally:
-                load_state["done"] = True
+                state["done"] = True
 
         threading.Thread(target=load_data, daemon=True).start()
+        self.after(50, self._check_startup_data)
 
-        def check_data():
-            if not self.winfo_exists():
-                return
-            if not load_state["done"]:
-                self.after(50, check_data)
-                return
-            self.murid_data = load_state["data"]
-            self._show_welcome()
-            if load_state["error"] is not None:
-                self.after(200, lambda: self._show_error(str(load_state["error"])))
+    def _check_startup_data(self):
+        """Tampilkan form masuk setelah splash sempat terlihat."""
+        import time
 
-        self.after(50, check_data)
+        if not self.winfo_exists():
+            return
+        state = self._startup_load_state
+        elapsed = time.monotonic() - self._startup_started_at
+        minimum_display = 0.9
+
+        if not state["done"] or elapsed < minimum_display:
+            self.after(50, self._check_startup_data)
+            return
+
+        if hasattr(self, "_splash_progress"):
+            self._splash_progress.stop()
+        animation_id = getattr(self, "_splash_animation_id", None)
+        if animation_id is not None:
+            try:
+                self.after_cancel(animation_id)
+            except Exception:
+                pass
+
+        self.murid_data = state["data"]
+        self._show_welcome()
+        if state["error"] is not None:
+            self.after(200, lambda: self._show_error(str(state["error"])))
 
     def _show_splash(self):
         """Tampilkan pembuka singkat selama data lokal disiapkan."""
@@ -95,7 +119,8 @@ class FutureMateApp(ctk.CTk):
             fg_color=COLORS["surface_alt"]
         )
         progress.pack(pady=(0, 12))
-        progress.start()
+        self._splash_progress = progress
+        self.after(80, progress.start)
         ctk.CTkLabel(
             splash, text="Menyiapkan ruang belajarmu...",
             font=ctk.CTkFont(size=10),
@@ -112,6 +137,7 @@ class FutureMateApp(ctk.CTk):
             logo.configure(font=ctk.CTkFont(size=sizes[index], weight="bold"))
             animation["index"] = (index + 1) % len(sizes)
             animation["after_id"] = self.after(95, animate_logo)
+            self._splash_animation_id = animation["after_id"]
 
         animate_logo()
 
