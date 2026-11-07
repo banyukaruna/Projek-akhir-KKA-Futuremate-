@@ -145,6 +145,8 @@ def _validasi_profil(profil, nama="profil"):
     for tipe in URUTAN_TIPE:
         if tipe not in profil:
             raise ValueError(f"Dimensi {tipe} tidak ditemukan dalam {nama}.")
+        if isinstance(profil[tipe], bool):
+            raise ValueError(f"Skor {tipe} pada {nama} harus berupa angka.")
         try:
             angka = float(profil[tipe])
         except (TypeError, ValueError) as error:
