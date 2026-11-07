@@ -42,10 +42,10 @@ Pengantar seluruh butir: "Seberapa tertarik kamu melakukan aktivitas berikut?"
 | 4 | Pengoperasian alat | Mengoperasikan alat untuk menghasilkan atau mengolah suatu benda. |
 | 5 | Penerapan kelistrikan | Memasang rangkaian listrik sederhana sesuai petunjuk. |
 | 6 | Perakitan berdasarkan rancangan | Membuat atau merakit benda dengan mengikuti gambar rancangan. |
-| 7 | Pengamatan lapangan | Melakukan pengamatan langsung terhadap kondisi suatu tempat. |
+| 7 | Pengamatan lapangan | Menyiapkan dan memasang perlengkapan untuk kegiatan luar ruang. |
 | 8 | Mekanisme | Menguji cara kerja perangkat mekanis sederhana. |
 | 9 | Pemecahan masalah praktis | Membuat benda praktis untuk menyelesaikan masalah sehari-hari. |
-| 10 | Aktivitas teknis lapangan | Melakukan kegiatan lapangan yang melibatkan penggunaan peralatan. |
+| 10 | Aktivitas teknis lapangan | Menggunakan peralatan sederhana untuk memindahkan atau mengangkat benda. |
 
 ### I. Investigative
 
