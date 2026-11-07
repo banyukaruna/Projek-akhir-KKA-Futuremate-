@@ -29,15 +29,91 @@ class FutureMateApp(ctk.CTk):
         self.configure(fg_color=COLORS["background"])
 
         self.storage = Penyimpanan(DATA / "data.json", DATA / "jurusan.json")
-        try:
-            self.murid_data = self.storage.muat()
-        except FutureMateError as error:
-            self.murid_data = {}
-            self.after(200, lambda: self._show_error(str(error)))
-
+        self.murid_data = {}
         self.current_student = None
         self.current_page = "Dashboard"
-        self._show_welcome()
+        self._show_splash()
+
+        # Pembacaan data dilakukan di thread terpisah agar animasi pembuka
+        # tetap berjalan dan jendela tidak tampak membeku.
+        import threading
+        load_state = {"done": False, "data": {}, "error": None}
+
+        def load_data():
+            try:
+                load_state["data"] = self.storage.muat()
+            except FutureMateError as error:
+                load_state["error"] = error
+            except Exception as error:
+                load_state["error"] = FutureMateError(
+                    f"Data lokal tidak dapat dimuat: {error}"
+                )
+            finally:
+                load_state["done"] = True
+
+        threading.Thread(target=load_data, daemon=True).start()
+
+        def check_data():
+            if not self.winfo_exists():
+                return
+            if not load_state["done"]:
+                self.after(50, check_data)
+                return
+            self.murid_data = load_state["data"]
+            self._show_welcome()
+            if load_state["error"] is not None:
+                self.after(200, lambda: self._show_error(str(load_state["error"])))
+
+        self.after(50, check_data)
+
+    def _show_splash(self):
+        """Tampilkan pembuka singkat selama data lokal disiapkan."""
+        self._clear()
+        splash = ctk.CTkFrame(
+            self, fg_color=COLORS["surface"], corner_radius=22,
+            border_width=1, border_color=COLORS["border"]
+        )
+        splash.place(
+            relx=0.5, rely=0.5, anchor="center",
+            relwidth=0.46, relheight=0.42
+        )
+
+        logo = ctk.CTkLabel(
+            splash, text="FutureMate",
+            font=ctk.CTkFont(size=24, weight="bold"),
+            text_color=COLORS["text"]
+        )
+        logo.pack(pady=(42, 8))
+        ctk.CTkLabel(
+            splash, text="Shape Your Future",
+            font=ctk.CTkFont(size=12),
+            text_color=COLORS["muted"]
+        ).pack(pady=(0, 24))
+        progress = ctk.CTkProgressBar(
+            splash, width=250, height=6, mode="indeterminate",
+            progress_color=COLORS["primary"],
+            fg_color=COLORS["surface_alt"]
+        )
+        progress.pack(pady=(0, 12))
+        progress.start()
+        ctk.CTkLabel(
+            splash, text="Menyiapkan ruang belajarmu...",
+            font=ctk.CTkFont(size=10),
+            text_color=COLORS["muted"]
+        ).pack()
+
+        sizes = [26, 28, 30, 32, 34]
+        animation = {"index": 0, "after_id": None}
+
+        def animate_logo():
+            if not logo.winfo_exists():
+                return
+            index = animation["index"]
+            logo.configure(font=ctk.CTkFont(size=sizes[index], weight="bold"))
+            animation["index"] = (index + 1) % len(sizes)
+            animation["after_id"] = self.after(95, animate_logo)
+
+        animate_logo()
 
     def _show_error(self, message):
         self._message("Gagal memuat data", message)
