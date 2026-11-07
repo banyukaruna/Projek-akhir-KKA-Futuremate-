@@ -46,8 +46,10 @@ class Penjadwalan:
 
         for item in aktif:
             durasi_total = max(0, int(getattr(item, "durasi_menit", 60)) - durasi_manual.get(item.id, 0))
+            if durasi_total == 0:
+                continue
             if not 15 <= durasi_total <= 480:
-                raise ValueError("Durasi kegiatan harus 15 sampai 480 menit.")
+                raise ValueError("Sisa durasi kegiatan tidak valid.")
 
             sisa_durasi = durasi_total
             while sisa_durasi > 0:
@@ -85,6 +87,18 @@ class Penjadwalan:
                 slot_terpakai.add(indeks_tersedia)
                 sisa_durasi -= durasi_sesi
         return jadwal
+
+    @staticmethod
+    def validasi_bentrok(sesi_target, tanggal, mulai, durasi, semua_sesi):
+        awal = datetime.combine(date.fromisoformat(tanggal), datetime.strptime(mulai, "%H:%M").time())
+        akhir = awal + timedelta(minutes=int(durasi))
+        for sesi in semua_sesi:
+            if sesi is sesi_target:
+                continue
+            awal_lain = datetime.combine(date.fromisoformat(sesi["tanggal"]), datetime.strptime(sesi["mulai"], "%H:%M").time())
+            akhir_lain = awal_lain + timedelta(minutes=int(sesi["durasi"]))
+            if awal < akhir_lain and akhir > awal_lain:
+                raise ValueError("Waktu sesi bertabrakan dengan sesi lain.")
 
     @staticmethod
     def ubah_sesi(sesi, tanggal, mulai, durasi):
