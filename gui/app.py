@@ -469,7 +469,7 @@ class FutureMateApp(ctk.CTk):
 
                 ctk.CTkButton(
                     actions, text="Hapus", width=62, height=30,
-                    fg_color=COLORS["danger"], hover_color="#c95d5d",
+                    fg_color=COLORS["danger"], hover_color=COLORS["danger_hover"],
                     command=lambda current=item: delete_item(current)
                 ).pack(side="left", padx=3)
 
