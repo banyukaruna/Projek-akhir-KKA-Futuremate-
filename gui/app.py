@@ -1419,7 +1419,7 @@ class FutureMateApp(ctk.CTk):
             go("Tes RIASEC")
 
     def _portofolio_page(self):
-        from models.portofolio import Prestasi
+        from models.portofolio import Portofolio, Prestasi
         self._page_header(
             "Portofolio",
             "Dokumentasikan prestasi dan pengalaman yang mendukung rencana masa depanmu."
@@ -1444,7 +1444,7 @@ class FutureMateApp(ctk.CTk):
         category.pack(fill="x", pady=4)
 
         level = ctk.CTkOptionMenu(
-            fields, values=Prestasi.TINGKAT, fg_color=COLORS["surface_alt"],
+            fields, values=Portofolio.TINGKAT, fg_color=COLORS["surface_alt"],
             button_color=COLORS["primary"], button_hover_color=COLORS["primary_hover"],
             text_color=COLORS["text"], height=38
         )
@@ -1466,7 +1466,7 @@ class FutureMateApp(ctk.CTk):
         add_button.pack(fill="x", pady=(8, 0))
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
-        summary.grid(row=4, column=0, sticky="ew", pady=(0, 14))
+        summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
         points_card = self._card(summary, "Total poin", "0", "Poin berdasarkan tingkat pencapaian")
         points_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
