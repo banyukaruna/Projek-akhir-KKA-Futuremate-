@@ -15,7 +15,7 @@ class LevelPrioritas(Enum):
 
 
 class Item(ABC):
-    def __init__(self, judul, mapel, deadline, durasi_menit=60):
+    def __init__(self, judul, mapel, deadline, durasi_menit=60, item_id=None):
         durasi_menit = int(durasi_menit)
         if not 15 <= durasi_menit <= 480:
             raise ValueError("Durasi kegiatan harus 15 sampai 480 menit.")
@@ -80,8 +80,8 @@ class Item(ABC):
 
 
 class Tugas(Item):
-    def __init__(self, judul, mapel, deadline, kesulitan=3, durasi_menit=60):
-        super().__init__(judul, mapel, deadline, durasi_menit)
+    def __init__(self, judul, mapel, deadline, kesulitan=3, durasi_menit=60, item_id=None):
+        super().__init__(judul, mapel, deadline, durasi_menit, item_id)
         if not 1 <= kesulitan <= 5:
             raise ValueError("kesulitan harus 1-5")
         self.kesulitan = kesulitan
@@ -107,7 +107,7 @@ class Ujian(Item):
     BONUS = 4  # ujian selalu dianggap penting
 
     def __init__(self, judul, mapel, deadline, durasi_menit=60):
-        super().__init__(judul, mapel, deadline, durasi_menit)
+        super().__init__(judul, mapel, deadline, durasi_menit, item_id)
 
     def jenis(self):
         return "Ujian"
