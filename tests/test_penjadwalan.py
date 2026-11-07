@@ -39,6 +39,23 @@ class PenjadwalanTests(unittest.TestCase):
         self.assertEqual([60, 30], [sesi["durasi"] for sesi in jadwal_tugas])
         self.assertEqual([60, 60], [sesi["durasi"] for sesi in jadwal_ujian])
 
+    def test_kesulitan_tugas_menggunakan_label_teks(self):
+        mudah = Tugas("Latihan", "Matematika", self.DEADLINE, "Mudah")
+        sedang = Tugas("Rangkuman", "Sejarah", self.DEADLINE, "Sedang")
+        sulit = Tugas("Proyek", "Informatika", self.DEADLINE, "Sulit")
+
+        self.assertEqual("Mudah", mudah.kesulitan)
+        self.assertEqual("Sedang", sedang.kesulitan)
+        self.assertEqual("Sulit", sulit.kesulitan)
+        self.assertLess(mudah.skor_prioritas(self.HARI_INI),
+                        sedang.skor_prioritas(self.HARI_INI))
+        self.assertLess(sedang.skor_prioritas(self.HARI_INI),
+                        sulit.skor_prioritas(self.HARI_INI))
+
+    def test_kesulitan_angka_lama_tetap_dikonversi(self):
+        item_lama = Tugas("PR lama", "Matematika", self.DEADLINE, 3)
+        self.assertEqual("Sedang", item_lama.kesulitan)
+
     def test_durasi_default_tugas_dan_ujian_tetap_60_menit(self):
         tugas = Tugas("PR", "Matematika", self.DEADLINE)
         ujian = Ujian("UTS", "Bahasa Indonesia", self.DEADLINE)
