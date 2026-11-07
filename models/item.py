@@ -15,10 +15,14 @@ class LevelPrioritas(Enum):
 
 
 class Item(ABC):
-    def __init__(self, judul, mapel, deadline):
+    def __init__(self, judul, mapel, deadline, durasi_menit=60):
+        durasi_menit = int(durasi_menit)
+        if not 15 <= durasi_menit <= 480:
+            raise ValueError("Durasi kegiatan harus 15 sampai 480 menit.")
         self.judul = judul
         self.mapel = mapel
         self.deadline = deadline
+        self.durasi_menit = durasi_menit
         self.__tanggal_selesai = None  # enkapsulasi: hanya diubah lewat tandai_selesai()
 
     @property
@@ -60,6 +64,7 @@ class Item(ABC):
         return {
             "tipe": self.jenis(), "judul": self.judul, "mapel": self.mapel,
             "deadline": self.deadline.isoformat(),
+            "durasi_menit": self.durasi_menit,
             "tanggal_selesai": self.__tanggal_selesai.isoformat() if self.selesai else None,
         }
 
@@ -75,8 +80,8 @@ class Item(ABC):
 
 
 class Tugas(Item):
-    def __init__(self, judul, mapel, deadline, kesulitan=3):
-        super().__init__(judul, mapel, deadline)
+    def __init__(self, judul, mapel, deadline, kesulitan=3, durasi_menit=60):
+        super().__init__(judul, mapel, deadline, durasi_menit)
         if not 1 <= kesulitan <= 5:
             raise ValueError("kesulitan harus 1-5")
         self.kesulitan = kesulitan
@@ -92,11 +97,17 @@ class Tugas(Item):
 
     @classmethod
     def _bangun(cls, d):
-        return cls(d["judul"], d["mapel"], date.fromisoformat(d["deadline"]), d["kesulitan"])
+        return cls(
+            d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
+            d.get("kesulitan", 3), d.get("durasi_menit", 60)
+        )
 
 
 class Ujian(Item):
     BONUS = 4  # ujian selalu dianggap penting
+
+    def __init__(self, judul, mapel, deadline, durasi_menit=60):
+        super().__init__(judul, mapel, deadline, durasi_menit)
 
     def jenis(self):
         return "Ujian"
@@ -106,13 +117,15 @@ class Ujian(Item):
 
     @classmethod
     def _bangun(cls, d):
-        return cls(d["judul"], d["mapel"], date.fromisoformat(d["deadline"]))
+        return cls(
+            d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
+            d.get("durasi_menit", 60)
+        )
 
 
 class SesiBelajar(Item):
     def __init__(self, judul, mapel, deadline, durasi_menit=60):
-        super().__init__(judul, mapel, deadline)
-        self.durasi_menit = durasi_menit
+        super().__init__(judul, mapel, deadline, durasi_menit)
 
     def jenis(self):
         return "Sesi"
@@ -120,12 +133,12 @@ class SesiBelajar(Item):
     def skor_prioritas(self, hari_ini=None):
         return self._urgensi(hari_ini) + min(self.durasi_menit // 60, 2)
 
-    def to_dict(self):
-        return {**super().to_dict(), "durasi_menit": self.durasi_menit}
-
     @classmethod
     def _bangun(cls, d):
-        return cls(d["judul"], d["mapel"], date.fromisoformat(d["deadline"]), d["durasi_menit"])
+        return cls(
+            d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
+            d.get("durasi_menit", 60)
+        )
 
 
 _REGISTRI = {"Tugas": Tugas, "Ujian": Ujian, "Sesi": SesiBelajar}
