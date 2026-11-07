@@ -29,10 +29,10 @@ PERTANYAAN_PER_TIPE = {
         "Mengoperasikan alat untuk menghasilkan atau mengolah suatu benda.",
         "Memasang rangkaian listrik sederhana sesuai petunjuk.",
         "Membuat atau merakit benda dengan mengikuti gambar rancangan.",
-        "Melakukan pengamatan langsung terhadap kondisi suatu tempat.",
+        "Menyiapkan dan memasang perlengkapan untuk kegiatan luar ruang.",
         "Menguji cara kerja perangkat mekanis sederhana.",
         "Membuat benda praktis untuk menyelesaikan masalah sehari-hari.",
-        "Melakukan kegiatan lapangan yang melibatkan penggunaan peralatan."
+        "Menggunakan peralatan sederhana untuk memindahkan atau mengangkat benda."
     ],
     "I": [
         "Menganalisis kumpulan data untuk menemukan pola.",
