@@ -124,7 +124,7 @@ class Ujian(Item):
 
 
 class SesiBelajar(Item):
-    def __init__(self, judul, mapel, deadline, durasi_menit=60):
+    def __init__(self, judul, mapel, deadline, durasi_menit=60, item_id=None):
         super().__init__(judul, mapel, deadline, durasi_menit, item_id)
 
     def jenis(self):
@@ -137,7 +137,7 @@ class SesiBelajar(Item):
     def _bangun(cls, d):
         return cls(
             d["judul"], d["mapel"], date.fromisoformat(d["deadline"]),
-            d.get("durasi_menit", 60)
+            d.get("durasi_menit", 60), d.get("id")
         )
 
 
