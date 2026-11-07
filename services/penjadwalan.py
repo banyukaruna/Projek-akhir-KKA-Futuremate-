@@ -1,7 +1,6 @@
 """Penyusunan jadwal belajar otomatis berdasarkan deadline dan waktu luang."""
 from datetime import date, datetime, timedelta
 
-from models.item import SesiBelajar
 
 
 class Penjadwalan:
@@ -9,7 +8,7 @@ class Penjadwalan:
 
     @staticmethod
     def buat_jadwal(items, hari_tersedia, jam_mulai, jam_selesai, hari_ini=None):
-        """Jadwalkan hanya sesi belajar yang dibuat pengguna secara manual."""
+        """Jadwalkan semua kegiatan aktif menjadi sesi belajar otomatis."""
         hari_ini = hari_ini or date.today()
         mulai = datetime.strptime(jam_mulai, "%H:%M")
         selesai = datetime.strptime(jam_selesai, "%H:%M")
@@ -31,9 +30,7 @@ class Penjadwalan:
 
         aktif = [
             item for item in items
-            if isinstance(item, SesiBelajar)
-            and not item.selesai
-            and item.deadline >= hari_ini
+            if not item.selesai and item.deadline >= hari_ini
         ]
         aktif.sort(key=lambda item: (item.deadline, -item.skor_prioritas(hari_ini)))
         jadwal = []
