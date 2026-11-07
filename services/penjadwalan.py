@@ -7,7 +7,7 @@ class Penjadwalan:
 
     @staticmethod
     def buat_jadwal(items, hari_tersedia, jam_mulai, jam_selesai, hari_ini=None):
-        """Membuat sesi 60 menit. Deadline terdekat dijadwalkan lebih dahulu."""
+        """Buat sesi maksimal 60 menit sesuai durasi kegiatan dan tenggatnya."""
         hari_ini = hari_ini or date.today()
         mulai = datetime.strptime(jam_mulai, "%H:%M")
         selesai = datetime.strptime(jam_selesai, "%H:%M")
@@ -33,15 +33,22 @@ class Penjadwalan:
         indeks_slot = 0
 
         for item in aktif:
-            jumlah_sesi = 1
-            if item.jenis() == "Ujian":
-                jumlah_sesi = 2
-            elif item.jenis() == "Tugas":
-                jumlah_sesi = 2 if getattr(item, "kesulitan", 3) >= 4 else 1
-            elif item.jenis() == "Sesi":
-                jumlah_sesi = max(1, min(3, (getattr(item, "durasi_menit", 60) + 59) // 60))
+            if item.jenis() == "Sesi":
+                durasi_total = int(getattr(item, "durasi_menit", 60))
+                if not 15 <= durasi_total <= 480:
+                    raise ValueError("Durasi sesi belajar harus 15 sampai 480 menit.")
+                durasi_sesi = []
+                while durasi_total:
+                    bagian = min(60, durasi_total)
+                    durasi_sesi.append(bagian)
+                    durasi_total -= bagian
+            else:
+                jumlah_sesi = 2 if item.jenis() == "Ujian" else (
+                    2 if item.jenis() == "Tugas" and getattr(item, "kesulitan", 3) >= 4 else 1
+                )
+                durasi_sesi = [60] * jumlah_sesi
 
-            for _ in range(jumlah_sesi):
+            for durasi in durasi_sesi:
                 while indeks_slot < len(slots) and slots[indeks_slot][0] > item.deadline:
                     indeks_slot += 1
                 if indeks_slot >= len(slots):
@@ -53,7 +60,7 @@ class Penjadwalan:
                     "jenis": item.jenis(),
                     "tanggal": tanggal_sesi.isoformat(),
                     "mulai": waktu_sesi,
-                    "durasi": 60,
+                    "durasi": durasi,
                     "manual": False,
                 })
                 indeks_slot += 1
