@@ -80,17 +80,30 @@ class Item(ABC):
 
 
 class Tugas(Item):
-    def __init__(self, judul, mapel, deadline, kesulitan=3, durasi_menit=60):
+    BOBOT_KESULITAN = {"Mudah": 1, "Sedang": 3, "Sulit": 5}
+
+    def __init__(self, judul, mapel, deadline, kesulitan="Sedang", durasi_menit=60):
         super().__init__(judul, mapel, deadline, durasi_menit)
-        if not 1 <= kesulitan <= 5:
-            raise ValueError("kesulitan harus 1-5")
+        if isinstance(kesulitan, int):
+            if not 1 <= kesulitan <= 5:
+                raise ValueError("Kesulitan harus Mudah, Sedang, atau Sulit.")
+            kesulitan = (
+                "Mudah" if kesulitan <= 2
+                else "Sedang" if kesulitan == 3
+                else "Sulit"
+            )
+        if isinstance(kesulitan, str):
+            kesulitan = kesulitan.strip().capitalize()
+        if kesulitan not in self.BOBOT_KESULITAN:
+            raise ValueError("Kesulitan harus Mudah, Sedang, atau Sulit.")
         self.kesulitan = kesulitan
 
     def jenis(self):
         return "Tugas"
 
     def skor_prioritas(self, hari_ini=None):
-        return self._urgensi(hari_ini) + self.kesulitan
+        bobot = self.BOBOT_KESULITAN[self.kesulitan]
+        return self._urgensi(hari_ini) + bobot
 
     def to_dict(self):
         return {**super().to_dict(), "kesulitan": self.kesulitan}
