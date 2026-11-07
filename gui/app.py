@@ -1014,8 +1014,8 @@ class FutureMateApp(ctk.CTk):
                 value = max(0, min(100, float(scores.get(types[i], 0))))
                 values.extend([cx + radius * value / 100 * math.cos(angle),
                                cy + radius * value / 100 * math.sin(angle)])
-            canvas.create_polygon(values, fill="#8EAE96", stipple="gray25",
-                                  outline="#557B61", width=2)
+            canvas.create_polygon(values, fill=COLORS["primary"], stipple="gray25",
+                                  outline=COLORS["primary_hover"], width=2)
             return canvas
 
         def score_bars(parent, scores):
