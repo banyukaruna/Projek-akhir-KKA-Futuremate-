@@ -29,16 +29,19 @@ class PenjadwalanTests(unittest.TestCase):
 
         self.assertEqual([60], [sesi["durasi"] for sesi in jadwal])
 
-    def test_tugas_dan_ujian_tidak_dibuatkan_sesi_otomatis(self):
-        tugas = Tugas("PR", "Matematika", self.DEADLINE, 3, 90)
-        ujian = Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 120)
+    def test_tugas_dan_ujian_juga_dibuatkan_sesi_otomatis(self):
+        tugas = Tugas("PR", "Matematika", self.DEADLINE, 3, 60)
+        ujian = Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 60)
 
-        self.assertEqual([], self.buat(tugas))
-        self.assertEqual([], self.buat(ujian))
+        jadwal_tugas = self.buat(tugas)
+        jadwal_ujian = self.buat(ujian)
 
-    def test_jadwal_hanya_mengambil_sesi_belajar_manual(self):
-        tugas = Tugas("PR", "Matematika", self.DEADLINE, 3, 90)
-        ujian = Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 120)
+        self.assertEqual("Tugas", jadwal_tugas[0]["jenis"])
+        self.assertEqual("Ujian", jadwal_ujian[0]["jenis"])
+
+    def test_semua_jenis_kegiatan_dijadwalkan_bersama(self):
+        tugas = Tugas("PR", "Matematika", self.DEADLINE, 3, 60)
+        ujian = Ujian("UTS", "Bahasa Indonesia", self.DEADLINE, 60)
         sesi = SesiBelajar("Belajar Kimia", "Kimia", self.DEADLINE, 60)
 
         jadwal = Penjadwalan.buat_jadwal(
@@ -46,9 +49,8 @@ class PenjadwalanTests(unittest.TestCase):
             hari_ini=self.HARI_INI
         )
 
-        self.assertEqual(1, len(jadwal))
-        self.assertEqual("Belajar Kimia", jadwal[0]["judul"])
-        self.assertEqual("Sesi", jadwal[0]["jenis"])
+        self.assertEqual(3, len(jadwal))
+        self.assertEqual({"Tugas", "Ujian", "Sesi"}, {item["jenis"] for item in jadwal})
 
     def test_kesulitan_tugas_menggunakan_label_teks(self):
         mudah = Tugas("Latihan", "Matematika", self.DEADLINE, "Mudah")
