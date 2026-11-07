@@ -190,14 +190,18 @@ class FutureMateApp(ctk.CTk):
         toast.geometry(f"+{max(8, x)}+{max(8, y)}")
         toast.after(duration, lambda: toast.destroy() if toast.winfo_exists() else None)
 
-    def _animate_progress(self, widget, target, duration=180, steps=9):
-        """Animasi progres singkat. Aman dihentikan saat widget ditutup."""
+    def _animate_progress(self, widget, target, duration=120, steps=5):
+        """Animasi progres ringan dengan pembaruan sesedikit mungkin."""
         target = max(0.0, min(1.0, float(target)))
         try:
             previous = getattr(widget, "_progress_animation_after", None)
             if previous is not None:
                 widget.after_cancel(previous)
+                widget._progress_animation_after = None
             start = float(widget.get())
+            if abs(target - start) < 0.005:
+                widget.set(target)
+                return
         except Exception:
             start = 0.0
 
@@ -213,7 +217,7 @@ class FutureMateApp(ctk.CTk):
                 widget.set(start + (target - start) * eased)
                 if fraction < 1.0:
                     widget._progress_animation_after = widget.after(
-                        max(12, duration // steps), advance
+                        max(16, duration // steps), advance
                     )
                 else:
                     widget._progress_animation_after = None
@@ -1669,7 +1673,7 @@ class FutureMateApp(ctk.CTk):
             ).pack(anchor="w", padx=16, pady=(0, 8))
             progress = ctk.CTkProgressBar(card, progress_color=COLORS["primary"])
             progress.pack(fill="x", padx=16, pady=5)
-            self._animate_progress(progress, answered_count / 60)
+            progress.set(answered_count / 60)
             answered_label = ctk.CTkLabel(
                 card, text=f"{answered_count} dari 60 pertanyaan terjawab",
                 text_color=COLORS["muted"]
@@ -1695,8 +1699,12 @@ class FutureMateApp(ctk.CTk):
                 choice.pack(anchor="e", padx=10, pady=(0, 9))
                 choice.configure(command=lambda value, i=question_index: save_answer(i, value))
             def save_answer(index, value):
-                murid.riasec_answers[str(index)] = int(value)
-                self._animate_progress(progress, len(murid.riasec_answers) / 60)
+                answer = int(value)
+                key = str(index)
+                if murid.riasec_answers.get(key) == answer:
+                    return
+                murid.riasec_answers[key] = answer
+                progress.set(len(murid.riasec_answers) / 60)
                 answered_label.configure(
                     text=f"{len(murid.riasec_answers)} dari 60 pertanyaan terjawab · Tersimpan",
                     text_color=COLORS["success"]
