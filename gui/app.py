@@ -531,6 +531,22 @@ class FutureMateApp(ctk.CTk):
         def show_message(message):
             form_feedback.configure(text=message, text_color=COLORS["danger"])
 
+        def bersihkan_jadwal_tidak_terkait():
+            """Hapus sesi otomatis yang sumber kegiatannya sudah tidak ada."""
+            item_aktif = {
+                (item.judul, item.mapel, item.jenis())
+                for item in self.current_student.items
+                if not item.selesai
+            }
+            self.current_student.jadwal = [
+                sesi for sesi in self.current_student.jadwal
+                if (
+                    sesi.get("judul"),
+                    sesi.get("mapel"),
+                    sesi.get("jenis")
+                ) in item_aktif
+            ]
+
         def refresh_list():
             for child in items_frame.winfo_children():
                 child.destroy()
@@ -608,6 +624,7 @@ class FutureMateApp(ctk.CTk):
             ):
                 return
             self.current_student.items.remove(item)
+            bersihkan_jadwal_tidak_terkait()
             self._save()
             refresh_list()
             self._notify("Kegiatan berhasil dihapus.")
@@ -638,6 +655,9 @@ class FutureMateApp(ctk.CTk):
                 else:
                     item = SesiBelajar(title, subject, deadline, duration)
 
+                # Bersihkan sesi dari kegiatan lama sebelum menambahkan item baru.
+                # Ini mencegah jadwal yatim muncul kembali di Agenda terdekat.
+                bersihkan_jadwal_tidak_terkait()
                 self.current_student.tambah_item(item)
                 self._save()
                 title_entry.delete(0, "end")
