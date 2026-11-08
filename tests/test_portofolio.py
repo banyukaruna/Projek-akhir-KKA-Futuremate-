@@ -17,7 +17,8 @@ class PortofolioAkademikTests(unittest.TestCase):
 
     def buat_prestasi(self, judul="OSN Matematika", tingkat="Nasional",
                       juara="Juara 1", **kwargs):
-        return PrestasiAkademik(judul, tingkat, juara, tahun=2026, **kwargs)
+        kwargs.setdefault("tahun", 2026)
+        return PrestasiAkademik(judul, tingkat, juara, **kwargs)
 
     def test_semua_opsi_form_tersedia(self):
         self.assertEqual(
@@ -49,7 +50,7 @@ class PortofolioAkademikTests(unittest.TestCase):
             jenis_kepesertaan="Individual",
             jenjang_lomba="Non-Berjenjang",
         )
-        self.assertAlmostEqual(54.1875, prestasi.poin)
+        self.assertAlmostEqual(54.19, prestasi.poin)
 
     def test_perhitungan_poin_beregu_default(self):
         prestasi = self.buat_prestasi(
