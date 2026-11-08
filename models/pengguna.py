@@ -5,7 +5,7 @@ from datetime import date
 
 from models.item import Item
 from models.nilai import NilaiAkademik
-from models.portofolio import Portofolio
+from models.portofolio import PortofolioAkademik
 from models.target import Target
 
 
@@ -27,7 +27,7 @@ class Murid(Pengguna):
         super().__init__(nama)
         self.kelas = kelas
         self.nilai = NilaiAkademik()
-        self.portofolio = Portofolio()
+        self.portofolio = PortofolioAkademik()
         self.items = []
         self.targets = []
         self.profil_minat = {}
@@ -85,7 +85,7 @@ class Murid(Pengguna):
         m.nilai = NilaiAkademik.dari_dict(d["nilai"])
         m.items = [Item.dari_dict(x) for x in d["items"]]
         m.targets = [Target.dari_dict(x) for x in d["targets"]]
-        m.portofolio = Portofolio.dari_dict(d["portofolio"])
+        m.portofolio = PortofolioAkademik.dari_dict(d["portofolio"])
         m.profil_minat = d.get("profil_minat", {})
         m.riasec_history = d.get("riasec_history", [])
         m.riasec_answers = d.get("riasec_answers", {})

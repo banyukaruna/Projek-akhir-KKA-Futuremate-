@@ -14,9 +14,12 @@
           },
           "2": {
             "Matematika": 98.0
+          },
+          "3": {
+            "Matematika Wajib": 100.0
           }
         },
-        "target_akhir": 100.0
+        "target_akhir": 96.8
       },
       "items": [],
       "targets": [],
@@ -711,7 +714,7 @@
           5,
           6
         ],
-        "mulai": "13:00",
+        "mulai": "16:00",
         "selesai": "20:00"
       }
     },

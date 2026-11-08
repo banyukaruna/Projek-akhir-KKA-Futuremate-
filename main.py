@@ -7,7 +7,7 @@ from pathlib import Path
 from exceptions import DuplikatError, FutureMateError
 from models.item import SesiBelajar, Tugas, Ujian
 from models.pengguna import Guru, Murid
-from models.portofolio import Portofolio, Prestasi
+from models.portofolio import PortofolioAkademik, PrestasiAkademik, FAKTOR_KEPESERTAAN
 from models.target import Beasiswa, Lomba
 from services.notifikasi import Notifikasi
 from services.penyimpanan import Penyimpanan
@@ -231,25 +231,120 @@ def tes_minat(m, katalog):
 
 
 # ---------- portofolio ----------
+def _pilih_daftar(daftar, label, judul="Pilih nomor"):
+    if not daftar:
+        print("  (kosong)")
+        return None
+    for i, x in enumerate(daftar, 1):
+        print(f"  {i}. {label(x)}")
+    n = input_angka(f"{judul} (0 = batal): ", 0, len(daftar))
+    return daftar[n - 1] if n else None
+
+
 def tambah_prestasi(m):
+    print("\n--- Tambah Prestasi Akademik Baru ---")
     judul = input_teks("Judul prestasi/sertifikat: ")
-    kategori = input_teks("Kategori (lomba/organisasi/kursus/proyek): ")
-    tingkat = pilih(Portofolio.TINGKAT, str, "Tingkat")
-    if tingkat:
-        m.portofolio.tambah(Prestasi(judul, kategori, tingkat, input_angka("Tahun: ", 2000, 2100)))
-        print("Prestasi ditambahkan.")
+
+    print("\nTingkat kejuaraan yang tersedia:")
+    tingkat = _pilih_daftar(PortofolioAkademik.TINGKAT, str, "Pilih tingkat")
+    if not tingkat:
+        return
+
+    print("\nPeringkat juara yang diraih:")
+    juara = _pilih_daftar(PortofolioAkademik.JUARA, str, "Pilih juara")
+    if not juara:
+        return
+
+    print("\nPenyelenggara lomba:")
+    penyelenggara = _pilih_daftar(PortofolioAkademik.PENYELENGGARA, str, "Pilih penyelenggara")
+    if not penyelenggara:
+        return
+
+    print("\nJenis kepesertaan:")
+    jenis_kepesertaan = _pilih_daftar(PortofolioAkademik.KEPESERTAAN, str, "Pilih jenis kepesertaan")
+    if not jenis_kepesertaan:
+        return
+
+    bobot_beregu = None
+    if jenis_kepesertaan == "Beregu":
+        bobot_input = input_teks(f"Bobot beregu custom ({FAKTOR_KEPESERTAAN.beregu_min}-{FAKTOR_KEPESERTAAN.beregu_max}, kosong = gunakan default): ").strip()
+        if bobot_input:
+            try:
+                bobot_beregu = float(bobot_input.replace(",", "."))
+            except ValueError:
+                print("Input bobot tidak valid, menggunakan default.")
+
+    print("\nJenjang lomba:")
+    jenjang_lomba = _pilih_daftar(PortofolioAkademik.JENJANG, str, "Pilih jenjang")
+    if not jenjang_lomba:
+        return
+
+    tahun_input = input_teks("Tahun prestasi (kosong = tahun ini): ").strip()
+    tahun = int(tahun_input) if tahun_input else date.today().year
+
+    catatan = input_teks("Catatan tambahan (opsional): ")
+
+    prestasi = PrestasiAkademik(
+        judul=judul,
+        tingkat=tingkat,
+        juara=juara,
+        penyelenggara=penyelenggara,
+        jenis_kepesertaan=jenis_kepesertaan,
+        jenjang_lomba=jenjang_lomba,
+        bobot_beregu=bobot_beregu,
+        tahun=tahun,
+        catatan=catatan,
+    )
+    m.portofolio.tambah(prestasi)
+    print(f"\n✓ Prestasi ditambahkan! Poin yang diperoleh: {prestasi.poin}")
+    print(f"  Skor Dasar ({tingkat} × {juara}): {prestasi.skor_dasar}")
+    print(f"  Faktor Penyelenggara ({penyelenggara}): {prestasi.faktor_penyelenggara}")
+    print(f"  Faktor Kepesertaan ({jenis_kepesertaan}): {prestasi.faktor_kepesertaan}")
+    print(f"  Faktor Jenjang ({jenjang_lomba}): {prestasi.faktor_jenjang}")
+    print(f"  Faktor Pengali Total: {prestasi.faktor_pengali_total}")
 
 
 def lihat_portofolio(m):
-    for p in m.portofolio.daftar():
-        print(f"  {p.tahun} | {p.judul} ({p.kategori}, {p.tingkat}) +{p.poin} poin")
-    print(f"  Total poin portofolio: {m.portofolio.total_poin()}" if m.portofolio.jumlah()
-          else "  Portofolio masih kosong.")
+    daftar = m.portofolio.daftar()
+    if not daftar:
+        print("  Portofolio masih kosong.")
+        return
+
+    print("\n=== Daftar Prestasi Akademik ===")
+    for i, p in enumerate(daftar, 1):
+        print(f"\n{i}. {p.judul}")
+        print(f"   Tahun: {p.tahun or '-'}")
+        print(f"   Tingkat: {p.tingkat} | Juara: {p.juara}")
+        print(f"   Penyelenggara: {p.penyelenggara}")
+        print(f"   Kepesertaan: {p.jenis_kepesertaan}", end="")
+        if p.jenis_kepesertaan == "Beregu" and p.bobot_beregu:
+            print(f" (bobot {p.bobot_beregu})")
+        else:
+            print()
+        print(f"   Jenjang: {p.jenjang_lomba}")
+        print(f"   Skor Dasar: {p.skor_dasar}")
+        print(f"   Poin Akhir: {p.poin}")
+        if p.catatan:
+            print(f"   Catatan: {p.catatan}")
+
+    print("\n=== Ringkasan ===")
+    print(f"  Total prestasi: {m.portofolio.jumlah()}")
+    print(f"  Total poin (3 terbaik): {m.portofolio.total_poin(hanya_terbaik=True)}")
+    print(f"  Total poin (semua): {m.portofolio.total_poin(hanya_terbaik=False)}")
+    print(f"  Rata-rata poin (3 terbaik): {m.portofolio.rata_rata_poin(hanya_terbaik=True)}")
+
+    print("\n--- 3 Prestasi Terbaik ---")
+    for i, p in enumerate(m.portofolio.daftar_terbaik(limit=3), 1):
+        print(f"  {i}. {p.judul} ({p.tingkat}, {p.juara}) = {p.poin} poin")
+
+    print("\n--- Per Tingkat ---")
+    for tingkat, data in m.portofolio.ringkasan_per_tingkat().items():
+        print(f"  {tingkat:<20} {data['jumlah']:>3} prestasi, {data['poin']:>6} poin")
 
 
 def menu_portofolio(m):
-    jalankan_menu("Portofolio", [("Tambah prestasi", lambda: tambah_prestasi(m)),
-                                 ("Lihat portofolio", lambda: lihat_portofolio(m))])
+    jalankan_menu("Portofolio Akademik", [("Tambah prestasi", lambda: tambah_prestasi(m)),
+                                             ("Lihat portofolio", lambda: lihat_portofolio(m))])
 
 
 # ---------- sesi pengguna ----------
@@ -290,7 +385,7 @@ def buat_demo(katalog):
                  Ujian("UTS Matematika", "Matematika", hari + timedelta(days=6)),
                  Tugas("Resensi Buku", "Bahasa Indonesia", hari - timedelta(days=1), 2)):
         m.tambah_item(item)
-    m.portofolio.tambah(Prestasi("Juara 2 Lomba Coding", "lomba", "Kota", hari.year))
+    m.portofolio.tambah(PrestasiAkademik("Juara 2 Lomba Coding", "Kabupaten / Kota", "Juara 2", penyelenggara="Kementerian / Lembaga Negara", jenis_kepesertaan="Individual", jenjang_lomba="Berjenjang", tahun=hari.year))
     m.tambah_target(next(j for j in katalog if j.nama_jurusan == "Teknik Informatika"))
     m.tambah_target(Lomba("OSN Matematika", hari + timedelta(days=5), "Matematika", 80))
     return m
