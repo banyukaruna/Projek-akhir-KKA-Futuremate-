@@ -45,10 +45,8 @@ class FaktorPenyelenggara:
 
 @dataclass
 class FaktorKepesertaan:
-    individual: float = 1.00
-    beregu_default: float = 0.80
-    beregu_min: float = 0.75
-    beregu_max: float = 0.85
+    individu: float = 1.00
+    tim: float = 0.80
 
 
 @dataclass
@@ -71,7 +69,7 @@ JUARA_OPSI = [
 ]
 PENYELENGGARA_OPSI = list(FAKTOR_PENYELENGGARA.values)
 JENJANG_OPSI = list(FAKTOR_JENJANG.values)
-KEPESERTAAN_OPSI = ["Individual", "Beregu"]
+KEPESERTAAN_OPSI = ["Individu", "Tim"]
 
 
 class PrestasiAkademik:
@@ -83,7 +81,7 @@ class PrestasiAkademik:
         tingkat: str,
         juara: str,
         penyelenggara: str = "Kementerian / Lembaga Negara",
-        jenis_kepesertaan: str = "Individual",
+        jenis_kepesertaan: str = "Individu",
         jenjang_lomba: str = "Berjenjang",
         bobot_beregu: Optional[float] = None,
         tahun: Optional[int] = None,
@@ -98,25 +96,15 @@ class PrestasiAkademik:
             raise ValueError(f"Peringkat harus salah satu dari {JUARA_OPSI}")
         if penyelenggara not in PENYELENGGARA_OPSI:
             raise ValueError(f"Penyelenggara harus salah satu dari {PENYELENGGARA_OPSI}")
+        jenis_kepesertaan = {"Individual": "Individu", "Beregu": "Tim"}.get(
+            jenis_kepesertaan, jenis_kepesertaan
+        )
         if jenis_kepesertaan not in KEPESERTAAN_OPSI:
             raise ValueError(f"Jenis kepesertaan harus salah satu dari {KEPESERTAAN_OPSI}")
         if jenjang_lomba not in JENJANG_OPSI:
             raise ValueError(f"Jenjang lomba harus salah satu dari {JENJANG_OPSI}")
-        if bobot_beregu is not None:
-            if jenis_kepesertaan != "Beregu":
-                raise ValueError("Bobot khusus hanya berlaku untuk kepesertaan beregu.")
-            if isinstance(bobot_beregu, bool) or not isinstance(bobot_beregu, Real):
-                raise ValueError("Bobot beregu harus berupa angka.")
-            if not isfinite(float(bobot_beregu)) or not (
-                FAKTOR_KEPESERTAAN.beregu_min
-                <= float(bobot_beregu)
-                <= FAKTOR_KEPESERTAAN.beregu_max
-            ):
-                raise ValueError(
-                    f"Bobot beregu harus berada di rentang "
-                    f"{FAKTOR_KEPESERTAAN.beregu_min} - {FAKTOR_KEPESERTAAN.beregu_max}."
-                )
-            bobot_beregu = float(bobot_beregu)
+        # Parameter bobot_beregu tetap diterima untuk kompatibilitas data lama.
+        # Faktor kepesertaan Tim selalu 0.80.
         if tahun is not None:
             if isinstance(tahun, bool) or not isinstance(tahun, int):
                 raise ValueError("Tahun harus berupa bilangan bulat.")
@@ -132,7 +120,7 @@ class PrestasiAkademik:
         self.penyelenggara = penyelenggara
         self.jenis_kepesertaan = jenis_kepesertaan
         self.jenjang_lomba = jenjang_lomba
-        self.bobot_beregu = bobot_beregu
+        self.bobot_beregu = None
         self.tahun = tahun
         self.catatan = catatan.strip()
         self.data_lama = bool(data_lama)
@@ -149,11 +137,9 @@ class PrestasiAkademik:
 
     @property
     def faktor_kepesertaan(self) -> float:
-        if self.jenis_kepesertaan == "Individual":
-            return FAKTOR_KEPESERTAAN.individual
-        if self.bobot_beregu is not None:
-            return self.bobot_beregu
-        return FAKTOR_KEPESERTAAN.beregu_default
+        if self.jenis_kepesertaan == "Individu":
+            return FAKTOR_KEPESERTAAN.individu
+        return FAKTOR_KEPESERTAAN.tim
 
     @property
     def faktor_jenjang(self) -> float:
@@ -199,7 +185,6 @@ class PrestasiAkademik:
             "penyelenggara": self.penyelenggara,
             "jenis_kepesertaan": self.jenis_kepesertaan,
             "jenjang_lomba": self.jenjang_lomba,
-            "bobot_beregu": self.bobot_beregu,
             "tahun": self.tahun,
             "catatan": self.catatan,
             "data_lama": self.data_lama,
@@ -212,7 +197,7 @@ class PrestasiAkademik:
             tingkat=data["tingkat"],
             juara=data.get("juara", "Peserta / Panitia"),
             penyelenggara=data.get("penyelenggara", "Kementerian / Lembaga Negara"),
-            jenis_kepesertaan=data.get("jenis_kepesertaan", "Individual"),
+            jenis_kepesertaan=data.get("jenis_kepesertaan", "Individu"),
             jenjang_lomba=data.get("jenjang_lomba", "Berjenjang"),
             bobot_beregu=data.get("bobot_beregu"),
             tahun=data.get("tahun"),
