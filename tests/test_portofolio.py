@@ -29,7 +29,7 @@ class PortofolioAkademikTests(unittest.TestCase):
         self.assertIn("Peserta / Panitia", JUARA_OPSI)
         self.assertEqual(3, len(PENYELENGGARA_OPSI))
         self.assertEqual(["Berjenjang", "Non-Berjenjang"], JENJANG_OPSI)
-        self.assertEqual(["Individual", "Beregu"], KEPESERTAAN_OPSI)
+        self.assertEqual(["Individu", "Tim"], KEPESERTAAN_OPSI)
 
     def test_skor_dasar_sesuai_matriks(self):
         expected = {
@@ -47,24 +47,27 @@ class PortofolioAkademikTests(unittest.TestCase):
     def test_perhitungan_poin_individual(self):
         prestasi = self.buat_prestasi(
             penyelenggara="PTN / PTS / Induk Organisasi Resmi",
-            jenis_kepesertaan="Individual",
+            jenis_kepesertaan="Individu",
             jenjang_lomba="Non-Berjenjang",
         )
         self.assertAlmostEqual(54.19, prestasi.poin)
 
     def test_perhitungan_poin_beregu_default(self):
         prestasi = self.buat_prestasi(
-            jenis_kepesertaan="Beregu",
+            jenis_kepesertaan="Tim",
             penyelenggara="Kementerian / Lembaga Negara",
         )
         self.assertAlmostEqual(60.0, prestasi.poin)
         self.assertEqual(0.80, prestasi.faktor_kepesertaan)
 
-    def test_perhitungan_poin_beregu_custom(self):
-        prestasi = self.buat_prestasi(
-            jenis_kepesertaan="Beregu", bobot_beregu=0.75
-        )
-        self.assertAlmostEqual(56.25, prestasi.poin)
+    def test_faktor_tim_selalu_080(self):
+        for bobot_lama in (None, 0.75, 0.85):
+            with self.subTest(bobot_lama=bobot_lama):
+                prestasi = self.buat_prestasi(
+                    jenis_kepesertaan="Tim", bobot_beregu=bobot_lama
+                )
+                self.assertEqual(0.80, prestasi.faktor_kepesertaan)
+                self.assertAlmostEqual(60.0, prestasi.poin)
 
     def test_peserta_tidak_mendapat_poin(self):
         prestasi = self.buat_prestasi(juara="Peserta / Panitia")
@@ -128,25 +131,11 @@ class PortofolioAkademikTests(unittest.TestCase):
             self.portofolio.hitung_nilai_akhir_seleksi(nilai_rapor=85.0),
         )
 
-    def test_bobot_beregu_di_batas_valid(self):
-        for bobot in (0.75, 0.80, 0.85):
-            with self.subTest(bobot=bobot):
-                prestasi = self.buat_prestasi(
-                    jenis_kepesertaan="Beregu", bobot_beregu=bobot
-                )
-                self.assertEqual(bobot, prestasi.faktor_kepesertaan)
-
-    def test_bobot_beregu_di_luar_rentang_ditolak(self):
-        for bobot in (0.74, 0.86):
-            with self.subTest(bobot=bobot):
-                with self.assertRaises(ValueError):
-                    self.buat_prestasi(
-                        jenis_kepesertaan="Beregu", bobot_beregu=bobot
-                    )
-
-    def test_bobot_beregu_tidak_berlaku_untuk_individual(self):
-        with self.assertRaises(ValueError):
-            self.buat_prestasi(bobot_beregu=0.80)
+    def test_label_kepesertaan_lama_dimigrasikan(self):
+        individu = self.buat_prestasi(jenis_kepesertaan="Individual")
+        tim = self.buat_prestasi(jenis_kepesertaan="Beregu")
+        self.assertEqual("Individu", individu.jenis_kepesertaan)
+        self.assertEqual("Tim", tim.jenis_kepesertaan)
 
     def test_validasi_judul_tahun_dan_opsi(self):
         with self.assertRaises(ValueError):
@@ -164,7 +153,7 @@ class PortofolioAkademikTests(unittest.TestCase):
 
     def test_serialisasi_dan_deserialisasi(self):
         prestasi = self.buat_prestasi(
-            jenis_kepesertaan="Beregu", bobot_beregu=0.75,
+            jenis_kepesertaan="Tim",
             catatan="Final nasional"
         )
         self.portofolio.tambah(prestasi)
@@ -188,7 +177,7 @@ class PortofolioAkademikTests(unittest.TestCase):
     def test_rincian_poin_memuat_semua_faktor(self):
         prestasi = self.buat_prestasi(
             penyelenggara="PTN / PTS / Induk Organisasi Resmi",
-            jenis_kepesertaan="Beregu", bobot_beregu=0.75,
+            jenis_kepesertaan="Tim",
             jenjang_lomba="Non-Berjenjang",
         )
         rincian = prestasi.rincian_poin()
@@ -197,7 +186,7 @@ class PortofolioAkademikTests(unittest.TestCase):
             "faktor_jenjang", "faktor_pengali_total", "poin_akhir",
         ):
             self.assertIn(key, rincian)
-        self.assertAlmostEqual(40.64, rincian["poin_akhir"])
+        self.assertAlmostEqual(43.35, rincian["poin_akhir"])
 
 
 if __name__ == "__main__":
