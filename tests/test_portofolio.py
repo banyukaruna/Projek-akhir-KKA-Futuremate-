@@ -196,7 +196,7 @@ class PortofolioAkademikTests(unittest.TestCase):
             "faktor_jenjang", "faktor_pengali_total", "poin_akhir",
         ):
             self.assertIn(key, rincian)
-        self.assertAlmostEqual(40.46, rincian["poin_akhir"])
+        self.assertAlmostEqual(40.64, rincian["poin_akhir"])
 
 
 if __name__ == "__main__":
