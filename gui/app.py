@@ -2325,13 +2325,6 @@ class FutureMateApp(ctk.CTk):
                 text_color=COLORS["text"], height=38
             )
         )
-        team_weight = add_field(
-            "Bobot beregu opsional, 0.75 sampai 0.85",
-            ctk.CTkEntry(
-                fields, placeholder_text="Kosongkan untuk memakai bobot default 0.80",
-                height=38
-            )
-        )
         stage = add_field(
             "Jenjang lomba",
             ctk.CTkOptionMenu(
@@ -2456,8 +2449,6 @@ class FutureMateApp(ctk.CTk):
                 title_value = title.get().strip()
                 year_text = year.get().strip()
                 year_value = int(year_text) if year_text else date.today().year
-                weight_text = team_weight.get().strip().replace(",", ".")
-                weight_value = float(weight_text) if weight_text else None
                 record = PrestasiAkademik(
                     judul=title_value,
                     tingkat=level.get(),
@@ -2465,13 +2456,12 @@ class FutureMateApp(ctk.CTk):
                     penyelenggara=organizer.get(),
                     jenis_kepesertaan=participation.get(),
                     jenjang_lomba=stage.get(),
-                    bobot_beregu=weight_value,
                     tahun=year_value,
                     catatan=notes.get().strip(),
                 )
                 self.current_student.portofolio.tambah(record)
                 self._save()
-                for entry in (title, team_weight, year, notes):
+                for entry in (title, year, notes):
                     entry.delete(0, "end")
                 portfolio_feedback.configure(text="")
                 refresh()
