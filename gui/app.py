@@ -711,11 +711,31 @@ class FutureMateApp(ctk.CTk):
         cards = ctk.CTkFrame(self.content, fg_color="transparent")
         cards.grid(row=2, column=0, sticky="ew")
         cards.grid_columnconfigure((0, 1), weight=1)
-        task_card = self._card(
-            cards, "Tugas aktif", str(len(murid.item_aktif())),
-            "Kegiatan yang belum selesai"
+        portfolio_card = ctk.CTkFrame(
+            cards, fg_color=COLORS["surface"], corner_radius=14,
+            border_width=1, border_color=COLORS["border"]
         )
-        task_card.grid(row=0, column=0, sticky="ew", padx=(0, 8))
+        portfolio_card.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
+        portfolio_content = ctk.CTkFrame(
+            portfolio_card, fg_color="transparent"
+        )
+        portfolio_content.pack(
+            fill="both", expand=True, padx=14, pady=12
+        )
+        ctk.CTkLabel(
+            portfolio_content, text="Rangkuman Portofolio",
+            text_color=COLORS["muted"], font=ctk.CTkFont(size=11)
+        ).pack(anchor="w", pady=(0, 5))
+        portfolio_list = ctk.CTkFrame(
+            portfolio_content, fg_color="transparent"
+        )
+        portfolio_list.pack(fill="x", expand=True)
+        portfolio_total_label = ctk.CTkLabel(
+            portfolio_content, text="Total 3 terbaik: 0 poin",
+            text_color=COLORS["primary"],
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        portfolio_total_label.pack(anchor="w", pady=(8, 0))
         grade_card = self._card(
             cards, "Rata-rata nilai", f"{murid.nilai.rata_rata():.1f}",
             "Belum ada nilai" if not murid.nilai.daftar_mapel()
@@ -793,7 +813,6 @@ class FutureMateApp(ctk.CTk):
             rata_nilai = murid.nilai.rata_rata()
             progres = selesai / total if total else 0
 
-            update_card(task_card, str(len(aktif)))
             update_card(
                 grade_card, f"{rata_nilai:.1f}",
                 "Belum ada nilai" if not murid.nilai.daftar_mapel()
@@ -803,6 +822,63 @@ class FutureMateApp(ctk.CTk):
             self._animate_progress(progress_bar, progres)
             activity_count.configure(text=f"{selesai} dari {total} aktivitas selesai")
             remaining_count.configure(text=f"{total - selesai} aktivitas masih perlu dikerjakan")
+
+            # Tampilkan maksimal tiga prestasi lomba terbaik yang memperoleh
+            # penghargaan. Prestasi peserta/panitia tidak dihitung sebagai kemenangan.
+            for child in portfolio_list.winfo_children():
+                child.destroy()
+            best_achievements = sorted(
+                (
+                    record for record in murid.portofolio.daftar()
+                    if record.poin > 0 and record.juara != "Peserta / Panitia"
+                ),
+                key=lambda record: record.poin,
+                reverse=True,
+            )[:3]
+            best_total = round(
+                sum(record.poin for record in best_achievements), 2
+            )
+            if not best_achievements:
+                ctk.CTkLabel(
+                    portfolio_list,
+                    text="Belum ada prestasi lomba yang dimenangkan.",
+                    text_color=COLORS["muted"],
+                    font=ctk.CTkFont(size=10),
+                    wraplength=260, justify="left"
+                ).pack(anchor="w", pady=5)
+            else:
+                for index, record in enumerate(best_achievements, start=1):
+                    achievement_line = ctk.CTkFrame(
+                        portfolio_list, fg_color=COLORS["surface_alt"],
+                        corner_radius=8
+                    )
+                    achievement_line.pack(fill="x", pady=2)
+                    achievement_info = ctk.CTkFrame(
+                        achievement_line, fg_color="transparent"
+                    )
+                    achievement_info.pack(
+                        side="left", fill="x", expand=True,
+                        padx=9, pady=6
+                    )
+                    ctk.CTkLabel(
+                        achievement_info,
+                        text=f"{index}. {record.judul}",
+                        text_color=COLORS["text"],
+                        font=ctk.CTkFont(size=10, weight="bold"),
+                        anchor="w", justify="left", wraplength=230
+                    ).pack(anchor="w")
+                    ctk.CTkLabel(
+                        achievement_info,
+                        text=(
+                            f"{record.juara} · {record.tingkat} · "
+                            f"{record.poin:g} poin"
+                        ),
+                        text_color=COLORS["muted"],
+                        font=ctk.CTkFont(size=9), anchor="w"
+                    ).pack(anchor="w", pady=(2, 0))
+            portfolio_total_label.configure(
+                text=f"Total 3 terbaik: {best_total:g} poin"
+            )
 
             for child in agenda_list.winfo_children():
                 child.destroy()
