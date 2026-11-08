@@ -419,7 +419,7 @@ class FutureMateApp(ctk.CTk):
         self.name_entry.pack(fill="x", padx=54, pady=(7, 16))
         ctk.CTkLabel(panel, text="Kelas (isi jika akun baru)", anchor="w",
                      text_color=COLORS["text"]).pack(fill="x", padx=54)
-        self.class_entry = ctk.CTkEntry(panel, height=42, placeholder_text="Contoh: XI-2")
+        self.class_entry = ctk.CTkEntry(panel, height=42, placeholder_text="Contoh: XI-3")
         self.class_entry.pack(fill="x", padx=54, pady=(7, 20))
         ctk.CTkButton(panel, text="Masuk ke FutureMate", height=44,
                       fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"],
