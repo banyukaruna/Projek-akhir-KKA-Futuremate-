@@ -1,46 +1,34 @@
-"""Portofolio: sistem perhitungan poin prestasi lomba akademik SMA untuk pendaftaran kuliah.
+"""Portofolio khusus prestasi lomba akademik.
 
-Rumus perhitungan poin per sertifikat:
-    Poin = Skor_Dasar × Faktor_Penyelenggara × Faktor_Kepesertaan × Faktor_Jenjang
+Rumus:
+Poin = Skor Dasar x Faktor Penyelenggara x Faktor Kepesertaan x Faktor Jenjang.
 
-Keterangan:
-    - Skor_Dasar (Sd): Matriks Tingkat Kejuaraan × Peringkat Juara (skala 1–100)
-    - Faktor_Penyelenggara (Fp): Kementerian/Lembaga Negara (1.00), PTN/PTS/Induk Organisasi (0.85), Swasta/Komunitas (0.70)
-    - Faktor_Kepesertaan (Fk): Individual (1.00), Beregu/Tim (0.75 – 0.85, default 0.80)
-    - Faktor_Jenjang (Fj): Berjenjang (1.00), Non-Berjenjang/Terbuka (0.85)
-    - Khusus prestasi lomba akademik (tidak mencakup keagamaan, organisasi, maupun relevansi jurusan).
+Skor ini merupakan estimasi internal FutureMate, bukan nilai resmi seleksi perguruan tinggi.
 """
 
 from dataclasses import dataclass, field
+from math import isfinite
+from numbers import Real
 from typing import Optional
 
 
 @dataclass
 class SkorDasarMatrix:
-    """Matriks Skor Dasar (Sd) berdasarkan Tingkat Kejuaraan dan Peringkat Juara."""
     values: dict = field(default_factory=lambda: {
         "Internasional": {
-            "Juara 1": 100,
-            "Juara 2": 90,
-            "Juara 3": 80,
+            "Juara 1": 100, "Juara 2": 90, "Juara 3": 80,
             "Juara Harapan / Finalis": 65,
         },
         "Nasional": {
-            "Juara 1": 75,
-            "Juara 2": 65,
-            "Juara 3": 55,
+            "Juara 1": 75, "Juara 2": 65, "Juara 3": 55,
             "Juara Harapan / Finalis": 40,
         },
         "Provinsi": {
-            "Juara 1": 50,
-            "Juara 2": 40,
-            "Juara 3": 30,
+            "Juara 1": 50, "Juara 2": 40, "Juara 3": 30,
             "Juara Harapan / Finalis": 20,
         },
         "Kabupaten / Kota": {
-            "Juara 1": 25,
-            "Juara 2": 20,
-            "Juara 3": 15,
+            "Juara 1": 25, "Juara 2": 20, "Juara 3": 15,
             "Juara Harapan / Finalis": 10,
         },
     })
@@ -76,15 +64,18 @@ FAKTOR_PENYELENGGARA = FaktorPenyelenggara()
 FAKTOR_KEPESERTAAN = FaktorKepesertaan()
 FAKTOR_JENJANG = FaktorJenjang()
 
-TINGKAT_OPSI = list(SKOR_DASAR_MATRIX.values.keys())
-JUARA_OPSI = ["Juara 1", "Juara 2", "Juara 3", "Juara Harapan / Finalis", "Peserta / Panitia"]
-PENYELENGGARA_OPSI = list(FAKTOR_PENYELENGGARA.values.keys())
-JENJANG_OPSI = list(FAKTOR_JENJANG.values.keys())
+TINGKAT_OPSI = list(SKOR_DASAR_MATRIX.values)
+JUARA_OPSI = [
+    "Juara 1", "Juara 2", "Juara 3",
+    "Juara Harapan / Finalis", "Peserta / Panitia",
+]
+PENYELENGGARA_OPSI = list(FAKTOR_PENYELENGGARA.values)
+JENJANG_OPSI = list(FAKTOR_JENJANG.values)
 KEPESERTAAN_OPSI = ["Individual", "Beregu"]
 
 
 class PrestasiAkademik:
-    """Mewakili satu pencapaian prestasi lomba akademik SMA untuk pendaftaran kuliah."""
+    """Satu catatan prestasi lomba akademik."""
 
     def __init__(
         self,
@@ -97,25 +88,44 @@ class PrestasiAkademik:
         bobot_beregu: Optional[float] = None,
         tahun: Optional[int] = None,
         catatan: str = "",
+        data_lama: bool = False,
     ):
+        if not isinstance(judul, str) or not judul.strip():
+            raise ValueError("Nama prestasi wajib diisi.")
         if tingkat not in TINGKAT_OPSI:
             raise ValueError(f"Tingkat harus salah satu dari {TINGKAT_OPSI}")
         if juara not in JUARA_OPSI:
-            raise ValueError(f"Juara harus salah satu dari {JUARA_OPSI}")
+            raise ValueError(f"Peringkat harus salah satu dari {JUARA_OPSI}")
         if penyelenggara not in PENYELENGGARA_OPSI:
             raise ValueError(f"Penyelenggara harus salah satu dari {PENYELENGGARA_OPSI}")
         if jenis_kepesertaan not in KEPESERTAAN_OPSI:
             raise ValueError(f"Jenis kepesertaan harus salah satu dari {KEPESERTAAN_OPSI}")
         if jenjang_lomba not in JENJANG_OPSI:
             raise ValueError(f"Jenjang lomba harus salah satu dari {JENJANG_OPSI}")
-        if bobot_beregu is not None and not (FAKTOR_KEPESERTAAN.beregu_min <= bobot_beregu <= FAKTOR_KEPESERTAAN.beregu_max):
-            raise ValueError(
-                f"Bobot beregu harus berada di rentang {FAKTOR_KEPESERTAAN.beregu_min} - {FAKTOR_KEPESERTAAN.beregu_max}"
-            )
-        if tahun is not None and (tahun < 2000 or tahun > 2100):
-            raise ValueError("Tahun harus antara 2000 dan 2100")
+        if bobot_beregu is not None:
+            if jenis_kepesertaan != "Beregu":
+                raise ValueError("Bobot khusus hanya berlaku untuk kepesertaan beregu.")
+            if isinstance(bobot_beregu, bool) or not isinstance(bobot_beregu, Real):
+                raise ValueError("Bobot beregu harus berupa angka.")
+            if not isfinite(float(bobot_beregu)) or not (
+                FAKTOR_KEPESERTAAN.beregu_min
+                <= float(bobot_beregu)
+                <= FAKTOR_KEPESERTAAN.beregu_max
+            ):
+                raise ValueError(
+                    f"Bobot beregu harus berada di rentang "
+                    f"{FAKTOR_KEPESERTAAN.beregu_min} - {FAKTOR_KEPESERTAAN.beregu_max}."
+                )
+            bobot_beregu = float(bobot_beregu)
+        if tahun is not None:
+            if isinstance(tahun, bool) or not isinstance(tahun, int):
+                raise ValueError("Tahun harus berupa bilangan bulat.")
+            if not 2000 <= tahun <= 2100:
+                raise ValueError("Tahun harus antara 2000 dan 2100.")
+        if not isinstance(catatan, str):
+            raise ValueError("Catatan harus berupa teks.")
 
-        self.judul = judul
+        self.judul = judul.strip()
         self.kategori = "Akademik"
         self.tingkat = tingkat
         self.juara = juara
@@ -124,11 +134,12 @@ class PrestasiAkademik:
         self.jenjang_lomba = jenjang_lomba
         self.bobot_beregu = bobot_beregu
         self.tahun = tahun
-        self.catatan = catatan
+        self.catatan = catatan.strip()
+        self.data_lama = bool(data_lama)
 
     @property
     def skor_dasar(self) -> int:
-        if self.juara == "Peserta / Panitia" or self.tingkat == "Sekolah / Kecamatan":
+        if self.juara == "Peserta / Panitia":
             return 0
         return SKOR_DASAR_MATRIX.values[self.tingkat][self.juara]
 
@@ -176,6 +187,7 @@ class PrestasiAkademik:
             "faktor_jenjang": self.faktor_jenjang,
             "faktor_pengali_total": round(self.faktor_pengali_total, 4),
             "poin_akhir": self.poin,
+            "data_lama": self.data_lama,
         }
 
     def to_dict(self) -> dict:
@@ -190,6 +202,7 @@ class PrestasiAkademik:
             "bobot_beregu": self.bobot_beregu,
             "tahun": self.tahun,
             "catatan": self.catatan,
+            "data_lama": self.data_lama,
         }
 
     @classmethod
@@ -204,6 +217,7 @@ class PrestasiAkademik:
             bobot_beregu=data.get("bobot_beregu"),
             tahun=data.get("tahun"),
             catatan=data.get("catatan", ""),
+            data_lama=data.get("data_lama", False),
         )
 
     def __eq__(self, other):
@@ -217,6 +231,8 @@ class PrestasiAkademik:
             and self.jenis_kepesertaan == other.jenis_kepesertaan
             and self.jenjang_lomba == other.jenjang_lomba
             and self.tahun == other.tahun
+            and self.catatan == other.catatan
+            and self.data_lama == other.data_lama
         )
 
     def __repr__(self):
@@ -231,6 +247,12 @@ class PortofolioAkademik:
     KEPESERTAAN = KEPESERTAAN_OPSI
 
     def __init__(self, maks_sertifikat: Optional[int] = 3):
+        if maks_sertifikat is not None and (
+            isinstance(maks_sertifikat, bool)
+            or not isinstance(maks_sertifikat, int)
+            or maks_sertifikat < 0
+        ):
+            raise ValueError("Batas sertifikat harus bilangan bulat nol atau lebih.")
         self.__daftar: list[PrestasiAkademik] = []
         self.maks_sertifikat = maks_sertifikat
 
@@ -240,7 +262,6 @@ class PortofolioAkademik:
         self.__daftar.append(prestasi)
 
     def hapus(self, prestasi: PrestasiAkademik) -> bool:
-        """Menghapus satu pencapaian. Mengembalikan False jika tidak ditemukan."""
         if prestasi not in self.__daftar:
             return False
         self.__daftar.remove(prestasi)
@@ -250,8 +271,11 @@ class PortofolioAkademik:
         return list(self.__daftar)
 
     def daftar_terbaik(self, limit: Optional[int] = None) -> list[PrestasiAkademik]:
-        """Mengambil daftar prestasi dengan poin tertinggi (default maksimal 3 terbaik)."""
-        batas = limit if limit is not None else self.maks_sertifikat
+        batas = self.maks_sertifikat if limit is None else limit
+        if batas is not None and (
+            isinstance(batas, bool) or not isinstance(batas, int) or batas < 0
+        ):
+            raise ValueError("Limit harus bilangan bulat nol atau lebih.")
         urut = sorted(self.__daftar, key=lambda p: p.poin, reverse=True)
         return urut[:batas] if batas is not None else urut
 
@@ -259,19 +283,16 @@ class PortofolioAkademik:
         return len(self.__daftar)
 
     def total_poin(self, hanya_terbaik: bool = True) -> float:
-        """Menghitung total poin prestasi (default mengambil 3 sertifikat terbaik)."""
         sumber = self.daftar_terbaik() if hanya_terbaik else self.__daftar
         return round(sum(p.poin for p in sumber), 2)
 
     def rata_rata_poin(self, hanya_terbaik: bool = True) -> float:
-        """Menghitung rata-rata poin prestasi."""
         sumber = self.daftar_terbaik() if hanya_terbaik else self.__daftar
         if not sumber:
             return 0.0
         return round(sum(p.poin for p in sumber) / len(sumber), 2)
 
     def total_skor_dasar(self, hanya_terbaik: bool = True) -> int:
-        """Total skor dasar tanpa faktor pengali tambahan."""
         sumber = self.daftar_terbaik() if hanya_terbaik else self.__daftar
         return sum(p.skor_dasar for p in sumber)
 
@@ -282,26 +303,67 @@ class PortofolioAkademik:
         bobot_prestasi: float = 0.40,
         hanya_terbaik: bool = True,
     ) -> float:
-        """Menggabungkan rata-rata poin prestasi (skala 0–100) dengan nilai rapor."""
-        if round(bobot_rapor + bobot_prestasi, 4) != 1.0:
+        nilai = (nilai_rapor, bobot_rapor, bobot_prestasi)
+        if any(
+            isinstance(x, bool) or not isinstance(x, Real) or not isfinite(float(x))
+            for x in nilai
+        ):
+            raise ValueError("Nilai dan bobot harus berupa angka yang valid.")
+        if not 0 <= nilai_rapor <= 100:
+            raise ValueError("Nilai rapor harus berada pada rentang 0 sampai 100.")
+        if bobot_rapor < 0 or bobot_prestasi < 0:
+            raise ValueError("Bobot tidak boleh negatif.")
+        if abs((bobot_rapor + bobot_prestasi) - 1.0) > 0.0001:
             raise ValueError("Jumlah bobot_rapor dan bobot_prestasi harus sama dengan 1.0")
         nilai_prestasi = self.rata_rata_poin(hanya_terbaik=hanya_terbaik)
         return round((nilai_rapor * bobot_rapor) + (nilai_prestasi * bobot_prestasi), 2)
 
     def ringkasan_per_tingkat(self) -> dict:
         hasil = {}
-        for p in self.__daftar:
-            hasil.setdefault(p.tingkat, {"jumlah": 0, "poin": 0.0})
-            hasil[p.tingkat]["jumlah"] += 1
-            hasil[p.tingkat]["poin"] += p.poin
-        return {k: {"jumlah": v["jumlah"], "poin": round(v["poin"], 2)} for k, v in hasil.items()}
+        for prestasi in self.__daftar:
+            data = hasil.setdefault(prestasi.tingkat, {"jumlah": 0, "poin": 0.0})
+            data["jumlah"] += 1
+            data["poin"] += prestasi.poin
+        return {
+            tingkat: {"jumlah": data["jumlah"], "poin": round(data["poin"], 2)}
+            for tingkat, data in hasil.items()
+        }
 
     def to_dict(self) -> list[dict]:
-        return [p.to_dict() for p in self.__daftar]
+        return [prestasi.to_dict() for prestasi in self.__daftar]
 
     @classmethod
-    def dari_dict(cls, data: list[dict], maks_sertifikat: Optional[int] = 3) -> "PortofolioAkademik":
+    def dari_dict(
+        cls, data: list[dict], maks_sertifikat: Optional[int] = 3
+    ) -> "PortofolioAkademik":
+        if not isinstance(data, list):
+            raise ValueError("Data portofolio harus berupa daftar.")
         obj = cls(maks_sertifikat=maks_sertifikat)
-        for d in data:
-            obj.tambah(PrestasiAkademik.dari_dict(d))
+        for item in data:
+            # Migrasi catatan dari format lama. Peringkat tidak diketahui,
+            # jadi catatan diberi nol poin sampai pengguna memperbaruinya.
+            if "juara" not in item:
+                tingkat_lama = item.get("tingkat", "Kabupaten / Kota")
+                tingkat_baru = {
+                    "Sekolah": "Kabupaten / Kota",
+                    "Kota": "Kabupaten / Kota",
+                }.get(tingkat_lama, tingkat_lama)
+                if tingkat_baru not in TINGKAT_OPSI:
+                    tingkat_baru = "Kabupaten / Kota"
+                kategori_lama = item.get("kategori", "Tidak diketahui")
+                item = {
+                    "judul": item.get("judul", "Prestasi lama"),
+                    "tingkat": tingkat_baru,
+                    "juara": "Peserta / Panitia",
+                    "penyelenggara": "Kementerian / Lembaga Negara",
+                    "jenis_kepesertaan": "Individual",
+                    "jenjang_lomba": "Berjenjang",
+                    "tahun": item.get("tahun"),
+                    "catatan": (
+                        "Data lama belum memiliki rincian lomba. "
+                        f"Kategori sebelumnya: {kategori_lama}. Perbarui data ini."
+                    ),
+                    "data_lama": True,
+                }
+            obj.tambah(PrestasiAkademik.dari_dict(item))
         return obj
