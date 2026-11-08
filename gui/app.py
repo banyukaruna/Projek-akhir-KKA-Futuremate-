@@ -2,7 +2,7 @@
 from pathlib import Path
 import customtkinter as ctk
 
-from gui.theme import COLORS, apply_theme
+from gui.theme import COLORS, set_theme
 from gui.components.sidebar import Sidebar
 from services.penyimpanan import Penyimpanan
 from services.notifikasi import Notifikasi
@@ -15,7 +15,7 @@ DATA = ROOT / "data"
 
 class FutureMateApp(ctk.CTk):
     def __init__(self):
-        apply_theme()
+        set_theme("dark")
         super().__init__()
         self.title("FutureMate | Shape Your Future")
 
@@ -28,6 +28,12 @@ class FutureMateApp(ctk.CTk):
         self.minsize(min(760, screen_width), min(560, screen_height))
         self.configure(fg_color=COLORS["background"])
 
+        # Buka aplikasi dalam mode layar penuh (maximized) seperti aplikasi umum.
+        # Atur ukuran window sama dengan resolusi layar pada posisi (0, 0).
+        self.after(10, lambda: self.geometry(
+            f"{screen_width}x{screen_height}+0+0"
+        ))
+
         from concurrent.futures import ThreadPoolExecutor
 
         self._background_executor = ThreadPoolExecutor(
@@ -38,6 +44,7 @@ class FutureMateApp(ctk.CTk):
         self.murid_data = {}
         self.current_student = None
         self.current_page = "Dashboard"
+        self.current_theme = "dark"
         self._show_splash()
 
         # Beri Tkinter waktu menggambar splash sebelum membaca data.
@@ -82,70 +89,99 @@ class FutureMateApp(ctk.CTk):
             self.after(50, self._check_startup_data)
             return
 
-        if hasattr(self, "_splash_progress"):
-            self._splash_progress.stop()
-        animation_id = getattr(self, "_splash_animation_id", None)
-        if animation_id is not None:
-            try:
-                self.after_cancel(animation_id)
-            except Exception:
-                pass
+        self._fade_out_splash()
 
         self.murid_data = state["data"]
         self._show_welcome()
+
+        # Fade-in halaman utama: overlay penuh muncul lalu hilang setelah 200ms.
+        self._fade_in_welcome()
+
         if state["error"] is not None:
             self.after(200, lambda: self._show_error(str(state["error"])))
 
     def _show_splash(self):
-        """Tampilkan pembuka singkat selama data lokal disiapkan."""
+        """Tampilkan splash screen minimalis dengan 3 titik berdenyut di tengah."""
         self._clear()
-        splash = ctk.CTkFrame(
-            self, fg_color=COLORS["surface"], corner_radius=22,
-            border_width=1, border_color=COLORS["border"]
+
+        # Overlay penuh sebagai latar splash.
+        self._splash_overlay = ctk.CTkFrame(
+            self, fg_color=COLORS["background"], corner_radius=0
         )
-        splash.place(
-            relx=0.5, rely=0.5, anchor="center",
-            relwidth=0.46, relheight=0.42
+        self._splash_overlay.place(relx=0, rely=0, relwidth=1, relheight=1)
+        self._splash_overlay.lift()
+
+        # Kontainer untuk men tengah-kan titik-titik.
+        dot_container = ctk.CTkFrame(
+            self._splash_overlay, fg_color="transparent"
+        )
+        dot_container.place(relx=0.5, rely=0.5, anchor="center")
+
+        self._splash_dots = []
+        for i in range(3):
+            dot = ctk.CTkLabel(
+                dot_container,
+                text="●",
+                font=ctk.CTkFont(size=20, weight="bold"),
+                text_color=COLORS["muted"],
+            )
+            dot.pack(side="left", padx=8)
+            self._splash_dots.append(dot)
+
+        self._pulse_splash_dots(0)
+
+    def _pulse_splash_dots(self, index=0):
+        """Animasi 3 titik berdenyut bergantian (minimalist spinner)."""
+        if not hasattr(self, "_splash_overlay") or not self._splash_overlay.winfo_exists():
+            return
+
+        if not self._splash_dots:
+            return
+
+        # Reset semua titik ke muted, lalu nyalakan satu titik dengan primary.
+        for dot in self._splash_dots:
+            if dot.winfo_exists():
+                dot.configure(text_color=COLORS["muted"])
+
+        active = self._splash_dots[index % len(self._splash_dots)]
+        if active.winfo_exists():
+            active.configure(text_color=COLORS["primary"])
+
+        self._splash_anim_id = self.after(
+            350, lambda: self._pulse_splash_dots(index + 1)
         )
 
-        logo = ctk.CTkLabel(
-            splash, text="FutureMate",
-            font=ctk.CTkFont(size=24, weight="bold"),
-            text_color=COLORS["text"]
+    def _fade_out_splash(self):
+        """Hapus overlay splash dan hentikan animasi titik."""
+        anim_id = getattr(self, "_splash_anim_id", None)
+        if anim_id is not None:
+            try:
+                self.after_cancel(anim_id)
+            except Exception:
+                pass
+            self._splash_anim_id = None
+
+        if hasattr(self, "_splash_overlay") and self._splash_overlay.winfo_exists():
+            try:
+                self._splash_overlay.destroy()
+            except Exception:
+                pass
+            self._splash_overlay = None
+        self._splash_dots = []
+
+    def _fade_in_welcome(self):
+        """Tampilkan overlay penuh lalu hilangkan setelah 200ms untuk efek fade-in."""
+        fade_overlay = ctk.CTkFrame(
+            self, fg_color=COLORS["background"], corner_radius=0
         )
-        logo.pack(pady=(42, 8))
-        ctk.CTkLabel(
-            splash, text="Shape Your Future",
-            font=ctk.CTkFont(size=12),
-            text_color=COLORS["muted"]
-        ).pack(pady=(0, 24))
-        progress = ctk.CTkProgressBar(
-            splash, width=250, height=6, mode="indeterminate",
-            progress_color=COLORS["primary"],
-            fg_color=COLORS["surface_alt"]
-        )
-        progress.pack(pady=(0, 12))
-        self._splash_progress = progress
-        self.after(80, progress.start)
-        ctk.CTkLabel(
-            splash, text="Menyiapkan ruang belajarmu...",
-            font=ctk.CTkFont(size=10),
-            text_color=COLORS["muted"]
-        ).pack()
+        fade_overlay.place(relx=0, rely=0, relwidth=1, relheight=1)
+        fade_overlay.lift()
 
-        sizes = [26, 28, 30, 32, 34]
-        animation = {"index": 0, "after_id": None}
+        def remove_overlay():
+            if fade_overlay.winfo_exists():
+                fade_overlay.destroy()
 
-        def animate_logo():
-            if not logo.winfo_exists():
-                return
-            index = animation["index"]
-            logo.configure(font=ctk.CTkFont(size=sizes[index], weight="bold"))
-            animation["index"] = (index + 1) % len(sizes)
-            animation["after_id"] = self.after(95, animate_logo)
-            self._splash_animation_id = animation["after_id"]
-
-        animate_logo()
+        self._fade_anim_id = self.after(200, remove_overlay)
 
     def _show_error(self, message):
         self._message("Gagal memuat data", message)
@@ -165,9 +201,12 @@ class FutureMateApp(ctk.CTk):
                       fg_color=COLORS["primary"], text_color=COLORS["text"]).pack()
 
     def _notify(self, message, tone="success", duration=2200):
-        """Tampilkan umpan balik singkat tanpa mengganggu alur kerja."""
+        """Tampilkan toast notifikasi dengan animasi slide-in / slide-out."""
         if hasattr(self, "_toast") and self._toast.winfo_exists():
-            self._toast.destroy()
+            try:
+                self._toast.destroy()
+            except Exception:
+                pass
 
         colors = {
             "success": COLORS["success"],
@@ -178,17 +217,56 @@ class FutureMateApp(ctk.CTk):
         self._toast = toast
         toast.overrideredirect(True)
         toast.attributes("-topmost", True)
-        toast.configure(fg_color=COLORS["surface_alt"])
+        toast.configure(fg_color=COLORS["surface_alt"], border_width=1,
+                        border_color=COLORS["border"])
         ctk.CTkLabel(
             toast, text=message, text_color=colors.get(tone, COLORS["text"]),
             font=ctk.CTkFont(size=12, weight="bold"),
             wraplength=340, justify="left"
         ).pack(padx=18, pady=12)
         toast.update_idletasks()
-        x = self.winfo_rootx() + self.winfo_width() - toast.winfo_width() - 24
-        y = self.winfo_rooty() + 24
-        toast.geometry(f"+{max(8, x)}+{max(8, y)}")
-        toast.after(duration, lambda: toast.destroy() if toast.winfo_exists() else None)
+
+        toast_w = toast.winfo_width()
+        toast_h = toast.winfo_height()
+        screen_x = self.winfo_rootx() + self.winfo_width() - 24
+        screen_y = self.winfo_rooty() + 24
+        final_x = max(8, screen_x - toast_w)
+        final_y = max(8, screen_y)
+        start_x = final_x + toast_w  # mulai dari luar kanan layar
+
+        toast.geometry(f"+{start_x}+{final_y}")
+
+        def slide_in(step=0):
+            if not toast.winfo_exists():
+                return
+            t = min(1.0, step / 8)
+            eased = 1 - pow(1 - t, 3)  # ease-out cubic
+            cur_x = round(start_x + (final_x - start_x) * eased)
+            toast.geometry(f"+{cur_x}+{final_y}")
+            if step < 8:
+                self._toast_anim_id = self.after(14, lambda: slide_in(step + 1))
+            else:
+                self._toast_anim_id = None
+                # Jadwalkan slide-out setelah duration
+                self._toast_hide_id = self.after(duration, lambda: slide_out())
+
+        def slide_out(step=0):
+            if not toast.winfo_exists():
+                return
+            t = min(1.0, step / 8)
+            eased = pow(t, 3)  # ease-in cubic
+            cur_x = round(final_x + (start_x - final_x) * eased)
+            toast.geometry(f"+{cur_x}+{final_y}")
+            if step < 8:
+                self._toast_anim_id = self.after(14, lambda: slide_out(step + 1))
+            else:
+                try:
+                    toast.destroy()
+                except Exception:
+                    pass
+                self._toast_anim_id = None
+
+        slide_in()
 
     def _animate_progress(self, widget, target, duration=120, steps=5):
         """Animasi progres ringan dengan pembaruan sesedikit mungkin."""
@@ -372,11 +450,49 @@ class FutureMateApp(ctk.CTk):
         if self.current_student:
             self.storage.simpan(self.murid_data)
 
+    @staticmethod
+    def _sinkronkan_status_selesai(items, jadwal):
+        """Sinkronkan status selesai antara kegiatan dan sesi jadwalnya.
+
+        Satu kegiatan dapat menghasilkan lebih dari satu sesi jadwal (durasi
+        dibagi per 60 menit), sehingga panel Jadwal belajar otomatis menyimpan
+        lebih dari satu ceklist untuk satu kegiatan.
+
+        Aturan sinkronisasi:
+        - Kegiatan yang ditandai selesai -> semua sesi jadwalnya jadi selesai.
+        - Semua sesi jadwal suatu kegiatan sudah selesai -> kegiatan jadi selesai.
+        - Hanya sebagian sesi selesai -> kegiatan belum dianggap selesai.
+        """
+        sesi_per_kegiatan = {}
+        for sesi in jadwal:
+            kunci = (sesi.get("judul"), sesi.get("mapel"), sesi.get("jenis"))
+            sesi_per_kegiatan.setdefault(kunci, []).append(sesi)
+
+        for item in items:
+            kunci = (item.judul, item.mapel, item.jenis())
+            sesi_list = sesi_per_kegiatan.get(kunci, [])
+            if not sesi_list:
+                continue
+            semua_selesai = all(sesi.get("selesai", False) for sesi in sesi_list)
+
+            if item.selesai:
+                for sesi in sesi_list:
+                    sesi["selesai"] = True
+            elif semua_selesai:
+                item.tandai_selesai()
+
+    def _sinkronkan_selesai(self):
+        """Panggilan sinkronisasi status selesai untuk murid yang aktif."""
+        if self.current_student:
+            self._sinkronkan_status_selesai(
+                self.current_student.items, self.current_student.jadwal
+            )
+
     def _show_main(self):
         self._clear()
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
-        self.sidebar = Sidebar(self, self.show_page)
+        self.sidebar = Sidebar(self, self.show_page, on_theme_change=self._switch_theme)
         self.sidebar.grid(row=0, column=0, sticky="nsw")
         # Viewport membatasi area gerak konten saat transisi halaman.
         self.content_viewport = ctk.CTkFrame(
@@ -398,8 +514,31 @@ class FutureMateApp(ctk.CTk):
         )
         self.content.pack(fill="both", expand=True)
         self.content.grid_columnconfigure(0, weight=1)
+
+        # Optimasi scroll: scrollbar lebih tipis, warna netral, dan responsif
+        # tanpa macet saat digeser cepat.
+        try:
+            scrollbar = self.content._scrollbar
+            scrollbar.configure(width=10)
+            scrollbar.configure(
+                fg_color=COLORS["surface_alt"],
+                button_color=COLORS["border"],
+                button_hover_color=COLORS["muted"],
+            )
+        except Exception:
+            pass
+
         self._page_transition_after = None
         self.show_page("Dashboard")
+
+    def _switch_theme(self, theme_name):
+        """Ganti tema aplikasi dan bangun ulang tampilan dengan warna baru."""
+        self.current_theme = theme_name
+        set_theme(theme_name)
+        self.configure(fg_color=COLORS["background"])
+        # Bangun ulang UI agar semua warna widget sesuai tema baru.
+        if self.current_page:
+            self._show_main()
 
     def _page_header(self, title, subtitle):
         ctk.CTkLabel(self.content, text=title, font=ctk.CTkFont(size=27, weight="bold"),
@@ -439,16 +578,96 @@ class FutureMateApp(ctk.CTk):
         self.sidebar.set_active(page)
 
         # Batalkan animasi sebelumnya jika pengguna berpindah halaman cepat.
-        previous_animation = getattr(self, "_page_transition_after", None)
-        if previous_animation is not None:
-            try:
-                self.after_cancel(previous_animation)
-            except Exception:
-                pass
-            self._page_transition_after = None
+        for attr in (
+            "_page_transition_after", "_progress_anim_id",
+            "_fade_anim_id",
+        ):
+            aid = getattr(self, attr, None)
+            if aid is not None:
+                try:
+                    self.after_cancel(aid)
+                except Exception:
+                    pass
+                setattr(self, attr, None)
 
+        # Sembunyikan progres bar lama jika masih ada.
+        self._hide_top_progress()
+
+        # Bersihkan konten lama.
         for child in self.content.winfo_children():
             child.destroy()
+
+        # Tampilkan progres bar tipis di bagian atas page_surface.
+        self._show_top_progress()
+
+        # Setelah progres selesai, tampilkan halaman baru dengan fade-in.
+        self._page_transition_after = self.after(
+            400, lambda: self._reveal_page_fade(page)
+        )
+
+    # ------------------------------------------------------------------
+    # Progres bar tipis di bagian atas halaman
+    # ------------------------------------------------------------------
+    def _show_top_progress(self):
+        """Tampilkan garis progres tipis di bagian atas page_surface."""
+        self._top_progress = ctk.CTkFrame(
+            self.page_surface,
+            fg_color=COLORS["primary"],
+            corner_radius=0,
+            height=3,
+        )
+        self._top_progress.place(x=0, y=0, relwidth=0)
+        self._top_progress.lift()
+        self._animate_top_progress(0)
+
+    def _animate_top_progress(self, percent=0):
+        """Animasikan lebar progres bar dari 0% ke 100% (ringan, non-blokir)."""
+        progress = getattr(self, "_top_progress", None)
+        if progress is None or not progress.winfo_exists():
+            return
+
+        if percent <= 100:
+            progress.place_configure(
+                relx=0, x=0, y=0, relwidth=percent / 100.0
+            )
+            self._progress_anim_id = self.after(
+                20, lambda: self._animate_top_progress(percent + 2)
+            )
+
+    def _hide_top_progress(self):
+        """Sembunyikan progres bar atas."""
+        progress = getattr(self, "_top_progress", None)
+        if progress is not None:
+            try:
+                if progress.winfo_exists():
+                    progress.destroy()
+            except Exception:
+                pass
+            self._top_progress = None
+
+        # Batalkan animasi progres yang masih pending.
+        anim_id = getattr(self, "_progress_anim_id", None)
+        if anim_id is not None:
+            try:
+                self.after_cancel(anim_id)
+            except Exception:
+                pass
+            self._progress_anim_id = None
+
+    # ------------------------------------------------------------------
+    # Fade-in halaman baru
+    # ------------------------------------------------------------------
+    def _reveal_page_fade(self, page):
+        """Sembunyikan progres bar, bangun konten, lalu tampilkan dengan fade-in 200ms."""
+        self._hide_top_progress()
+
+        # Overlay penutup di page_surface (bukan di scrollable content)
+        # sehingga konten belum terlihat saat dibangun.
+        overlay = ctk.CTkFrame(
+            self.page_surface, fg_color=COLORS["background"], corner_radius=0
+        )
+        overlay.place(relx=0, rely=0, relwidth=1, relheight=1)
+        overlay.lift()
 
         pages = {
             "Dashboard": self._dashboard,
@@ -457,33 +676,15 @@ class FutureMateApp(ctk.CTk):
             "Minat Bakat": self._minat_bakat_page,
             "Portofolio": self._portofolio_page,
         }
-        pages.get(page, self._dashboard)()
 
-        # Geser konten baru dari kanan ke posisi normal dalam sekitar 144 ms.
-        steps = 6
-        duration_per_step = 24
-        start_offset = 24
-        self.page_surface.place_configure(x=start_offset)
+        def build_and_fade():
+            pages.get(page, self._dashboard)()
+            # Hapus overlay setelah 200ms → efek fade-in halus.
+            self._fade_anim_id = self.after(
+                200, lambda: overlay.destroy() if overlay.winfo_exists() else None
+            )
 
-        def animate_page(step=0):
-            if not self.winfo_exists() or not self.page_surface.winfo_exists():
-                self._page_transition_after = None
-                return
-
-            progress = min(1.0, step / steps)
-            remaining = (1.0 - progress) ** 2
-            offset = round(start_offset * remaining)
-            self.page_surface.place_configure(x=offset)
-
-            if step < steps:
-                self._page_transition_after = self.after(
-                    duration_per_step, lambda: animate_page(step + 1)
-                )
-            else:
-                self.page_surface.place_configure(x=0)
-                self._page_transition_after = None
-
-        animate_page()
+        self._fade_anim_id = self.after(10, build_and_fade)
 
     def _dashboard(self):
         murid = self.current_student
@@ -634,6 +835,7 @@ class FutureMateApp(ctk.CTk):
                     if current.selesai:
                         return
                     current.tandai_selesai()
+                    self._sinkronkan_selesai()
                     self._save()
                     refresh_dashboard()
                     self._notify("Aktivitas ditandai selesai.")
@@ -653,7 +855,7 @@ class FutureMateApp(ctk.CTk):
 
     def _tugas_page(self):
         from datetime import date
-        from models.item import Tugas, Ujian, SesiBelajar
+        from models.item import Tugas, PersiapanUjian, SesiBelajar
 
         # Semua konten memakai satu area scroll utama pada self.content.
         self._page_header(
@@ -736,11 +938,15 @@ class FutureMateApp(ctk.CTk):
             form_feedback.configure(text=message, text_color=COLORS["danger"])
 
         def bersihkan_jadwal_tidak_terkait():
-            """Hapus sesi otomatis yang sumber kegiatannya sudah tidak ada."""
-            item_aktif = {
+            """Hapus sesi jadwal yang sumber kegiatannya sudah dihapus.
+
+            Sesi yang berasal dari kegiatan yang sudah selesai dipertahankan
+            (dan ditandai selesai) agar statusnya tetap tersinkron di panel
+            Jadwal belajar otomatis.
+            """
+            kunci_item = {
                 (item.judul, item.mapel, item.jenis())
                 for item in self.current_student.items
-                if not item.selesai
             }
             self.current_student.jadwal = [
                 sesi for sesi in self.current_student.jadwal
@@ -748,7 +954,7 @@ class FutureMateApp(ctk.CTk):
                     sesi.get("judul"),
                     sesi.get("mapel"),
                     sesi.get("jenis")
-                ) in item_aktif
+                ) in kunci_item
             ]
 
         def refresh_list():
@@ -780,7 +986,7 @@ class FutureMateApp(ctk.CTk):
 
                 status = "Selesai" if item.selesai else item.prioritas().value
                 ctk.CTkLabel(
-                    info, text=f"{item.judul}  ·  {item.jenis()}",
+                    info, text=f"{item.judul}  ·  {item.mapel}",
                     font=ctk.CTkFont(size=13, weight="bold"),
                     text_color=COLORS["text"]
                 ).pack(anchor="w")
@@ -790,7 +996,7 @@ class FutureMateApp(ctk.CTk):
                 )
                 ctk.CTkLabel(
                     info,
-                    text=f"{item.mapel}  |  Durasi {item.durasi_menit} menit{difficulty_text}  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
+                    text=f"{item.jenis()}  |  Durasi {item.durasi_menit} menit{difficulty_text}  |  Tenggat {item.deadline:%d-%m-%Y}  |  {status}",
                     text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
                 ).pack(anchor="w", pady=(3, 0))
 
@@ -817,9 +1023,12 @@ class FutureMateApp(ctk.CTk):
         def complete_item(item):
             if not item.selesai:
                 item.tandai_selesai()
+                self._sinkronkan_selesai()
                 bersihkan_jadwal_tidak_terkait()
                 self._save()
                 refresh_list()
+                if getattr(self, "_refresh_jadwal", None):
+                    self._refresh_jadwal()
                 self._notify("Kegiatan ditandai selesai.")
 
         def delete_item(item):
@@ -832,6 +1041,8 @@ class FutureMateApp(ctk.CTk):
             bersihkan_jadwal_tidak_terkait()
             self._save()
             refresh_list()
+            if getattr(self, "_refresh_jadwal", None):
+                self._refresh_jadwal()
             self._notify("Kegiatan berhasil dihapus.")
 
         def add_item():
@@ -856,7 +1067,7 @@ class FutureMateApp(ctk.CTk):
                         title, subject, deadline, difficulty_menu.get(), duration
                     )
                 elif kind == "Ujian":
-                    item = Ujian(title, subject, deadline, duration)
+                    item = PersiapanUjian(title, subject, deadline, duration)
                 else:
                     item = SesiBelajar(title, subject, deadline, duration)
 
@@ -892,6 +1103,7 @@ class FutureMateApp(ctk.CTk):
             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)
         ).grid(row=5, column=0, columnspan=2, padx=16, pady=(4, 14), sticky="w")
 
+        self._refresh_daftar_kegiatan = refresh_list
         refresh_list()
         self._jadwal_panel()
 
@@ -998,8 +1210,12 @@ class FutureMateApp(ctk.CTk):
         def complete_session(session):
             if not session.get("selesai", False):
                 session["selesai"] = True
+                self._sinkronkan_selesai()
                 self._save()
                 refresh_schedule()
+                if getattr(self, "_refresh_daftar_kegiatan", None):
+                    self._refresh_daftar_kegiatan()
+                self._notify("Sesi jadwal ditandai selesai.")
 
         def generate_schedule():
             if self.current_student.jadwal and not self._confirm(
@@ -1071,6 +1287,7 @@ class FutureMateApp(ctk.CTk):
             hover_color=COLORS["primary_hover"], text_color=COLORS["text"]
         )
         generate_button.pack(fill="x", padx=14, pady=(0, 12))
+        self._refresh_jadwal = refresh_schedule
         refresh_schedule()
 
     def _section_card(self, parent, title, description):

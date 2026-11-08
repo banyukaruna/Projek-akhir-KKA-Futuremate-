@@ -116,14 +116,14 @@ class Tugas(Item):
         )
 
 
-class Ujian(Item):
+class PersiapanUjian(Item):
     BONUS = 4  # ujian selalu dianggap penting
 
     def __init__(self, judul, mapel, deadline, durasi_menit=60):
         super().__init__(judul, mapel, deadline, durasi_menit)
 
     def jenis(self):
-        return "Ujian"
+        return "Persiapan Ujian"
 
     def skor_prioritas(self, hari_ini=None):
         return self._urgensi(hari_ini) + self.BONUS
@@ -141,7 +141,7 @@ class SesiBelajar(Item):
         super().__init__(judul, mapel, deadline, durasi_menit)
 
     def jenis(self):
-        return "Sesi"
+        return "Sesi Belajar"
 
     def skor_prioritas(self, hari_ini=None):
         return self._urgensi(hari_ini) + min(self.durasi_menit // 60, 2)
@@ -154,4 +154,4 @@ class SesiBelajar(Item):
         )
 
 
-_REGISTRI = {"Tugas": Tugas, "Ujian": Ujian, "Sesi": SesiBelajar}
+_REGISTRI = {"Tugas": Tugas, "Persiapan Ujian": PersiapanUjian, "Sesi Belajar": SesiBelajar}
