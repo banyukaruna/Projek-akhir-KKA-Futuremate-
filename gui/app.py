@@ -2264,7 +2264,7 @@ class FutureMateApp(ctk.CTk):
 
     def _portofolio_page(self):
         from datetime import date
-        from models.portofolio import PortofolioAkademik
+        from models.portofolio import PortofolioAkademik, PrestasiAkademik
 
         self._page_header(
             "Portofolio Akademik",
