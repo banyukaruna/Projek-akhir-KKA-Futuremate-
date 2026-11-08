@@ -2263,98 +2263,111 @@ class FutureMateApp(ctk.CTk):
             go("Tes RIASEC")
 
     def _portofolio_page(self):
-        from models.portofolio import Portofolio, Prestasi
+        from datetime import date
+        from models.portofolio import PortofolioAkademik
+
         self._page_header(
-            "Portofolio",
-            "Dokumentasikan prestasi dan pengalaman yang mendukung rencana masa depanmu."
+            "Portofolio Akademik",
+            "Catat prestasi lomba akademik dan lihat perhitungan poinnya."
         )
         form = self._section_card(
-            self.content, "Tambah pencapaian",
-            "Catat kegiatan, proyek, sertifikat, atau prestasi. Tingkat pencapaian menentukan poin portofolio."
+            self.content, "Tambah prestasi akademik",
+            "Poin dihitung dari tingkat lomba, peringkat, penyelenggara, kepesertaan, dan jenjang."
         )
-        # Susun semua komponen secara vertikal agar tinggi kartu mengikuti
-        # isi form dan tidak terpotong pada resolusi layar laptop.
         fields = ctk.CTkFrame(form, fg_color="transparent")
         fields.pack(fill="x", padx=18, pady=(0, 14))
 
-        title = ctk.CTkEntry(
-            fields, placeholder_text="Nama prestasi atau kegiatan", height=38
-        )
-        title.pack(fill="x", pady=4)
+        def add_field(label_text, widget):
+            ctk.CTkLabel(
+                fields, text=label_text, text_color=COLORS["muted"],
+                font=ctk.CTkFont(size=11)
+            ).pack(anchor="w", pady=(7, 2))
+            widget.pack(fill="x", pady=(0, 2))
+            return widget
 
-        category = ctk.CTkEntry(
-            fields, placeholder_text="Kategori, contoh: Akademik", height=38
+        title = add_field(
+            "Nama lomba",
+            ctk.CTkEntry(fields, placeholder_text="Contoh: Olimpiade Sains Nasional", height=38)
         )
-        category.pack(fill="x", pady=4)
-
-        level = ctk.CTkOptionMenu(
-            fields, values=Portofolio.TINGKAT, fg_color=COLORS["surface_alt"],
-            button_color=COLORS["primary"], button_hover_color=COLORS["primary_hover"],
-            text_color=COLORS["text"], height=38
+        level = add_field(
+            "Tingkat lomba",
+            ctk.CTkOptionMenu(
+                fields, values=PortofolioAkademik.TINGKAT,
+                fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+                button_hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], height=38
+            )
         )
-        level.pack(fill="x", pady=4)
-
-        year = ctk.CTkEntry(
-            fields, placeholder_text="Tahun, contoh: 2026", height=38
+        winner = add_field(
+            "Peringkat yang diraih",
+            ctk.CTkOptionMenu(
+                fields, values=PortofolioAkademik.JUARA,
+                fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+                button_hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], height=38
+            )
         )
-        year.pack(fill="x", pady=4)
-
-        add_button = ctk.CTkButton(
-            fields, text="Tambahkan pencapaian",
-            command=lambda: add_record(), height=44,
-            fg_color=COLORS["primary"],
-            hover_color=COLORS["primary_hover"],
-            text_color=COLORS["text"],
-            font=ctk.CTkFont(size=13, weight="bold")
+        organizer = add_field(
+            "Penyelenggara",
+            ctk.CTkOptionMenu(
+                fields, values=PortofolioAkademik.PENYELENGGARA,
+                fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+                button_hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], height=38
+            )
         )
-        add_button.pack(fill="x", pady=(8, 0))
+        participation = add_field(
+            "Jenis kepesertaan",
+            ctk.CTkOptionMenu(
+                fields, values=PortofolioAkademik.KEPESERTAAN,
+                fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+                button_hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], height=38
+            )
+        )
+        team_weight = add_field(
+            "Bobot beregu opsional, 0.75 sampai 0.85",
+            ctk.CTkEntry(
+                fields, placeholder_text="Kosongkan untuk memakai bobot default 0.80",
+                height=38
+            )
+        )
+        stage = add_field(
+            "Jenjang lomba",
+            ctk.CTkOptionMenu(
+                fields, values=PortofolioAkademik.JENJANG,
+                fg_color=COLORS["surface_alt"], button_color=COLORS["primary"],
+                button_hover_color=COLORS["primary_hover"],
+                text_color=COLORS["text"], height=38
+            )
+        )
+        year = add_field(
+            "Tahun prestasi",
+            ctk.CTkEntry(fields, placeholder_text=f"Contoh: {date.today().year}", height=38)
+        )
+        notes = add_field(
+            "Catatan tambahan (opsional)",
+            ctk.CTkEntry(fields, placeholder_text="Contoh: bidang Matematika, tingkat SMA", height=38)
+        )
 
         summary = ctk.CTkFrame(self.content, fg_color="transparent")
         summary.grid(row=3, column=0, sticky="ew", pady=(0, 14))
         summary.grid_columnconfigure((0, 1), weight=1)
-        points_card = self._card(summary, "Total poin", "0", "Poin berdasarkan tingkat pencapaian")
+        points_card = self._card(
+            summary, "Total poin", "0", "Akumulasi 3 prestasi terbaik"
+        )
         points_card.grid(row=0, column=0, sticky="ew", padx=(0, 7))
-        total_card = self._card(summary, "Jumlah pencapaian", "0", "Jumlah item portofolio")
+        total_card = self._card(
+            summary, "Jumlah prestasi", "0", "Semua catatan lomba akademik"
+        )
         total_card.grid(row=0, column=1, sticky="ew", padx=(7, 0))
+
         listing = self._section_card(
-            self.content, "Daftar portofolio",
-            "Gunakan tombol hapus jika ingin menghapus catatan yang tidak lagi diperlukan."
+            self.content, "Daftar prestasi",
+            "Perhitungan poin mengikuti tiga prestasi dengan nilai tertinggi."
         )
         rows = ctk.CTkFrame(listing, fg_color="transparent")
         rows.pack(fill="x", padx=18, pady=(0, 14))
-
-        def refresh():
-            for child in rows.winfo_children():
-                child.destroy()
-            records = self.current_student.portofolio.daftar()
-            points_card.winfo_children()[1].winfo_children()[1].configure(text=str(self.current_student.portofolio.total_poin()))
-            total_card.winfo_children()[1].winfo_children()[1].configure(text=str(len(records)))
-            if not records:
-                ctk.CTkLabel(rows, text="Belum ada pencapaian yang dicatat.",
-                             text_color=COLORS["muted"]).pack(anchor="w", pady=8)
-            for record in records:
-                line = ctk.CTkFrame(rows, fg_color=COLORS["surface_alt"], corner_radius=9)
-                line.pack(fill="x", pady=4)
-                info = ctk.CTkFrame(line, fg_color="transparent")
-                info.pack(side="left", fill="x", expand=True, padx=12, pady=9)
-                ctk.CTkLabel(info, text=record.judul, text_color=COLORS["text"],
-                             font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w")
-                ctk.CTkLabel(info, text=f"{record.kategori} · {record.tingkat} · {record.tahun} · {record.poin} poin",
-                             text_color=COLORS["muted"], font=ctk.CTkFont(size=10)).pack(anchor="w", pady=(2, 0))
-                ctk.CTkButton(line, text="Hapus", width=65, height=28,
-                              fg_color=COLORS["danger"],
-                              command=lambda r=record: remove(r)).pack(side="right", padx=10)
-
-        def remove(record):
-            if not self._confirm(
-                "Hapus pencapaian?",
-                f"Catatan '{record.judul}' akan dihapus dari portofolio."
-            ):
-                return
-            self.current_student.portofolio.hapus(record)
-            self._save()
-            refresh()
-            self._notify("Pencapaian berhasil dihapus.")
 
         portfolio_feedback = ctk.CTkLabel(
             fields, text="", text_color=COLORS["danger"],
@@ -2362,27 +2375,119 @@ class FutureMateApp(ctk.CTk):
         )
         portfolio_feedback.pack(anchor="w", pady=(5, 0))
 
+        def refresh():
+            for child in rows.winfo_children():
+                child.destroy()
+            portfolio = self.current_student.portofolio
+            records = portfolio.daftar()
+            points_card.winfo_children()[1].winfo_children()[1].configure(
+                text=f"{portfolio.total_poin():g}"
+            )
+            total_card.winfo_children()[1].winfo_children()[1].configure(
+                text=str(len(records))
+            )
+            if not records:
+                ctk.CTkLabel(
+                    rows, text="Belum ada prestasi yang dicatat.",
+                    text_color=COLORS["muted"]
+                ).pack(anchor="w", pady=8)
+                return
+
+            best_ids = {id(record) for record in portfolio.daftar_terbaik()}
+            for record in records:
+                line = ctk.CTkFrame(rows, fg_color=COLORS["surface_alt"], corner_radius=9)
+                line.pack(fill="x", pady=4)
+                info = ctk.CTkFrame(line, fg_color="transparent")
+                info.pack(side="left", fill="x", expand=True, padx=12, pady=9)
+                title_text = record.judul
+                if record.data_lama:
+                    title_text += " · Data lama, perlu diperbarui"
+                ctk.CTkLabel(
+                    info, text=title_text, text_color=COLORS["text"],
+                    font=ctk.CTkFont(size=12, weight="bold"),
+                    anchor="w", justify="left", wraplength=620
+                ).pack(anchor="w")
+                detail = (
+                    f"{record.tingkat} · {record.juara} · "
+                    f"{record.tahun or '-'} · {record.poin:g} poin"
+                )
+                ctk.CTkLabel(
+                    info, text=detail, text_color=COLORS["muted"],
+                    font=ctk.CTkFont(size=10), anchor="w"
+                ).pack(anchor="w", pady=(2, 0))
+                factor_detail = (
+                    f"{record.penyelenggara} · {record.jenis_kepesertaan} · "
+                    f"{record.jenjang_lomba}"
+                )
+                ctk.CTkLabel(
+                    info, text=factor_detail, text_color=COLORS["muted"],
+                    font=ctk.CTkFont(size=10), anchor="w", wraplength=620
+                ).pack(anchor="w", pady=(2, 0))
+                if id(record) in best_ids:
+                    ctk.CTkLabel(
+                        info, text="Masuk 3 prestasi terbaik",
+                        text_color=COLORS["success"], font=ctk.CTkFont(size=10)
+                    ).pack(anchor="w", pady=(3, 0))
+                if record.catatan:
+                    ctk.CTkLabel(
+                        info, text=record.catatan, text_color=COLORS["muted"],
+                        font=ctk.CTkFont(size=10), anchor="w",
+                        justify="left", wraplength=620
+                    ).pack(anchor="w", pady=(3, 0))
+                ctk.CTkButton(
+                    line, text="Hapus", width=65, height=28,
+                    fg_color=COLORS["danger"],
+                    command=lambda r=record: remove(r)
+                ).pack(side="right", padx=10)
+
+        def remove(record):
+            if not self._confirm(
+                "Hapus prestasi?",
+                f"Catatan '{record.judul}' akan dihapus dari portofolio."
+            ):
+                return
+            self.current_student.portofolio.hapus(record)
+            self._save()
+            refresh()
+            self._notify("Prestasi berhasil dihapus.")
+
         def add_record():
             try:
                 title_value = title.get().strip()
-                category_value = category.get().strip()
-                if not title_value or not category_value:
-                    raise ValueError("Nama pencapaian dan kategori wajib diisi.")
-                year_value = int(year.get().strip())
-                if year_value < 1900 or year_value > 2100:
-                    raise ValueError("Tahun harus berada pada rentang 1900 sampai 2100.")
-                record = Prestasi(title_value, category_value, level.get(), year_value)
+                year_text = year.get().strip()
+                year_value = int(year_text) if year_text else date.today().year
+                weight_text = team_weight.get().strip().replace(",", ".")
+                weight_value = float(weight_text) if weight_text else None
+                record = PrestasiAkademik(
+                    judul=title_value,
+                    tingkat=level.get(),
+                    juara=winner.get(),
+                    penyelenggara=organizer.get(),
+                    jenis_kepesertaan=participation.get(),
+                    jenjang_lomba=stage.get(),
+                    bobot_beregu=weight_value,
+                    tahun=year_value,
+                    catatan=notes.get().strip(),
+                )
                 self.current_student.portofolio.tambah(record)
                 self._save()
-                title.delete(0, "end")
-                category.delete(0, "end")
-                year.delete(0, "end")
+                for entry in (title, team_weight, year, notes):
+                    entry.delete(0, "end")
                 portfolio_feedback.configure(text="")
                 refresh()
-                self._notify("Pencapaian berhasil ditambahkan.")
-            except ValueError as error:
+                self._notify(f"Prestasi berhasil ditambahkan. Poin: {record.poin:g}")
+            except (ValueError, TypeError) as error:
                 portfolio_feedback.configure(text=str(error), text_color=COLORS["danger"])
 
+        add_button = ctk.CTkButton(
+            fields, text="Tambahkan prestasi",
+            command=add_record, height=44,
+            fg_color=COLORS["primary"],
+            hover_color=COLORS["primary_hover"],
+            text_color=COLORS["text"],
+            font=ctk.CTkFont(size=13, weight="bold")
+        )
+        add_button.pack(fill="x", pady=(10, 0))
         refresh()
 
     def on_closing(self):
